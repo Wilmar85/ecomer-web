@@ -7,7 +7,11 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/shop', [\App\Http\Controllers\HomeController::class, 'index'])->name('shop.index');
 
 Route::get('/about', function () {
     return view('about');

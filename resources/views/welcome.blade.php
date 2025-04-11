@@ -14,9 +14,9 @@
                                 ¡Envío gratis en compras mayores a $500!
                             </p>
                             <div class="mt-8">
-                                <a href="{{ route('products.index') }}"
+                                <a href="{{ route('shop.index') }}"
                                     class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Ver Catálogo
+                                    Ir a la Tienda
                                 </a>
                             </div>
                         </div>
