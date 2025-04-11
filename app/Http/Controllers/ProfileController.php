@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -16,8 +17,24 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+        
+        // Obtener pedidos pendientes (pending y processing)
+        $pendingOrders = Order::where('user_id', $user->id)
+            ->whereIn('status', ['pending', 'processing'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Obtener pedidos completados
+        $completedOrders = Order::where('user_id', $user->id)
+            ->where('status', 'completed')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'pendingOrders' => $pendingOrders,
+            'completedOrders' => $completedOrders,
         ]);
     }
 
