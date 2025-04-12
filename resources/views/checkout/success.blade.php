@@ -22,17 +22,35 @@
                     <p class="text-sm text-gray-500 mb-4">
                         Tu orden #{{ $order->id }} ha sido procesada exitosamente.
                     </p>
+                    <!-- Resumen del pedido -->
                     <div class="border-t border-gray-200 pt-4">
                         <dl class="divide-y divide-gray-200">
                             <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
                                 <dt class="text-sm font-medium text-gray-500">Número de Orden</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">#{{ $order->id }}</dd>
                             </div>
-                            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                                <dt class="text-sm font-medium text-gray-500">Total</dt>
+                            
+                            <!-- Desglose del total -->
+                            <div class="py-4">
+                                <dt class="text-sm font-medium text-gray-500 mb-2">Desglose del Total</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    ${{ number_format($order->total_amount, 2) }}</dd>
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-500">Subtotal:</span>
+                                            <span>${{ number_format($order->total / 1.16, 2) }}</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-500">IVA (16%):</span>
+                                            <span>${{ number_format($order->total - ($order->total / 1.16), 2) }}</span>
+                                        </div>
+                                        <div class="flex justify-between pt-2 border-t border-gray-200">
+                                            <span class="font-medium">Total:</span>
+                                            <span class="font-medium">${{ number_format($order->total, 2) }}</span>
+                                        </div>
+                                    </div>
+                                </dd>
                             </div>
+
                             <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4">
                                 <dt class="text-sm font-medium text-gray-500">Dirección de Envío</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">

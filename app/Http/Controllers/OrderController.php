@@ -21,6 +21,12 @@ class OrderController extends Controller
         return view('orders.index', compact('orders'));
     }
 
+    public function history(): View
+    {
+        $orders = Auth::user()->orders()->with(['items.product'])->latest()->paginate(10);
+        return view('orders.history', compact('orders'));
+    }
+
     public function show(Order $order): View
     {
         if (!Auth::user()->isAdmin() && $order->user_id !== Auth::id()) {

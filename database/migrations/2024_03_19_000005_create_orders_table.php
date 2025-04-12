@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('order_number')->unique();
             $table->decimal('total', 10, 2);
             $table->string('status')->default('pending');
+            $table->string('purchase_token')->unique()->nullable();
             $table->string('payment_status')->default('pending');
             $table->string('payment_method')->nullable();
             $table->string('shipping_method');
