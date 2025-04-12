@@ -32,26 +32,62 @@ class CheckoutController extends Controller
 
     public function validateStock()
     {
-        $cart = Cart::where('user_id', Auth::id())
-            ->with('items.product')
-            ->first();
+        try {
+            $cart = Cart::where('user_id', Auth::id())
+                ->with('items.product')
+                ->first();
 
-        if (!$cart) {
-            return response()->json(['valid' => false, 'message' => 'Carrito no encontrado']);
-        }
-
-        $valid = true;
-        $message = '';
-
-        foreach ($cart->items as $item) {
-            if ($item->quantity > $item->product->stock) {
-                $valid = false;
-                $message = "No hay suficiente stock disponible para {$item->product->name}";
-                break;
+            if (!$cart) {
+                return response()->json([
+                    'valid' => false,
+                    'message' => 'No se encontró el carrito de compras',
+                    'error_type' => 'cart_not_found'
+                ], 404);
             }
-        }
 
-        return response()->json(['valid' => $valid, 'message' => $message]);
+            if ($cart->items->isEmpty()) {
+                return response()->json([
+                    'valid' => false,
+                    'message' => 'El carrito está vacío',
+                    'error_type' => 'cart_empty'
+                ], 400);
+            }
+
+            $stockErrors = [];
+            foreach ($cart->items as $item) {
+                if ($item->quantity > $item->product->stock) {
+                    $stockErrors[] = [
+                        'product_name' => $item->product->name,
+                        'requested' => $item->quantity,
+                        'available' => $item->product->stock
+                    ];
+                }
+            }
+
+            if (!empty($stockErrors)) {
+                $message = count($stockErrors) === 1
+                    ? "No hay suficiente stock disponible para {$stockErrors[0]['product_name']} (Disponible: {$stockErrors[0]['available']}, Solicitado: {$stockErrors[0]['requested']})"
+                    : "No hay suficiente stock disponible para algunos productos";
+
+                return response()->json([
+                    'valid' => false,
+                    'message' => $message,
+                    'error_type' => 'insufficient_stock',
+                    'details' => $stockErrors
+                ], 400);
+            }
+
+            return response()->json([
+                'valid' => true,
+                'message' => 'Stock disponible'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'valid' => false,
+                'message' => $e->getMessage(),
+                'error_type' => 'error'
+            ], 500);
+        }
     }
 
     public function process(Request $request)
@@ -146,6 +182,12 @@ class CheckoutController extends Controller
                 $order->save();
                 
                 DB::commit();
+                if ($request->ajax()) {
+                    return response()->json([
+                        'success' => true,
+                        'redirect' => route('checkout.success', ['order' => $order->id])
+                    ]);
+                }
                 return redirect()->route('checkout.success', ['order' => $order->id]);
             }
 
@@ -180,6 +222,12 @@ class CheckoutController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            if ($request->ajax()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => $e->getMessage()
+                ], 500);
+            }
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

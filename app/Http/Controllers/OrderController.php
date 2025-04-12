@@ -61,13 +61,21 @@ class OrderController extends Controller
                 ->with('error', 'El carrito está vacío.');
         }
 
-        $validated = $request->validate([
-            'address' => 'required|string',
-            'city' => 'required|string',
-            'postal_code' => 'required|string',
+        $rules = [
+            'delivery_method' => 'required|in:delivery,pickup',
             'phone' => 'required|string',
             'payment_method' => 'required|in:card,cash'
-        ]);
+        ];
+
+        if ($request->input('delivery_method') === 'delivery') {
+            $rules = array_merge($rules, [
+                'address' => 'required|string',
+                'city' => 'required|string',
+                'state' => 'required|string',
+            ]);
+        }
+
+        $validated = $request->validate($rules);
 
         try {
             DB::beginTransaction();
@@ -79,16 +87,24 @@ class OrderController extends Controller
                 }
             }
 
-            $order = Order::create([
+            $orderData = [
                 'user_id' => Auth::id(),
                 'total' => $cart->total,
                 'status' => 'pending',
-                'shipping_address' => $validated['address'],
-                'shipping_city' => $validated['city'],
-                'shipping_zip_code' => $validated['postal_code'],
                 'shipping_phone' => $validated['phone'],
-                'payment_method' => $validated['payment_method']
-            ]);
+                'payment_method' => $validated['payment_method'],
+                'delivery_method' => $validated['delivery_method']
+            ];
+
+            if ($validated['delivery_method'] === 'delivery') {
+                $orderData = array_merge($orderData, [
+                    'shipping_address' => $validated['address'],
+                    'shipping_city' => $validated['city'],
+                    'shipping_state' => $validated['state']
+                ]);
+            }
+
+            $order = Order::create($orderData);
 
             // Crear items de la orden y actualizar stock
             foreach ($cart->items as $item) {

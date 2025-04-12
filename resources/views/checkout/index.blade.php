@@ -122,90 +122,140 @@
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Función para manejar la visibilidad de los campos de dirección
+        // Función para manejar la visibilidad de los campos de dirección y actualizar costos
         function toggleShippingFields() {
             const shippingMethod = document.querySelector('input[name="shipping_method"]:checked').value;
             const shippingAddressSection = document.getElementById('shipping-address-section');
             const shippingFields = shippingAddressSection.querySelectorAll('input');
+            const shippingCost = shippingMethod === 'delivery' ? 10 : 0;
             
-            if (shippingMethod === 'delivery') {
-                shippingAddressSection.style.display = 'block';
-                shippingFields.forEach(field => field.required = true);
-                document.getElementById('shipping-cost').textContent = '$10.00';
-                updateTotal(10);
-            } else {
-                shippingAddressSection.style.display = 'none';
-                shippingFields.forEach(field => field.required = false);
-                document.getElementById('shipping-cost').textContent = '$0.00';
-                updateTotal(0);
-            }
+            // Actualizar visibilidad y estado de los campos
+            shippingAddressSection.style.display = shippingMethod === 'delivery' ? 'block' : 'none';
+            shippingFields.forEach(field => {
+                field.required = shippingMethod === 'delivery';
+                field.disabled = shippingMethod !== 'delivery';
+                if (shippingMethod !== 'delivery') field.value = '';
+            });
+
+            // Actualizar costos y etiquetas
+            updateOrderSummary(shippingCost);
         }
 
-        // Función para actualizar el total
-        function updateTotal(shippingCost) {
+        // Función para actualizar el resumen del pedido
+        function updateOrderSummary(shippingCost) {
             const subtotal = {{ $subtotal }};
             const total = subtotal + shippingCost;
-            document.getElementById('total-amount').textContent = '$' + total.toFixed(2);
+            const shippingMethod = document.querySelector('input[name="shipping_method"]:checked').value;
+            
+            // Actualizar montos
+            document.getElementById('shipping-cost').textContent = `$${shippingCost.toFixed(2)}`;
+            document.getElementById('total-amount').textContent = `$${total.toFixed(2)}`;
+            
+            // Actualizar etiqueta de envío
+            const shippingLabel = document.querySelector('#shipping-cost').parentElement.querySelector('.text-gray-600');
+            shippingLabel.textContent = shippingMethod === 'pickup' ? 'Envío (Retiro en Tienda)' : 'Envío';
         }
 
-        // Agregar event listeners
-        document.querySelectorAll('input[name="shipping_method"]').forEach(radio => {
-            radio.addEventListener('change', toggleShippingFields);
+        // Inicializar y agregar event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Agregar listeners para cambios en el método de envío
+            document.querySelectorAll('input[name="shipping_method"]').forEach(radio => {
+                radio.addEventListener('change', toggleShippingFields);
+            });
+
+            // Inicializar estado
+            toggleShippingFields();
         });
 
-        // Inicializar estado
-        toggleShippingFields();
-
+        // Validación del formulario y procesamiento del pedido
         document.getElementById('checkout-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Validar stock antes de procesar
             try {
-                try {
-                    const response = await fetch('{{ route("checkout.validate-stock") }}');
-                    if (!response.ok) {
-                        throw new Error('Error al validar el stock');
-                    }
-                    const data = await response.json();
-                    
-                    if (!data.valid) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error de Stock',
-                            text: data.message,
-                            confirmButtonText: 'Entendido'
-                        });
-                        return;
-                    }
+                // Validar stock
+                const stockResponse = await fetch('{{ route("checkout.validate-stock") }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    credentials: 'same-origin'
+                });
                 
-                // Procesar el formulario
+                // Verificar si la respuesta es exitosa
+                if (!stockResponse.ok) {
+                    const errorText = await stockResponse.text();
+                    console.error('Respuesta HTTP:', stockResponse.status, errorText);
+                    throw new Error(`Error HTTP ${stockResponse.status}: ${stockResponse.statusText}`);
+                }
+
+                // Intentar parsear la respuesta como JSON
+                const stockData = await stockResponse.json();
+                
+                if (!stockData.valid) {
+                    let errorMessage = stockData.message || 'Error al validar el stock';
+                    let errorDetails = '';
+                    
+                    if (stockData.error_type === 'insufficient_stock' && stockData.details) {
+                        errorDetails = stockData.details.map(item => 
+                            `${item.product_name}: Disponible ${item.available}, Solicitado ${item.requested}`
+                        ).join('\n');
+                    }
+
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Error de Stock',
+                        text: errorMessage,
+                        ...(errorDetails && {
+                            html: `${errorMessage}<br><br><small class="text-gray-600">${errorDetails}</small>`,
+                        }),
+                        confirmButtonText: 'Entendido'
+                    });
+                    return;
+                }
+
+                // Procesar el pedido
                 const formData = new FormData(this);
                 const processResponse = await fetch(this.action, {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    credentials: 'same-origin'
                 });
-                
-                const result = await processResponse.json();
-                
-                if (result.success) {
-                    window.location.href = result.redirect_url;
+
+                // Verificar estado de la respuesta
+                if (!processResponse.ok) {
+                    const errorText = await processResponse.text();
+                    console.error('Error en proceso:', errorText);
+                    throw new Error(`Error HTTP ${processResponse.status}: ${processResponse.statusText}`);
+                }
+
+                const responseData = await processResponse.json();
+
+                if (responseData.error) {
+                    throw new Error(responseData.message || 'Error al procesar el pedido');
+                }
+
+                if (responseData.redirect) {
+                    window.location.href = responseData.redirect;
                 } else {
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Error en el Proceso',
-                        text: result.message || 'Hubo un error al procesar tu pedido. Por favor, verifica tus datos e intenta nuevamente.',
-                        confirmButtonText: 'Entendido'
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: responseData.message || 'Pedido procesado exitosamente',
+                        confirmButtonText: 'Aceptar'
                     });
                 }
+
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error detallado:', error);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error en la Compra',
-                    text: 'Hubo un error al procesar tu pedido. Por favor, verifica tu conexión e intenta nuevamente.',
+                    title: 'Error',
+                    text: error.message || 'Ha ocurrido un error al procesar tu pedido. Por favor, intenta nuevamente.',
                     confirmButtonText: 'Entendido'
                 });
             }

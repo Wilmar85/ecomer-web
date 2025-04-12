@@ -60,8 +60,32 @@
                             </div>
                         </div>
 
-                        <!-- Información de envío -->
+                        <!-- Método de entrega -->
                         <div class="space-y-6">
+                            <h3 class="text-lg font-medium text-gray-900">Método de Entrega</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <input type="radio" name="delivery_method" id="delivery" value="delivery"
+                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" checked
+                                        onchange="toggleAddressFields()">
+                                    <label for="delivery" class="ml-3 block text-sm font-medium text-gray-700">
+                                        Envío a domicilio
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <input type="radio" name="delivery_method" id="pickup" value="pickup"
+                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                                        onchange="toggleAddressFields()">
+                                    <label for="pickup" class="ml-3 block text-sm font-medium text-gray-700">
+                                        Recoger en tienda
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Información de envío -->
+                        <div class="space-y-6" id="shipping-info">
                             <h3 class="text-lg font-medium text-gray-900">Información de Envío</h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -91,32 +115,41 @@
                                         required>
                                 </div>
 
-                                <div>
-                                    <label for="address"
-                                        class="block text-sm font-medium text-gray-700">Dirección</label>
+                                <div class="address-field">
+                                    <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
                                     <input type="text" name="address" id="address" value="{{ old('address') }}"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        required>
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 </div>
 
-                                <div>
+                                <div class="address-field">
                                     <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
                                     <input type="text" name="city" id="city" value="{{ old('city') }}"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        required>
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 </div>
 
-                                <div>
-                                    <label for="postal_code" class="block text-sm font-medium text-gray-700">Código
-                                        Postal</label>
-                                    <input type="text" name="postal_code" id="postal_code"
-                                        value="{{ old('postal_code') }}"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        required>
+                                <div class="address-field">
+                                    <label for="state" class="block text-sm font-medium text-gray-700">Estado</label>
+                                    <input type="text" name="state" id="state" value="{{ old('state') }}"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 </div>
                             </div>
                         </div>
 
+                        <script>
+                        function toggleAddressFields() {
+                            const addressFields = document.querySelectorAll('.address-field');
+                            const isDelivery = document.getElementById('delivery').checked;
+                            
+                            addressFields.forEach(field => {
+                                const input = field.querySelector('input');
+                                field.style.display = isDelivery ? 'block' : 'none';
+                                input.required = isDelivery;
+                            });
+                        }
+
+                        // Ejecutar al cargar la página
+                        document.addEventListener('DOMContentLoaded', toggleAddressFields);
+                        </script>
                         <!-- Método de pago -->
                         <div class="space-y-6">
                             <h3 class="text-lg font-medium text-gray-900">Método de Pago</h3>
