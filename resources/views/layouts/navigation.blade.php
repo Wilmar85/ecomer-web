@@ -12,10 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Inicio') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
                         {{ __('Tienda') }}
                     </x-nav-link>
                     <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
@@ -33,17 +33,8 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
                 {{-- Usamos @auth para asegurarnos de que el usuario está logueado --}}
                 @auth
-                    <!-- Cart Icon -->
-                    <a href="{{ route('cart.index') }}" class="relative inline-flex items-center p-2 text-gray-500 hover:text-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        @if(Auth::user()->cart && Auth::user()->cart->items->count() > 0)
-                            <span class="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                                {{ Auth::user()->cart->items->count() }}
-                            </span>
-                        @endif
-                    </a>
+                    <!-- Cart Icon with Counter Component -->
+                    <x-cart-counter :count="Auth::user()->cart ? Auth::user()->cart->items->count() : 0" />
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
@@ -113,10 +104,10 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+            <x-responsive-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
                 {{ __('Tienda') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('about')" :active="request()->routeIs('about')">
@@ -126,14 +117,12 @@
                 {{ __('Contacto') }}
             </x-responsive-nav-link>
             @auth
-                <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')" class="flex items-center">
-                    <span>{{ __('Carrito') }}</span>
-                    @if(Auth::user()->cart && Auth::user()->cart->items->count() > 0)
-                        <span class="ml-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-                            {{ Auth::user()->cart->items->count() }}
-                        </span>
-                    @endif
-                </x-responsive-nav-link>
+                <div class="flex items-center justify-between px-4 py-2">
+                    <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')" class="flex items-center">
+                        <span>{{ __('Carrito') }}</span>
+                        <x-cart-counter :count="Auth::user()->cart ? Auth::user()->cart->items->count() : 0" class="ml-2" />
+                    </x-responsive-nav-link>
+                </div>
             @endauth
         </div>
 

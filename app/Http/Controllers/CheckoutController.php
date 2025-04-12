@@ -70,16 +70,25 @@ class CheckoutController extends Controller
                 }
             }
 
+            $subtotal = $cart->items->sum('subtotal');
+            $shipping = $request->shipping_method === 'delivery' ? 10.00 : 0.00;
+            $total = ($subtotal + $shipping) * 1.19; // Incluye IVA
+
             // Crear la orden
             $order = new Order([
                 'user_id' => Auth::id(),
-                'status' => 'pending',
-                'shipping_address' => $request->address,
+                'status' => $request->payment_method === 'cash' ? 'pending_pickup' : 'pending',
+                'payment_method' => $request->payment_method,
+                'shipping_method' => $request->shipping_method,
+                'shipping_address' => $request->street,
                 'shipping_city' => $request->city,
                 'shipping_state' => $request->state,
                 'shipping_postal_code' => $request->postal_code,
                 'shipping_phone' => $request->phone,
-                'total_amount' => $cart->items->sum('subtotal') + 10.00, // Subtotal + shipping
+                'subtotal' => $subtotal,
+                'shipping_cost' => $shipping,
+                'tax' => ($subtotal + $shipping) * 0.19,
+                'total_amount' => $total,
             ]);
             $order->save();
 
@@ -99,8 +108,21 @@ class CheckoutController extends Controller
                 $product->save();
             }
 
+            // Limpiar el carrito
+            $cart->items()->delete();
+            $cart->delete();
+
+            // Si el pago es en efectivo, redirigir a la página de éxito
+            if ($request->payment_method === 'cash') {
+                DB::commit();
+                return response()->json([
+                    'success' => true,
+                    'redirect_url' => route('checkout.success', ['order' => $order->id]),
+                ]);
+            }
+
             // Procesar el pago con MercadoPago
-            MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
+\MercadoPago\SDK::setAccessToken(config('services.mercadopago.access_token'));
             $client = new PreferenceClient();
 
             $preference = $client->create([
@@ -109,20 +131,18 @@ class CheckoutController extends Controller
                         'title' => "Orden #{$order->id}",
                         'quantity' => 1,
                         'currency_id' => 'MXN',
-                        'unit_price' => $order->total_amount,
+                        'unit_price' => $total,
                     ]
                 ],
+                'external_reference' => (string) $order->id,
                 'back_urls' => [
                     'success' => route('checkout.success', ['order' => $order->id]),
                     'failure' => route('checkout.failure', ['order' => $order->id]),
                     'pending' => route('checkout.pending', ['order' => $order->id]),
                 ],
+                'notification_url' => route('webhooks.mercadopago'),
                 'auto_return' => 'approved',
             ]);
-
-            // Limpiar el carrito
-            $cart->items()->delete();
-            $cart->delete();
 
             DB::commit();
 

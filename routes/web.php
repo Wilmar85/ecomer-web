@@ -5,13 +5,14 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/shop', [\App\Http\Controllers\HomeController::class, 'index'])->name('shop.index');
+Route::get('/shop', [ProductController::class, 'index'])->name('shop.index');
 
 Route::get('/about', function () {
     return view('about');
@@ -70,5 +71,10 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 
 // Category routes
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+
+// Webhook para MercadoPago
+Route::post('/webhooks/mercadopago', [WebhookController::class, 'handleMercadoPago'])
+    ->name('webhooks.mercadopago')
+    ->middleware('api');
 
 require __DIR__.'/auth.php';

@@ -11,10 +11,31 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $products = Product::with(['category', 'images'])->latest()->paginate(12);
-        return view('products.index', compact('products'));
+        $query = Product::with(['category', 'images']);
+
+        // Aplicar filtros
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', $request->price_min);
+        }
+
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+        $products = $query->latest()->paginate(12);
+        $categories = Category::all();
+
+        return view('shop.index', compact('products', 'categories'));
     }
 
     public function create(): View
