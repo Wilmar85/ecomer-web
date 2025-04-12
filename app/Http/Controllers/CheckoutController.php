@@ -124,7 +124,10 @@ class CheckoutController extends Controller
                 return $item->quantity * $item->product->price;
             });
             $shipping = $request->shipping_method === 'delivery' ? 10.00 : 0.00;
-            $total = $subtotal + $shipping;
+            // Calculate total with 19% IVA
+            $subtotalWithIva = $subtotal * 1.19;
+            $shippingWithIva = $shipping * 1.19;
+            $total = $subtotalWithIva + $shippingWithIva;
 
             // Generar número de orden único
             $orderNumber = Order::generateOrderNumber();

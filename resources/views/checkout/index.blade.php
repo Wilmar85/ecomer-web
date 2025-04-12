@@ -104,6 +104,10 @@
                                     <span class="font-medium">${{ number_format($subtotal, 2) }}</span>
                                 </div>
                                 <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">IVA (19%)</span>
+                                    <span class="font-medium">${{ number_format($subtotal * 0.19, 2) }}</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
                                     <span class="text-gray-600">Envío</span>
                                     <span id="shipping-cost" class="font-medium">${{ number_format($shipping, 2) }}</span>
                                 </div>
@@ -144,7 +148,8 @@
         // Función para actualizar el resumen del pedido
         function updateOrderSummary(shippingCost) {
             const subtotal = {{ $subtotal }};
-            const total = subtotal + shippingCost;
+            const iva = subtotal * 0.19;
+            const total = subtotal + iva + shippingCost;
             const shippingMethod = document.querySelector('input[name="shipping_method"]:checked').value;
             
             // Actualizar montos

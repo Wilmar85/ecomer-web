@@ -37,11 +37,11 @@
                                     <div class="space-y-2">
                                         <div class="flex justify-between">
                                             <span class="text-gray-500">Subtotal:</span>
-                                            <span>${{ number_format($order->total / 1.16, 2) }}</span>
+                                            <span>${{ number_format($order->total / 1.19, 2) }}</span>
                                         </div>
                                         <div class="flex justify-between">
-                                            <span class="text-gray-500">IVA (16%):</span>
-                                            <span>${{ number_format($order->total - ($order->total / 1.16), 2) }}</span>
+                                            <span class="text-gray-500">IVA (19%):</span>
+                                            <span>${{ number_format($order->total - ($order->total / 1.19), 2) }}</span>
                                         </div>
                                         <div class="flex justify-between pt-2 border-t border-gray-200">
                                             <span class="font-medium">Total:</span>
