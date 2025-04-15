@@ -86,7 +86,6 @@
                                             <form action="{{ route('admin.orders.update-status', $order) }}"
                                                 method="POST" class="inline">
                                                 @csrf
-                                                @method('PATCH')
                                                 <select name="status" onchange="this.form.submit()"
                                                     class="text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                                     <option value="pending"

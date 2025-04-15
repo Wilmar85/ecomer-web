@@ -36,6 +36,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function subcategory(): BelongsTo
+    {
+        return $this->belongsTo(Subcategory::class);
+    }
+
     public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class);
@@ -49,6 +54,12 @@ class Product extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    // Relación con pedidos a través de order_items
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_items', 'product_id', 'order_id');
     }
 
     public function getPrimaryImageAttribute()

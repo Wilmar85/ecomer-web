@@ -1,14 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Gestión de Categorías') }}
-            </h2>
-            <button type="button" onclick="openModal()"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Crear Categoría
-            </button>
-        </div>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Gestión de Categorías') }}
+        </h2>
     </x-slot>
 
     <div class="py-12">
@@ -62,27 +56,21 @@
                                                 {{ $category->products_count }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button type="button"
-                                                onclick="editCategory({{ $category->id }}, '{{ $category->name }}', '{{ $category->description }}')"
-                                                class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</button>
-                                            <form action="{{ route('admin.categories.destroy', $category) }}"
-                                                method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900"
-                                                    onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')">
-                                                    Eliminar
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap flex gap-2">
+    <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-warning">Editar</a>
+    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+    </form>
+</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
 
                         <div class="mt-4">
-                            {{ $categories->links() }}
+                           
                         </div>
                     </div>
                 </div>

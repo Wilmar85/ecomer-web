@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+
+// Ruta para actualizar el estado de una orden en el panel de administración
+Route::post('/admin/orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.update-status');
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -54,17 +59,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/pending/{order}', [CheckoutController::class, 'pending'])->name('checkout.pending');
 });
 
-// Rutas de administración protegidas
-Route::middleware(['auth', 'admin'])->group(function () {
-    // Rutas de productos
-    Route::resource('products', ProductController::class);
-
-    // Rutas de categorías
-    Route::resource('categories', CategoryController::class);
-
-    // Ruta para actualizar estado de pedidos
-    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.update-status');
-});
 
 // Rutas públicas de productos
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');

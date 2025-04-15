@@ -89,7 +89,7 @@
                             <form action="{{ route('admin.orders.update-status', $order) }}" method="POST"
                                 class="space-y-4">
                                 @csrf
-                                @method('PATCH')
+                                
                                 <div>
                                     <label for="status" class="block text-sm font-medium text-gray-700">Nuevo
                                         Estado</label>
