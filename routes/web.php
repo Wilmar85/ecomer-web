@@ -19,9 +19,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/shop', [ProductController::class, 'index'])->name('shop.index');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+use App\Http\Controllers\AboutController;
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 use App\Http\Controllers\ContactController;
 
