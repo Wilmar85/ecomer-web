@@ -21,6 +21,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name',
             'description' => 'nullable|string|max:1000',
         ]);
+        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
         Category::create($validated);
         return redirect()->route('admin.categories.index')->with('success', 'Categoría creada correctamente.');
     }
@@ -34,6 +35,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
             'description' => 'nullable|string|max:1000',
         ]);
+        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
         $category->update($validated);
         return redirect()->route('admin.categories.index')->with('success', 'Categoría actualizada correctamente.');
     }

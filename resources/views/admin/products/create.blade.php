@@ -61,7 +61,7 @@
 
                             <div>
                                 <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
-                                <input type="number" name="stock" id="stock" value="{{ old('stock') }}" required
+                                <input type="number" name="stock" id="stock" value="{{ old('stock', isset($product) ? $product->stock : '') }}" required
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                         <div class="flex items-center">
                             <input type="checkbox" name="active" id="active"
                                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                                {{ old('active') ? 'checked' : '' }}>
+                                value="1" {{ old('active', isset($product) ? $product->active : false) ? 'checked' : '' }}>
                             <label for="active" class="ml-2 block text-sm text-gray-900">Producto activo</label>
                         </div>
 

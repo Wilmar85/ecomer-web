@@ -73,8 +73,7 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Pedidos Pendientes</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">{{ $pendingOrders ?? 0 }}
-                                        </div>
+                                        <div class="text-2xl font-semibold text-gray-900">{{ $pendingOrders ?? 0 }}</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -94,10 +93,9 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Productos Activos</dt>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Pedidos Activos</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">{{ $activeProducts ?? 0 }}
-                                        </div>
+                                        <div class="text-2xl font-semibold text-gray-900">{{ $activeOrders ?? 0 }}</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -117,10 +115,9 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Ventas del Mes</dt>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Ventas este mes</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">
-                                            ${{ number_format($monthSales ?? 0, 2) }}</div>
+                                        <div class="text-2xl font-semibold text-gray-900">${{ number_format($monthlySales ?? 0, 2) }}</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -140,10 +137,9 @@
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Productos sin Stock</dt>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Productos sin stock</dt>
                                     <dd class="flex items-baseline">
-                                        <div class="text-2xl font-semibold text-gray-900">{{ $outOfStockProducts ?? 0 }}
-                                        </div>
+                                        <div class="text-2xl font-semibold text-gray-900">{{ $outOfStockProducts ?? 0 }}</div>
                                     </dd>
                                 </dl>
                             </div>

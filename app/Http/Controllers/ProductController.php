@@ -56,7 +56,9 @@ class ProductController extends Controller
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
-
+        if (empty($validated['sku'])) {
+            $validated['sku'] = 'SKU-' . time() . '-' . mt_rand(1000, 9999);
+        }
         $product = Product::create($validated);
 
         if ($request->hasFile('images')) {

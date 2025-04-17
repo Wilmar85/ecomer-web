@@ -19,14 +19,21 @@ class ProductController extends Controller
         return view('admin.products.create', compact('categories', 'subcategories'));
     }
     public function store(Request $request) {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
+            'active' => 'nullable|boolean',
         ]);
-        Product::create($request->all());
+        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        if (empty($validated['sku'])) {
+            $validated['sku'] = 'SKU-' . time() . '-' . mt_rand(1000, 9999);
+        }
+        $validated['active'] = $request->has('active') ? 1 : 0;
+        Product::create($validated);
         return redirect()->route('admin.products.index')->with('success', 'Producto creado correctamente.');
     }
     public function edit(Product $product) {
@@ -35,14 +42,21 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product', 'categories', 'subcategories'));
     }
     public function update(Request $request, Product $product) {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
+            'active' => 'nullable|boolean',
         ]);
-        $product->update($request->all());
+        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        if (empty($validated['sku'])) {
+            $validated['sku'] = 'SKU-' . time() . '-' . mt_rand(1000, 9999);
+        }
+        $validated['active'] = $request->has('active') ? 1 : 0;
+        $product->update($validated);
         return redirect()->route('admin.products.index')->with('success', 'Producto actualizado correctamente.');
     }
     public function destroy(Product $product) {

@@ -33,6 +33,11 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
                 {{-- Usamos @auth para asegurarnos de que el usuario está logueado --}}
                 @auth
+                    @if(Auth::user()->isAdmin())
+                        <x-nav-link :href="url('/admin')" :active="request()->is('admin*')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endif
                     <!-- Cart Icon with Counter Component -->
                     <x-cart-counter :count="Auth::user()->cart ? Auth::user()->cart->items->count() : 0" />
                     <x-dropdown align="right" width="48">

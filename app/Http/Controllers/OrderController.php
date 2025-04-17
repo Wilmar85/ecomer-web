@@ -47,7 +47,13 @@ class OrderController extends Controller
                 ->with('error', 'El carrito está vacío.');
         }
 
-        return view('orders.create', compact('cart'));
+        $paymentMethods = [
+            'card' => 'Tarjeta',
+            'cash' => 'Efectivo',
+            'wompi' => 'Wompi',
+        ];
+
+        return view('orders.create', compact('cart', 'paymentMethods'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -64,7 +70,7 @@ class OrderController extends Controller
         $rules = [
             'delivery_method' => 'required|in:delivery,pickup',
             'phone' => 'required|string',
-            'payment_method' => 'required|in:card,cash'
+            'payment_method' => 'required|in:card,cash,wompi'
         ];
 
         if ($request->input('delivery_method') === 'delivery') {
@@ -121,6 +127,11 @@ class OrderController extends Controller
             $cart->update(['status' => 'processed']);
 
             DB::commit();
+
+            // Si el método de pago es Wompi, redirigir al checkout
+            if ($validated['payment_method'] === 'wompi') {
+                return redirect()->route('wompi.checkout', $order);
+            }
 
             return redirect()->route('orders.show', $order)
                 ->with('success', 'Pedido creado exitosamente.');

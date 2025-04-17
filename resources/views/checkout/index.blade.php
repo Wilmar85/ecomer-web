@@ -16,10 +16,14 @@
                             @csrf
                             
                             <!-- Información Personal -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
                                     <input type="text" name="name" id="name" value="{{ auth()->user()->name }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                                    <input type="email" name="email" id="email" value="{{ auth()->user()->email }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
                                 </div>
                                 <div>
                                     <label for="phone" class="block text-sm font-medium text-gray-700">Teléfono</label>
@@ -49,29 +53,82 @@
                                     <input type="text" name="street" id="street" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                 </div>
 
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                                    <div>
-                                        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-                                        <input type="text" name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label for="state" class="block text-sm font-medium text-gray-700">Estado</label>
-                                        <input type="text" name="state" id="state" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    </div>
-                                    <div>
-                                        <label for="postal_code" class="block text-sm font-medium text-gray-700">Código Postal</label>
-                                        <input type="text" name="postal_code" id="postal_code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                    </div>
-                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <div>
+        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
+        <select name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <option value="">Seleccione una ciudad</option>
+        </select>
+    </div>
+    <div>
+        <label for="neighborhood" class="block text-sm font-medium text-gray-700">Barrio</label>
+        <select name="neighborhood" id="neighborhood" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <option value="">Seleccione un barrio</option>
+        </select>
+    </div>
+</div>
+<script>
+const neighborhoodsByCity = {
+    'Bogotá': [
+        'Chapinero', 'Usaquén', 'Teusaquillo', 'Suba', 'Fontibón', 'Kennedy', 'Engativá', 'Barrios Unidos', 'Puente Aranda', 'Antonio Nariño', 'Santa Fe', 'San Cristóbal', 'Ciudad Bolívar', 'Tunjuelito', 'Bosa', 'Rafael Uribe Uribe', 'La Candelaria', 'Los Mártires', 'Sumapaz'
+    ],
+    'Medellín': [
+        'El Poblado', 'Laureles', 'Belen', 'Castilla', 'Robledo', 'Manrique', 'Aranjuez', 'Buenos Aires', 'San Javier', 'La América', 'La Candelaria', 'Doce de Octubre', 'Guayabal', 'San Antonio de Prado', 'Santa Cruz', 'Popular', 'Villa Hermosa'
+    ],
+    'Cali': [
+        'San Fernando', 'Granada', 'El Peñón', 'Aguablanca', 'Ciudad Jardín', 'San Antonio', 'La Flora', 'Versalles', 'El Ingenio', 'Santa Mónica', 'La Merced', 'Alfonso López', 'Siloé', 'Meléndez', 'San Nicolás', 'Sucre'
+    ],
+    'Barranquilla': [
+        'El Prado', 'Alto Prado', 'Villa Country', 'Ciudad Jardín', 'Boston', 'La Concepción', 'Las Delicias', 'San Vicente', 'Rebolo', 'La Unión', 'Las Nieves', 'Montecristo', 'La Ceiba', 'El Recreo'
+    ],
+    'Cartagena': [
+        'Getsemaní', 'Bocagrande', 'Manga', 'El Cabrero', 'La Matuna', 'Pie de la Popa', 'Crespo', 'Chambacú', 'San Diego', 'Torices', 'La Boquilla', 'El Bosque', 'Olaya Herrera'
+    ],
+    'Bucaramanga': [
+        'Cabecera', 'Alarcón', 'Antonia Santos', 'Provenza', 'La Concordia', 'Mutis', 'San Alonso', 'San Francisco', 'La Universidad', 'Sotomayor', 'Girardot', 'La Feria'
+    ],
+    'Pereira': [
+        'Cuba', 'Alamos', 'Centro', 'Boston', 'San Joaquín', 'Villavicencio', 'El Jardín', 'San Nicolás', 'La Circunvalar', 'Villa Santana', 'Kennedy', 'San Fernando'
+    ],
+    'Manizales': [
+        'Palogrande', 'La Enea', 'Chipre', 'El Cable', 'San Jorge', 'La Francia', 'Centro', 'Malhabar', 'Los Rosales', 'Villa Pilar', 'Campohermoso', 'Villahermosa'
+    ],
+    'Cúcuta': [
+        'La Ceiba', 'Caobos', 'Centro', 'La Riviera', 'Guaimaral', 'San Luis', 'San Rafael', 'El Contento', 'La Playa', 'Motilones', 'Los Caobos', 'La Cabrera'
+    ]
+};
+const citySelect = document.getElementById('city');
+citySelect.innerHTML = '<option value="">Seleccione una ciudad</option>';
+Object.keys(neighborhoodsByCity).forEach(function(city) {
+    const opt = document.createElement('option');
+    opt.value = city;
+    opt.textContent = city;
+    citySelect.appendChild(opt);
+});
+citySelect.addEventListener('change', function() {
+    const city = this.value;
+    const neighborhoodSelect = document.getElementById('neighborhood');
+    neighborhoodSelect.innerHTML = '<option value="">Seleccione un barrio</option>';
+    if (neighborhoodsByCity[city]) {
+        neighborhoodsByCity[city].forEach(function(barrio) {
+            const opt = document.createElement('option');
+            opt.value = barrio;
+            opt.textContent = barrio;
+            neighborhoodSelect.appendChild(opt);
+        });
+    }
+});
+</script>
                             </div>
 
                             <!-- Método de Pago -->
                             <div class="mt-6">
                                 <label for="payment_method" class="block text-sm font-medium text-gray-700">Método de Pago</label>
                                 <select name="payment_method" id="payment_method" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-                                    <option value="cash">Pago en Efectivo</option>
-                                    <option value="mercadopago">Mercado Pago</option>
-                                </select>
+    <option value="cash">Pago en Efectivo</option>
+    <option value="mercadopago">Mercado Pago</option>
+    <option value="wompi">Wompi</option>
+</select>
                             </div>
 
                             <div class="mt-6">
@@ -175,6 +232,19 @@
         // Validación del formulario y procesamiento del pedido
         document.getElementById('checkout-form').addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            // Alerta de confirmación antes de procesar el pedido
+            const confirmResult = await Swal.fire({
+                title: '¿Confirmar pedido?',
+                text: '¿Estás seguro de que deseas confirmar tu pedido?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, confirmar',
+                cancelButtonText: 'Cancelar'
+            });
+            if (!confirmResult.isConfirmed) {
+                return;
+            }
             
             try {
                 // Validar stock

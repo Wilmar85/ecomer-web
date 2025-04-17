@@ -20,7 +20,7 @@
                             <label class="block text-gray-700">Categoría</label>
                             <select name="category_id" class="form-select mt-1 block w-full" required>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" {{ $subcategory->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" {{ old('category_id', $subcategory->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>

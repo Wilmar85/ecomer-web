@@ -13,11 +13,11 @@
                         @method('PUT')
                         <div class="mb-4">
                             <label class="block">Nombre</label>
-                            <input type="text" name="name" value="{{ $user->name }}" class="border rounded w-full px-3 py-2" required>
+                            <input type="text" name="name" value="{{ old('name', $user->name) }}" class="border rounded w-full px-3 py-2" required>
                         </div>
                         <div class="mb-4">
                             <label class="block">Email</label>
-                            <input type="email" name="email" value="{{ $user->email }}" class="border rounded w-full px-3 py-2" required>
+                            <input type="email" name="email" value="{{ old('email', $user->email) }}" class="border rounded w-full px-3 py-2" required>
                         </div>
                         <div class="mb-4">
                             <label class="block">Contraseña (dejar en blanco para no cambiar)</label>

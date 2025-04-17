@@ -15,6 +15,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <!-- Mensajes de feedback de pago -->
+                    @if (session('success'))
+                        <div class="mb-4 rounded-lg bg-green-100 px-4 py-3 text-green-800 border border-green-300">
+                            <strong>¡Éxito!</strong> {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="mb-4 rounded-lg bg-red-100 px-4 py-3 text-red-800 border border-red-300">
+                            <strong>Error:</strong> {{ session('error') }}
+                        </div>
+                    @endif
                     <!-- Estado del Pedido -->
                     <div class="mb-8">
                         <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg">
@@ -56,15 +67,15 @@
                                 </div>
                                 <div>
                                     <dt class="text-sm font-medium text-gray-500">Dirección</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->address }}</dd>
+                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->shipping_address }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-sm font-medium text-gray-500">Ciudad</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->city }}</dd>
+                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->shipping_city }}</dd>
                                 </div>
                                 <div>
                                     <dt class="text-sm font-medium text-gray-500">Código Postal</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->postal_code }}</dd>
+                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->shipping_zip }}</dd>
                                 </div>
                             </dl>
                         </div>

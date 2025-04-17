@@ -73,4 +73,9 @@ Route::post('/webhooks/mercadopago', [WebhookController::class, 'handleMercadoPa
     ->name('webhooks.mercadopago')
     ->middleware('api');
 
+// Wompi payment routes
+Route::get('/orders/{order}/wompi-checkout', [\App\Http\Controllers\WompiController::class, 'checkout'])->name('wompi.checkout');
+Route::get('/orders/{order}/wompi-callback', [\App\Http\Controllers\WompiController::class, 'callback'])->name('wompi.callback');
+Route::post('/webhooks/wompi', [\App\Http\Controllers\WompiController::class, 'webhook'])->name('webhooks.wompi')->middleware('api');
+
 require __DIR__.'/auth.php';

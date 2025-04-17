@@ -25,7 +25,10 @@ class Order extends Model
         'shipping_state',
         'shipping_zip',
         'shipping_phone',
-        'notes'
+        'notes',
+        'email',
+        'name',
+        'phone'
     ];
 
     protected $casts = [

@@ -41,4 +41,10 @@ return [
         'sandbox' => env('MERCADOPAGO_SANDBOX', true),
     ],
 
+    'wompi' => [
+        'public_key' => env('WOMPI_PUBLIC_KEY'),
+        'private_key' => env('WOMPI_PRIVATE_KEY'),
+        'environment' => env('WOMPI_ENVIRONMENT', 'sandbox'), // sandbox o production
+    ],
+
 ];

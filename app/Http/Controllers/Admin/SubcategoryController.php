@@ -17,11 +17,12 @@ class SubcategoryController extends Controller
         return view('admin.subcategories.create', compact('categories'));
     }
     public function store(Request $request) {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
         ]);
-        Subcategory::create($request->only('name', 'category_id'));
+        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        Subcategory::create($validated);
         return redirect()->route('admin.subcategories.index')->with('success', 'Subcategoría creada correctamente.');
     }
     public function edit(Subcategory $subcategory) {
@@ -29,11 +30,12 @@ class SubcategoryController extends Controller
         return view('admin.subcategories.edit', compact('subcategory', 'categories'));
     }
     public function update(Request $request, Subcategory $subcategory) {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
         ]);
-        $subcategory->update($request->only('name', 'category_id'));
+        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        $subcategory->update($validated);
         return redirect()->route('admin.subcategories.index')->with('success', 'Subcategoría actualizada correctamente.');
     }
     public function destroy(Subcategory $subcategory) {

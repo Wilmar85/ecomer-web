@@ -15,4 +15,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('users', UserController::class);
     Route::resource('orders', OrderController::class);
+    Route::delete('product-images/{productImage}', [App\Http\Controllers\Admin\ProductImageController::class, 'destroy'])->name('admin.product-images.destroy');
 });

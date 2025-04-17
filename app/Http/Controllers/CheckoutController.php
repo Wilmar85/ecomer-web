@@ -96,7 +96,7 @@ class CheckoutController extends Controller
             // Validar los datos del formulario
             $request->validate([
                 'shipping_method' => 'required|in:delivery,pickup',
-                'payment_method' => 'required|in:cash,mercadopago',
+                'payment_method' => 'required|in:cash,mercadopago,wompi',
                 'street' => 'required_if:shipping_method,delivery',
                 'city' => 'required_if:shipping_method,delivery',
                 'state' => 'required_if:shipping_method,delivery',
@@ -141,12 +141,15 @@ class CheckoutController extends Controller
                 'payment_status' => 'pending',
                 'payment_method' => $request->payment_method,
                 'shipping_method' => $request->shipping_method,
-                'shipping_name' => Auth::user()->name,
+                'shipping_name' => $request->name,
                 'shipping_address' => $request->shipping_method === 'delivery' ? $request->street : 'Pickup in store',
                 'shipping_city' => $request->shipping_method === 'delivery' ? $request->city : '',
                 'shipping_state' => $request->shipping_method === 'delivery' ? $request->state : '',
                 'shipping_zip' => $request->shipping_method === 'delivery' ? $request->postal_code : '',
                 'shipping_phone' => $request->phone,
+                'email' => $request->email,
+                'name' => $request->name,
+                'phone' => $request->phone,
                 'purchase_token' => hash('sha256', $orderNumber . time() . Auth::id()),
             ]);
             $order->save();
@@ -192,6 +195,18 @@ class CheckoutController extends Controller
                     ]);
                 }
                 return redirect()->route('checkout.success', ['order' => $order->id]);
+            }
+
+            // Nueva lógica para Wompi
+            if ($request->payment_method === 'wompi') {
+                DB::commit();
+                if ($request->ajax()) {
+                    return response()->json([
+                        'success' => true,
+                        'redirect' => route('wompi.checkout', ['order' => $order->id])
+                    ]);
+                }
+                return redirect()->route('wompi.checkout', ['order' => $order->id]);
             }
 
             // Configurar MercadoPago
