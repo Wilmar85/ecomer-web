@@ -5,6 +5,17 @@
                 <div class="p-6">
                     <h1 class="text-3xl font-bold text-gray-900 mb-6">Contáctanos</h1>
 
+@if(session('success'))
+    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+        {{ session('success') }}
+    </div>
+@endif
+@if(session('error'))
+    <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
+        {{ session('error') }}
+    </div>
+@endif
+
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="prose max-w-none">
                             <div class="mb-6">
@@ -46,7 +57,7 @@
                         </div>
 
                         <div>
-                            <form action="#" method="POST" class="space-y-6">
+                            <form action="{{ route('contact') }}" method="POST" class="space-y-6">
                                 @csrf
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
