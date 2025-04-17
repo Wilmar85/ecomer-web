@@ -1,3 +1,38 @@
+@php
+    $metaTitle = $category->name . ' | E-commerce Web';
+    $metaDescription = 'Encuentra los mejores productos en la categoría ' . $category->name;
+    $metaKeywords = $category->name . ', productos, ecommerce, tienda';
+    $ogTitle = $category->name;
+    $ogDescription = 'Explora productos destacados de la categoría ' . $category->name;
+    $ogImage = asset('images/default-og.png');
+    $canonical = url()->current();
+@endphp
+
+@push('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{{ $category->name }}",
+  "description": "Encuentra los mejores productos en la categoría {{ $category->name }}",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": {{ $products->count() }},
+    "itemListElement": [
+      @foreach($products as $index => $product)
+        {
+          "@type": "Product",
+          "position": {{ $index + 1 }},
+          "name": "{{ $product->name }}",
+          "url": "{{ route('products.show', $product) }}"
+        }@if(!$loop->last),@endif
+      @endforeach
+    ]
+  }
+}
+</script>
+@endpush
+
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

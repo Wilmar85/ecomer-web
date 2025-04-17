@@ -1,3 +1,42 @@
+@php
+    $metaTitle = $product->name . ' | E-commerce Web';
+    $metaDescription = $product->short_description ?? Str::limit(strip_tags($product->description), 150);
+    $metaKeywords = $product->name . ', ' . ($product->category->name ?? '') . ', comprar, ecommerce';
+    $ogTitle = $product->name;
+    $ogDescription = $product->short_description ?? Str::limit(strip_tags($product->description), 150);
+    $ogImage = $product->images->isNotEmpty() ? asset('storage/' . $product->images->first()->path) : asset('images/default-og.png');
+    $canonical = url()->current();
+@endphp
+
+@push('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ $product->name }}",
+  "image": [
+    @if($product->images->isNotEmpty())
+      @foreach($product->images as $img)"{{ asset('storage/' . $img->path) }}"@if(!$loop->last),@endif @endforeach
+    @else
+      "{{ asset('images/default-og.png') }}"
+    @endif
+  ],
+  "description": "{{ $product->short_description ?? Str::limit(strip_tags($product->description), 150) }}",
+  "sku": "{{ $product->sku ?? $product->id }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ $product->brand->name ?? 'Marca genérica' }}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "MXN",
+    "price": "{{ $product->price }}",
+    "availability": "https://schema.org/{{ $product->stock > 0 ? 'InStock' : 'OutOfStock' }}"
+  }
+}
+</script>
+@endpush
+
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">

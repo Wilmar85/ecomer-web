@@ -1,3 +1,24 @@
+@php
+    $metaTitle = 'Inicio | E-commerce Web';
+    $metaDescription = 'Bienvenido a la mejor tienda online. Descubre productos de calidad, ofertas y envío gratis en compras mayores a $500.';
+    $metaKeywords = 'inicio, ecommerce, ofertas, productos, tienda online';
+    $ogTitle = 'Bienvenido a E-commerce Web';
+    $ogDescription = 'Explora nuestra tienda online y encuentra productos increíbles a precios bajos.';
+    $ogImage = asset('images/default-og.png');
+    $canonical = url('/');
+@endphp
+
+@push('jsonld')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "E-commerce Web",
+  "url": "{{ url('/') }}"
+}
+</script>
+@endpush
+
 <x-app-layout>
     <div class="py-12">
         <!-- Banner Informativo -->
