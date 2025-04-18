@@ -65,31 +65,44 @@
             </div>
         </div>
 
+        <!-- Productos vistos recientemente -->
+        @if(isset($visitedProducts) && $visitedProducts->isNotEmpty())
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Productos que has visto recientemente</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach ($visitedProducts as $product)
+    <x-product-card :product="$product" />
+@endforeach
+            </div>
+        </div>
+        @endif
+
         <!-- Productos Destacados -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Productos Destacados</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach ($products as $product)
-                    <div
-                        class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 transform hover:scale-105">
-                        @if ($product->images->isNotEmpty())
-    @php
-        $imgUrl = method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path);
-    @endphp
-    <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
-@endif
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-900">{{ $product->name }}</h3>
-                            <p class="text-gray-600 text-sm mb-2">{{ Str::limit($product->description, 100) }}</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-blue-600 font-bold">${{ number_format($product->price, 2) }}</span>
-                                <a href="{{ route('products.show', $product) }}"
-                                    class="text-blue-600 hover:text-blue-800 font-medium">Ver detalles</a>
-                            </div>
-                        </div>
-                    </div>
+                    <x-product-card :product="$product" />
                 @endforeach
             </div>
         </div>
+    </div>
+    <!-- Banner de Cookies (Ley Colombiana) -->
+    <div x-data="{ showCookieBanner: localStorage.getItem('cookieAccepted') !== '1' }" x-show="showCookieBanner" class="fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 z-50 flex flex-col md:flex-row items-center justify-between">
+        <span>
+            Usamos cookies para mejorar tu experiencia y cumplir la <b>Ley 1581 de 2012</b> y <b>Decreto 1377 de 2013</b> de Colombia. Consulta nuestra <a href="{{ url('/cookies') }}" class="underline text-blue-300">Política de Cookies</a>.
+        </span>
+        <button @click="localStorage.setItem('cookieAccepted', '1'); showCookieBanner = false" class="mt-2 md:mt-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Aceptar
+        </button>
+    </div>
+    <!-- Botón flotante para subir al menú (solo home) -->
+    <div x-data="{ showBtn: false }" x-init="window.addEventListener('scroll', () => { showBtn = window.scrollY > 100 })" x-show="showBtn" style="display: none;" class="fixed bottom-6 right-6 z-50">
+        <button @click="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-blue-600 hover:bg-blue-800 text-white rounded-full shadow-lg flex items-center justify-center w-14 h-14 transition duration-200 focus:outline-none">
+            <!-- Icono de flecha hacia arriba -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+            </svg>
+        </button>
     </div>
 </x-app-layout>

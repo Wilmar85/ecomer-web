@@ -38,6 +38,19 @@
 @endpush
 
 <x-app-layout>
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch("{{ route('preferences.visited', ['productId' => $product->id]) }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            });
+        });
+    </script>
+    @endpush
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">

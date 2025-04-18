@@ -20,6 +20,13 @@ class HomeController extends Controller
             ->having('products_count', '>', 0)
             ->get();
 
-        return view('home', compact('products', 'categories'));
+        // Productos vistos por el usuario (desde cookie)
+        $visitedProducts = collect();
+        $visitedIds = json_decode($request->cookie('visited_products', '[]'), true);
+        if (!empty($visitedIds)) {
+            $visitedProducts = Product::with('images')->whereIn('id', $visitedIds)->get();
+        }
+
+        return view('home', compact('products', 'categories', 'visitedProducts'));
     }
 }

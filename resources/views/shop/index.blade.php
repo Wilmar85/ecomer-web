@@ -52,28 +52,10 @@
                 </aside>
                 <!-- Main: productos -->
                 <main class="md:w-3/4 flex-1 md:pl-6 border-t md:border-t-0 md:border-l border-gray-200">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
                         @forelse ($products as $product)
-                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between min-h-[340px]">
-                                @if ($product->images->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $product->images->first()->image_path) }}"
-                                        alt="{{ $product->name }}" class="w-full h-48 object-cover">
-                                @endif
-                                <div class="p-4 flex flex-col flex-1 justify-between">
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800 mb-2 truncate">{{ $product->name }}</h3>
-                                        <p class="text-gray-600 text-sm mb-2 line-clamp-2">{{ $product->description }}</p>
-                                    </div>
-                                    <div class="flex items-center justify-between pt-2">
-                                        <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
-                                        <a href="{{ route('products.show', $product) }}"
-                                            class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                            Ver Detalles
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
+    <x-product-card :product="$product" />
+@empty
                             <div class="col-span-full text-center py-12">
                                 <p class="text-gray-500 text-lg">No se encontraron productos que coincidan con los filtros seleccionados.</p>
                             </div>

@@ -14,8 +14,14 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PreferenceController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Preferencias del usuario (cookies)
+Route::post('/preferencias/idioma', [PreferenceController::class, 'setLanguage'])->name('preferences.language');
+Route::post('/preferencias/tema', [PreferenceController::class, 'setTheme'])->name('preferences.theme');
+Route::post('/preferencias/visitado/{productId}', [PreferenceController::class, 'addVisitedProduct'])->name('preferences.visited');
 
 Route::get('/shop', [ProductController::class, 'index'])->name('shop.index');
 

@@ -14,7 +14,7 @@
                             <input type="text" name="search" value="{{ request('search') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Buscar productos...">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Categoría2222222222222</label>
+                            <label class="block text-sm font-semibold mb-2">Categoría</label>
                             <select name="category" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <option value="">Todas</option>
                                 @foreach ($categories as $category)
@@ -70,12 +70,27 @@
                                     <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $product->name }}</h3>
                                     <p class="text-gray-600 text-sm mb-4">{{ Str::limit($product->description, 100) }}</p>
                                     <div class="flex items-center justify-between">
-                                        <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
-                                        <a href="{{ route('products.show', $product) }}"
-                                            class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                            Ver Detalles
-                                        </a>
-                                    </div>
+    <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
+    <a href="{{ route('products.show', $product) }}"
+        class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+        Ver Detalles
+    </a>
+</div>
+<div class="mt-2">
+    @auth
+        <form action="{{ route('cart.add') }}" method="POST" class="inline">
+            @csrf
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                Añadir a la tienda
+            </button>
+        </form>
+    @else
+        <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-yellow-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition ease-in-out duration-150">
+            Añadir a la tienda
+        </a>
+    @endauth
+</div>
                                 </div>
                             </div>
                         @empty
