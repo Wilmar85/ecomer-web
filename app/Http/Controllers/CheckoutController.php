@@ -95,13 +95,18 @@ class CheckoutController extends Controller
         try {
             // Validar los datos del formulario
             $request->validate([
+                'payment_method' => 'required|in:cash,comprobante',
                 'shipping_method' => 'required|in:delivery,pickup',
-                'payment_method' => 'required|in:cash,mercadopago,wompi',
                 'street' => 'required_if:shipping_method,delivery',
                 'city' => 'required_if:shipping_method,delivery',
                 'state' => 'required_if:shipping_method,delivery',
-                'phone' => 'required'
+                'phone' => 'required',
+                'payment_proof' => 'required_if:payment_method,comprobante|image|mimes:jpeg,png,jpg,gif,svg|max:4096'
             ]);
+
+            // Si elige efectivo, forzar pickup
+            $paymentMethod = $request->payment_method;
+            $shippingMethod = $paymentMethod === 'cash' ? 'pickup' : $request->shipping_method;
 
             DB::beginTransaction();
 
@@ -132,20 +137,27 @@ class CheckoutController extends Controller
             // Generar número de orden único
             $orderNumber = Order::generateOrderNumber();
 
+            // Guardar comprobante de pago
+            $paymentProofPath = null;
+            if ($request->hasFile('payment_proof')) {
+                $paymentProofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
+            }
+
             // Crear la orden
             $order = new Order([
                 'user_id' => Auth::id(),
                 'order_number' => $orderNumber,
                 'total' => $total,
-                'status' => $request->payment_method === 'cash' ? 'pending_pickup' : 'pending',
+                'status' => 'pending',
                 'payment_status' => 'pending',
-                'payment_method' => $request->payment_method,
-                'shipping_method' => $request->shipping_method,
+                'payment_method' => $paymentMethod,
+                'payment_proof' => $paymentProofPath,
+                'shipping_method' => $shippingMethod,
                 'shipping_name' => $request->name,
-                'shipping_address' => $request->shipping_method === 'delivery' ? $request->street : 'Pickup in store',
-                'shipping_city' => $request->shipping_method === 'delivery' ? $request->city : '',
-                'shipping_state' => $request->shipping_method === 'delivery' ? $request->state : '',
-                'shipping_zip' => $request->shipping_method === 'delivery' ? $request->postal_code : '',
+                'shipping_address' => $shippingMethod === 'delivery' ? $request->street : 'Pickup in store',
+                'shipping_city' => $shippingMethod === 'delivery' ? $request->city : '',
+                'shipping_state' => $shippingMethod === 'delivery' ? $request->state : '',
+                'shipping_zip' => $shippingMethod === 'delivery' ? $request->postal_code : '',
                 'shipping_phone' => $request->phone,
                 'email' => $request->email,
                 'name' => $request->name,
@@ -181,62 +193,14 @@ class CheckoutController extends Controller
             $cart->items()->delete();
             $cart->delete();
 
-            // Procesar según el método de pago
-            if ($request->payment_method === 'cash') {
-                $order->payment_status = 'pending';
-                $order->status = 'pending_pickup';
-                $order->save();
-                
-                DB::commit();
-                if ($request->ajax()) {
-                    return response()->json([
-                        'success' => true,
-                        'redirect' => route('checkout.success', ['order' => $order->id])
-                    ]);
-                }
-                return redirect()->route('checkout.success', ['order' => $order->id]);
-            }
-
-            // Nueva lógica para Wompi
-            if ($request->payment_method === 'wompi') {
-                DB::commit();
-                if ($request->ajax()) {
-                    return response()->json([
-                        'success' => true,
-                        'redirect' => route('wompi.checkout', ['order' => $order->id])
-                    ]);
-                }
-                return redirect()->route('wompi.checkout', ['order' => $order->id]);
-            }
-
-            // Configurar MercadoPago
-            MercadoPagoConfig::setAccessToken(config('services.mercadopago.access_token'));
-            $client = new PreferenceClient();
-
-            // Crear preferencia de pago
-            $preference = $client->create([
-                'items' => [
-                    [
-                        'title' => "Orden #{$order->order_number}",
-                        'quantity' => 1,
-                        'currency_id' => 'MXN',
-                        'unit_price' => $total,
-                        'description' => 'Compra en Ecomer Web'
-                    ]
-                ],
-                'external_reference' => $order->purchase_token,
-                'back_urls' => [
-                    'success' => route('checkout.success', ['order' => $order->id]),
-                    'failure' => route('checkout.failure', ['order' => $order->id]),
-                    'pending' => route('checkout.pending', ['order' => $order->id])
-                ],
-                'notification_url' => route('webhooks.mercadopago'),
-                'auto_return' => 'approved'
-            ]);
-
             DB::commit();
-
-            return redirect()->away($preference->init_point);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect' => route('checkout.success', ['order' => $order->id])
+                ]);
+            }
+            return redirect()->route('checkout.success', ['order' => $order->id]);
 
         } catch (\Exception $e) {
             DB::rollBack();

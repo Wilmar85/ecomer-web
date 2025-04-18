@@ -28,7 +28,8 @@ class Order extends Model
         'notes',
         'email',
         'name',
-        'phone'
+        'phone',
+        'payment_proof'
     ];
 
     protected $casts = [

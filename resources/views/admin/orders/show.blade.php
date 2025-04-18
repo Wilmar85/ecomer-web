@@ -16,6 +16,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Comprobante de Pago -->
+                        @if($order->payment_proof)
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Comprobante de Pago</h3>
+                            <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Comprobante de pago" class="w-full max-w-xs rounded shadow border">
+                            <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="block mt-2 text-indigo-600 hover:underline text-sm">Ver tamaño completo</a>
+                        </div>
+                        @endif
                         <!-- Información del Cliente -->
                         <div class="bg-gray-50 p-6 rounded-lg">
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Información del Cliente</h3>

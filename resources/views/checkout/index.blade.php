@@ -123,13 +123,57 @@ citySelect.addEventListener('change', function() {
 
                             <!-- Método de Pago -->
                             <div class="mt-6">
-                                <label for="payment_method" class="block text-sm font-medium text-gray-700">Método de Pago</label>
-                                <select name="payment_method" id="payment_method" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-    <option value="cash">Pago en Efectivo</option>
-    <option value="mercadopago">Mercado Pago</option>
-    <option value="wompi">Wompi</option>
-</select>
+                                <label class="block text-sm font-medium text-gray-700">Método de Pago</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="payment_method" id="payment_cash" value="cash" class="form-radio h-4 w-4 text-indigo-600" checked>
+                                        <span class="ml-2">Pago en Efectivo (recoge en tienda)</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" name="payment_method" id="payment_proof_radio" value="comprobante" class="form-radio h-4 w-4 text-indigo-600">
+                                        <span class="ml-2">Comprobante de Pago (subir imagen)</span>
+                                    </label>
+                                </div>
                             </div>
+
+                            <!-- Comprobante de Pago -->
+                            <div class="mt-6" id="comprobante-section" style="display:none;">
+                                <label for="payment_proof" class="block text-sm font-medium text-gray-700">Comprobante de Pago (imagen)</label>
+                                <input type="file" name="payment_proof" id="payment_proof" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                <p class="text-xs text-gray-500 mt-1">Adjunta una foto o captura del comprobante de pago para separar tu compra.</p>
+                            </div>
+
+                            <script>
+                            // Mostrar/ocultar comprobante y método de envío
+                            function togglePaymentFields() {
+                                const paymentCash = document.getElementById('payment_cash').checked;
+                                const comprobanteSection = document.getElementById('comprobante-section');
+                                const paymentProofInput = document.getElementById('payment_proof');
+                                const pickupRadio = document.getElementById('pickup');
+                                const deliveryRadio = document.getElementById('delivery');
+                                const shippingSection = document.getElementById('shipping-address-section');
+
+                                if (paymentCash) {
+                                    comprobanteSection.style.display = 'none';
+                                    paymentProofInput.required = false;
+                                    // Solo permitir recoger en tienda
+                                    pickupRadio.checked = true;
+                                    pickupRadio.disabled = false;
+                                    deliveryRadio.checked = false;
+                                    deliveryRadio.disabled = true;
+                                    shippingSection.style.display = 'none';
+                                } else {
+                                    comprobanteSection.style.display = 'block';
+                                    paymentProofInput.required = true;
+                                    // Permitir ambos métodos de envío
+                                    pickupRadio.disabled = false;
+                                    deliveryRadio.disabled = false;
+                                }
+                            }
+                            document.getElementById('payment_cash').addEventListener('change', togglePaymentFields);
+                            document.getElementById('payment_proof_radio').addEventListener('change', togglePaymentFields);
+                            document.addEventListener('DOMContentLoaded', togglePaymentFields);
+                            </script>
 
                             <div class="mt-6">
                                 <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
