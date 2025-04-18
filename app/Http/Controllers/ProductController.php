@@ -61,11 +61,39 @@ class ProductController extends Controller
         }
         $product = Product::create($validated);
 
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('products', 'public');
-                $product->images()->create(['path' => $path]);
+        $imageErrors = [];
+        $imageSuccess = false;
+        $files = $request->file('images');
+        if (is_array($files) && count($files) > 0) {
+            foreach ($files as $image) {
+                if ($image && $image->isValid()) {
+                    $path = $image->store('products', 'public');
+                    if ($path && file_exists(storage_path('app/public/' . $path))) {
+                        $product->images()->create(['image_path' => $path]);
+                        $imageSuccess = true;
+                    } else {
+                        $imageErrors[] = $image->getClientOriginalName();
+                    }
+                } else {
+                    $imageErrors[] = $image ? $image->getClientOriginalName() : 'Archivo no válido';
+                }
             }
+        }
+        if (!$imageSuccess && empty($imageErrors) && $request->hasFile('images')) {
+            $imageErrors[] = 'No se recibió ningún archivo válido.';
+        }
+        if (count($imageErrors) > 0) {
+            return redirect()->route('products.index')
+                ->with('success', 'Producto creado, pero hubo errores al subir las siguientes imágenes: ' . implode(', ', $imageErrors));
+        }
+        if (!$imageSuccess && !$request->hasFile('images')) {
+            return redirect()->route('products.index')
+                ->with('success', 'Producto creado, pero no se subió ninguna imagen.');
+        }
+
+        if (count($imageErrors) > 0) {
+            return redirect()->route('products.index')
+                ->with('success', 'Producto creado, pero hubo errores al subir las siguientes imágenes: ' . implode(', ', $imageErrors));
         }
 
         return redirect()->route('products.index')
@@ -101,7 +129,7 @@ class ProductController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('products', 'public');
-                $product->images()->create(['path' => $path]);
+                $product->images()->create(['image_path' => $path]);
             }
         }
 

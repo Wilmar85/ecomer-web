@@ -115,7 +115,7 @@
                                             class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
                                             <span>Subir archivos</span>
                                             <input id="images" name="images[]" type="file" class="sr-only"
-                                                multiple accept="image/*">
+                                                multiple accept="image/*" onchange="handleImageSelection(event)">
                                         </label>
                                         <p class="pl-1">o arrastrar y soltar</p>
                                     </div>
@@ -125,6 +125,12 @@
                                 </div>
                             </div>
                             <x-input-error :messages="$errors->get('images')" class="mt-2" />
+<div id="image-upload-feedback" class="mb-4 hidden">
+    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline" id="image-upload-message"></span>
+    </div>
+</div>
+<div id="image-preview-container" class="mb-4 flex flex-wrap gap-4"></div>
                         </div>
 
                         <div class="flex items-center gap-4">
@@ -154,4 +160,34 @@
             }
         }
     </script>
+<script>
+    function handleImageSelection(event) {
+        const files = event.target.files;
+        const feedback = document.getElementById('image-upload-feedback');
+        const message = document.getElementById('image-upload-message');
+        const previewContainer = document.getElementById('image-preview-container');
+        previewContainer.innerHTML = '';
+        if (files.length > 0) {
+            let fileNames = Array.from(files).map(f => f.name).join(', ');
+            message.innerText = `Imágenes seleccionadas: ${fileNames}`;
+            feedback.classList.remove('hidden');
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = file.name;
+                        img.className = 'h-24 w-24 object-cover rounded border border-gray-300';
+                        previewContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        } else {
+            message.innerText = '';
+            feedback.classList.add('hidden');
+        }
+    }
+</script>
 </x-app-layout>

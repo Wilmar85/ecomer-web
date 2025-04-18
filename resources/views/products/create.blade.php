@@ -9,6 +9,24 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    @if (session('success'))
+                        <div class="mb-4">
+                            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                                <strong class="font-bold">¡Éxito!</strong>
+                                <span class="block sm:inline">{{ session('success') }}</span>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="mb-4">
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                <strong class="font-bold">¡Error!</strong>
+                                <span class="block sm:inline">{{ session('error') }}</span>
+                            </div>
+                        </div>
+                    @endif
+
                     @if ($errors->any())
                         <div class="mb-4">
                             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
@@ -22,6 +40,13 @@
                             </div>
                         </div>
                     @endif
+
+                    <div id="image-upload-feedback" class="mb-4 hidden">
+    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline" id="image-upload-message"></span>
+    </div>
+</div>
+<div id="image-preview-container" class="mb-4 flex flex-wrap gap-4"></div>
 
                     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data"
                         class="space-y-6">
@@ -87,7 +112,7 @@
                                             class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
                                             <span>Subir archivos</span>
                                             <input id="images" name="images[]" type="file" class="sr-only"
-                                                multiple accept="image/*">
+                                                multiple accept="image/*" onchange="handleImageSelection(event)">
                                         </label>
                                         <p class="pl-1">o arrastrar y soltar</p>
                                     </div>
@@ -111,4 +136,34 @@
             </div>
         </div>
     </div>
+<script>
+    function handleImageSelection(event) {
+        const files = event.target.files;
+        const feedback = document.getElementById('image-upload-feedback');
+        const message = document.getElementById('image-upload-message');
+        const previewContainer = document.getElementById('image-preview-container');
+        previewContainer.innerHTML = '';
+        if (files.length > 0) {
+            let fileNames = Array.from(files).map(f => f.name).join(', ');
+            message.innerText = `Imágenes seleccionadas: ${fileNames}`;
+            feedback.classList.remove('hidden');
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = file.name;
+                        img.className = 'h-24 w-24 object-cover rounded border border-gray-300';
+                        previewContainer.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        } else {
+            message.innerText = '';
+            feedback.classList.add('hidden');
+        }
+    }
+</script>
 </x-app-layout>

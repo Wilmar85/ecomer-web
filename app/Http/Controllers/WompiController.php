@@ -11,6 +11,12 @@ use App\Models\Order;
 
 class WompiController extends Controller
 {
+    // Muestra el widget de pago Wompi embebido
+    public function widget(Order $order)
+    {
+        return view('orders.wompi_widget', compact('order'));
+    }
+
     // Redirige al usuario al checkout de Wompi
     /**
      * Redirige al usuario al checkout de Wompi usando Payment Links.

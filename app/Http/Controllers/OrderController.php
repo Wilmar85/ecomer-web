@@ -128,9 +128,9 @@ class OrderController extends Controller
 
             DB::commit();
 
-            // Si el método de pago es Wompi, redirigir al checkout
+            // Si el método de pago es Wompi, redirigir al widget embebido
             if ($validated['payment_method'] === 'wompi') {
-                return redirect()->route('wompi.checkout', $order);
+                return redirect()->route('wompi.widget', $order);
             }
 
             return redirect()->route('orders.show', $order)

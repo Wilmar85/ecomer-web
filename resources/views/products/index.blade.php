@@ -28,7 +28,7 @@
                         @foreach ($products as $product)
                             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                                 @if ($product->images->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $product->images->first()->path) }}"
+                                    <img src="{{ $product->images->first()?->image_url ?? '' }}"
                                         alt="{{ $product->name }}" class="w-full h-48 object-cover">
                                 @else
                                     <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
