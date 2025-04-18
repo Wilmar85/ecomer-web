@@ -79,7 +79,7 @@
                                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                     @foreach ($product->images as $image)
                                         <div class="relative group">
-                                            <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $product->name }}"
+                                            <img src="{{ method_exists($image, 'getImageUrlAttribute') ? $image->image_url : asset('storage/' . $image->image_path) }}" alt="{{ $product->name }}"
                                                 class="w-full h-32 object-cover rounded-lg">
                                             <div
                                                 class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">

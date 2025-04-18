@@ -98,11 +98,12 @@
                         </div>
 
                         <div class="flex items-center">
-                            <input type="checkbox" name="active" id="active"
-                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                                value="1" {{ old('active', isset($product) ? $product->active : false) ? 'checked' : '' }}>
-                            <label for="active" class="ml-2 block text-sm text-gray-900">Producto activo</label>
-                        </div>
+    <input type="hidden" name="active" value="0">
+    <input type="checkbox" name="active" id="active"
+        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+        value="1" {{ old('active', isset($product) ? $product->active : false) ? 'checked' : '' }}>
+    <label for="active" class="ml-2 block text-sm text-gray-900">Producto activo</label>
+</div>
 
                         <div class="flex justify-end space-x-4">
                             <a href="{{ route('admin.products.index') }}"

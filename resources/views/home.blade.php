@@ -73,9 +73,11 @@
                     <div
                         class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 transform hover:scale-105">
                         @if ($product->images->isNotEmpty())
-                            <img src="{{ asset('storage/' . $product->images->first()->path) }}"
-                                alt="{{ $product->name }}" class="w-full h-48 object-cover">
-                        @endif
+    @php
+        $imgUrl = method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path);
+    @endphp
+    <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+@endif
                         <div class="p-4">
                             <h3 class="text-lg font-semibold text-gray-900">{{ $product->name }}</h3>
                             <p class="text-gray-600 text-sm mb-2">{{ Str::limit($product->description, 100) }}</p>

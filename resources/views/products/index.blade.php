@@ -28,9 +28,11 @@
                         @foreach ($products as $product)
                             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                                 @if ($product->images->isNotEmpty())
-                                    <img src="{{ $product->images->first()?->image_url ?? '' }}"
-                                        alt="{{ $product->name }}" class="w-full h-48 object-cover">
-                                @else
+    @php
+        $imgUrl = method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path);
+    @endphp
+    <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+@else
                                     <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
                                         <span class="text-gray-500">Sin imagen</span>
                                     </div>

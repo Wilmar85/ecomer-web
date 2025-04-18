@@ -64,7 +64,11 @@ class ProductController extends Controller
         $imageErrors = [];
         $imageSuccess = false;
         $files = $request->file('images');
-        if (is_array($files) && count($files) > 0) {
+        if ($files) {
+            // Si es solo un archivo, conviértelo en array
+            if (!is_array($files)) {
+                $files = [$files];
+            }
             foreach ($files as $image) {
                 if ($image && $image->isValid()) {
                     $path = $image->store('products', 'public');
@@ -127,9 +131,20 @@ class ProductController extends Controller
         $product->update($validated);
 
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('products', 'public');
-                $product->images()->create(['image_path' => $path]);
+            // Elimina imágenes anteriores y sus archivos
+            foreach ($product->images as $img) {
+                \Storage::disk('public')->delete($img->image_path);
+                $img->delete();
+            }
+            $files = $request->file('images');
+            if (!is_array($files)) {
+                $files = [$files];
+            }
+            foreach ($files as $image) {
+                if ($image && $image->isValid()) {
+                    $path = $image->store('products', 'public');
+                    $product->images()->create(['image_path' => $path]);
+                }
             }
         }
 

@@ -70,19 +70,23 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-4">
                             @if ($product->images->isNotEmpty())
-                                <div class="relative h-96 overflow-hidden rounded-lg">
-                                    <img src="{{ asset('storage/' . $product->images->first()->path) }}"
-                                        alt="{{ $product->name }}" class="w-full h-full object-cover">
-                                </div>
-
-                                @if ($product->images->count() > 1)
-                                    <div class="grid grid-cols-4 gap-2">
-                                        @foreach ($product->images as $image)
-                                            <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $product->name }}"
-                                                class="w-full h-24 object-cover rounded cursor-pointer hover:opacity-75">
-                                        @endforeach
-                                    </div>
-                                @endif
+    <div x-data="{ selectedImage: '{{ method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path) }}' }">
+        <div class="relative h-96 overflow-hidden rounded-lg">
+            <img :src="selectedImage" alt="{{ $product->name }}" class="w-full h-full object-cover transition-all duration-200">
+        </div>
+        @if ($product->images->count() > 1)
+            <div class="grid grid-cols-4 gap-2 mt-2">
+                @foreach ($product->images as $image)
+                    @php
+                        $imgUrl = method_exists($image, 'getImageUrlAttribute') ? $image->image_url : asset('storage/' . $image->image_path);
+                    @endphp
+                    <img src="{{ $imgUrl }}" alt="{{ $product->name }}"
+                        class="w-full h-24 object-cover rounded cursor-pointer hover:opacity-75 border-2 border-transparent hover:border-blue-400"
+                        @click="selectedImage = '{{ $imgUrl }}'">
+                @endforeach
+            </div>
+        @endif
+    </div>
                             @else
                                 <div class="h-96 bg-gray-200 flex items-center justify-center rounded-lg">
                                     <span class="text-gray-500">Sin imagen</span>

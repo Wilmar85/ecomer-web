@@ -21,14 +21,16 @@ class Product extends Model
         'is_featured',
         'is_on_sale',
         'sale_price',
-        'category_id'
+        'category_id',
+        'active'
     ];
 
     protected $casts = [
         'is_featured' => 'boolean',
         'is_on_sale' => 'boolean',
         'price' => 'decimal:2',
-        'sale_price' => 'decimal:2'
+        'sale_price' => 'decimal:2',
+        'active' => 'boolean'
     ];
 
     public function category(): BelongsTo
