@@ -34,7 +34,7 @@
                 {{-- Usamos @auth para asegurarnos de que el usuario está logueado --}}
                 @auth
                     @if(Auth::user()->isAdmin())
-                        <x-nav-link :href="url('/admin')" :active="request()->is('admin*')">
+                        <x-nav-link :href="url('/admin/dashboard')" :active="request()->is('admin*')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     @endif
@@ -63,6 +63,8 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+
+                            
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">

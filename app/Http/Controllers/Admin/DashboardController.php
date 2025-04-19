@@ -101,13 +101,25 @@ class DashboardController extends Controller
                 $trafficSummary = $ga->getTrafficSummary(30);
                 $trafficSources = $ga->getTrafficSources(30);
                 $ctr = $ga->getClickThroughRate(30);
+                $averagePageLoadTime = $ga->getAveragePageLoadTime(30);
+                $bounceRate = $ga->getBounceRate(30);
+                $averageSessionDuration = $ga->getAverageSessionDuration(30);
+                $devices = $ga->getDevices(30);
             } else {
                 $ctr = null;
+                $averagePageLoadTime = null;
+                $bounceRate = null;
+                $averageSessionDuration = null;
+                $devices = null;
             }
         } catch (\Throwable $e) {
             $trafficSummary = null;
             $trafficSources = null;
             $ctr = null;
+            $averagePageLoadTime = null;
+            $bounceRate = null;
+            $averageSessionDuration = null;
+            $devices = null;
         }
 
         // INVENTARIO
@@ -149,7 +161,45 @@ class DashboardController extends Controller
             'stockLevels',
             'unitsSold',
             'topSellingProducts',
-            'lowStockProducts'
+            'lowStockProducts',
+            'averagePageLoadTime',
+            'bounceRate',
+            'averageSessionDuration',
+            'devices'
         ));
+    }
+
+    /**
+     * Devuelve los datos del dashboard para AJAX (filtros: dateRange, deviceFilter)
+     */
+    public function dashboardData(Request $request)
+    {
+        $days = (int) $request->input('dateRange', 30);
+        $device = $request->input('deviceFilter', 'all');
+        $ga = app(\App\Services\GoogleAnalyticsService::class);
+        $metrics = [
+            'averagePageLoadTime' => null,
+            'bounceRate' => null,
+            'averageSessionDuration' => null,
+            'devices' => [],
+            'trendPageLoad' => [],
+            'trendBounceRate' => [],
+        ];
+        if ($ga->isConfigured()) {
+            $metrics['averagePageLoadTime'] = $ga->getAveragePageLoadTime($days);
+            $metrics['bounceRate'] = $ga->getBounceRate($days);
+            $metrics['averageSessionDuration'] = $ga->getAverageSessionDuration($days);
+            $metrics['devices'] = $ga->getDevices($days);
+            // Simulación de tendencias (reemplazar por reales)
+            $metrics['trendPageLoad'] = array_fill(0, $days-1, rand(15,25)/10);
+            $metrics['trendPageLoad'][] = $metrics['averagePageLoadTime'];
+            $metrics['trendBounceRate'] = array_fill(0, $days-1, rand(40,50));
+            $metrics['trendBounceRate'][] = $metrics['bounceRate'];
+            // Filtro por dispositivo (si aplica)
+            if ($device !== 'all' && isset($metrics['devices'][$device])) {
+                // Aquí podrías filtrar las métricas por dispositivo si tu backend lo soporta
+            }
+        }
+        return response()->json($metrics);
     }
 }
