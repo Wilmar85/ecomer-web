@@ -153,19 +153,22 @@
             <!-- Ventas por producto (top 10) -->
             <div class="mt-8 bg-white overflow-hidden shadow-md sm:rounded-lg border border-gray-100">
     <div class="p-6">
-        <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">Ventas por Producto (Top 10)
-            <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded" title="Productos más vendidos en el periodo">TOP</span>
+        <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">Ventas por Producto
+            <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded" title="Top 10 productos más vendidos">TOP</span>
         </h3>
         <ul>
             @forelse($salesByProduct as $item)
                 <li class="flex justify-between border-b py-1">
-                    <span>{{ $item->product->name ?? 'Producto #' . $item->product_id }}</span>
+                    <span>{{ $item->product ? $item->product->name : 'Producto #' . $item->product_id }}</span>
                     <span class="font-semibold bg-blue-50 text-blue-700 px-2 rounded">{{ $item->total }}</span>
                 </li>
             @empty
                 <li>No hay datos.</li>
             @endforelse
         </ul>
+        <div class="mt-8">
+            <canvas id="chartSalesByProduct" height="110"></canvas>
+        </div>
     </div>
 </div>
 
@@ -185,6 +188,9 @@
                 <li>No hay datos.</li>
             @endforelse
         </ul>
+        <div class="mt-8">
+            <canvas id="chartSalesStacked" height="90"></canvas>
+        </div>
     </div>
 </div>
         </div>
@@ -239,6 +245,7 @@
 
         <!-- FILTROS Y PERSONALIZACIÓN -->
         <div class="flex flex-wrap gap-4 items-center mt-10 mb-6 bg-gradient-to-r from-blue-50 via-white to-purple-50 px-4 py-3 rounded shadow-sm border border-gray-100">
+    <button id="toggleDarkMode" type="button" class="mr-4 px-3 py-1 bg-gray-800 text-white rounded hover:bg-gray-900 transition">🌙 Modo Oscuro</button>
     <form class="flex flex-col md:flex-row gap-2 items-center w-full md:w-auto" method="GET" action="">
         <label for="dateRange" class="font-semibold">Rango de fechas:</label>
         <select id="dateRange" name="dateRange" class="rounded border-gray-300 focus:ring-blue-500 focus:border-blue-500">
@@ -474,4 +481,15 @@ window.devicesData = @json($devices);
             </div>
         </div>
     </div>
+<script>
+    document.getElementById('toggleDarkMode').onclick = function() {
+        document.documentElement.classList.toggle('dark');
+        // For Chart.js, update colors
+        if(document.documentElement.classList.contains('dark')) {
+            document.documentElement.style.setProperty('--chart-text', '#f3f4f6');
+        } else {
+            document.documentElement.style.setProperty('--chart-text', '#1e293b');
+        }
+    };
+</script>
 </x-app-layout>

@@ -184,6 +184,8 @@ class DashboardController extends Controller
             'devices' => [],
             'trendPageLoad' => [],
             'trendBounceRate' => [],
+            'sales_stacked_data' => [],
+            'sales_by_product' => [],
         ];
         if ($ga->isConfigured()) {
             $metrics['averagePageLoadTime'] = $ga->getAveragePageLoadTime($days);
@@ -200,6 +202,57 @@ class DashboardController extends Controller
                 // Aquí podrías filtrar las métricas por dispositivo si tu backend lo soporta
             }
         }
+        // --- Ventas apiladas por región y producto (top 5 productos y regiones) ---
+        $topProducts = \App\Models\OrderItem::selectRaw('product_id, SUM(quantity) as total')
+            ->groupBy('product_id')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->pluck('product_id');
+        $topRegions = \App\Models\Order::selectRaw('shipping_state as region, COUNT(*) as total')
+            ->where('payment_status', \App\Models\Order::PAYMENT_STATUS_PAID)
+            ->groupBy('shipping_state')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->pluck('region');
+        $regionLabels = $topRegions->toArray();
+        $datasets = [];
+        foreach ($topProducts as $productId) {
+            $product = \App\Models\Product::find($productId);
+            $data = [];
+            foreach ($regionLabels as $region) {
+                $qty = \App\Models\OrderItem::join('orders', 'order_items.order_id', '=', 'orders.id')
+                    ->where('orders.payment_status', \App\Models\Order::PAYMENT_STATUS_PAID)
+                    ->where('order_items.product_id', $productId)
+                    ->where('orders.shipping_state', $region)
+                    ->sum('order_items.quantity');
+                $data[] = $qty;
+            }
+            $datasets[] = [
+                'label' => $product ? $product->name : 'Producto ' . $productId,
+                'data' => $data,
+            ];
+        }
+        $metrics['sales_stacked_data'] = [
+            'labels' => $regionLabels,
+            'datasets' => $datasets
+        ];
+        // --- Ventas por producto (top 10) para gráfico ---
+        $topSales = \App\Models\OrderItem::selectRaw('product_id, SUM(quantity) as total')
+            ->groupBy('product_id')
+            ->orderByDesc('total')
+            ->limit(10)
+            ->get();
+        $labels = [];
+        $data = [];
+        foreach ($topSales as $item) {
+            $product = \App\Models\Product::find($item->product_id);
+            $labels[] = $product ? $product->name : 'Producto #' . $item->product_id;
+            $data[] = (int) $item->total;
+        }
+        $metrics['sales_by_product'] = [
+            'labels' => $labels,
+            'data' => $data
+        ];
         return response()->json($metrics);
     }
 }

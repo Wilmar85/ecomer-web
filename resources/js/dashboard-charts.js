@@ -45,6 +45,93 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Gráfico de barras apiladas: Ventas por Región y Producto (dinámico)
+    let salesStackedChart = null;
+    function renderSalesStackedChart(data) {
+        const ctx = document.getElementById('chartSalesStacked').getContext('2d');
+        if (salesStackedChart) salesStackedChart.destroy();
+        // Colores para datasets (max 10)
+        const colors = ['#2563eb','#f59e42','#10b981','#dc2626','#a21caf','#eab308','#0ea5e9','#64748b','#f43f5e','#14b8a6'];
+        data.datasets.forEach((ds,i)=>ds.backgroundColor=colors[i%colors.length]);
+        salesStackedChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top', labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--chart-text') || '#1e293b' } },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                interaction: { mode: 'nearest', axis: 'x', intersect: false },
+                scales: {
+                    x: { stacked: true, ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--chart-text') || '#1e293b' } },
+                    y: { stacked: true, beginAtZero: true, ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--chart-text') || '#1e293b' } }
+                },
+                animation: { duration: 1200, easing: 'easeOutQuart' }
+            }
+        });
+    }
+
+    // Gráfico de barras: Ventas por Producto (top 10)
+    let salesByProductChart = null;
+    function renderSalesByProductChart(data) {
+        const ctx = document.getElementById('chartSalesByProduct').getContext('2d');
+        if (salesByProductChart) salesByProductChart.destroy();
+        const colors = ['#2563eb','#f59e42','#10b981','#dc2626','#a21caf','#eab308','#0ea5e9','#64748b','#f43f5e','#14b8a6'];
+        salesByProductChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Ventas',
+                    data: data.data,
+                    backgroundColor: colors.slice(0, data.labels.length),
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: ctx => ` Ventas: ${ctx.parsed.y}` } }
+                },
+                scales: {
+                    x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--chart-text') || '#1e293b' } },
+                    y: { beginAtZero: true, ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--chart-text') || '#1e293b' } }
+                },
+                animation: { duration: 1200, easing: 'easeOutQuart' }
+            }
+        });
+    }
+
+    function fetchAndRenderSalesByProduct(filters = {}) {
+        const params = new URLSearchParams(filters).toString();
+        fetch('/admin/dashboard/data' + (params ? '?' + params : ''))
+            .then(r => r.json())
+            .then(data => {
+                if (data.sales_by_product && document.getElementById('chartSalesByProduct')) {
+                    renderSalesByProductChart(data.sales_by_product);
+                }
+            });
+    }
+    if (document.getElementById('chartSalesByProduct')) {
+        fetchAndRenderSalesByProduct();
+    }
+
+    // Inicialización y actualización con AJAX
+    function fetchAndRenderSalesStacked(filters = {}) {
+        const params = new URLSearchParams(filters).toString();
+        fetch('/admin/dashboard/data' + (params ? '?' + params : ''))
+            .then(r => r.json())
+            .then(data => {
+                if (data.sales_stacked_data && document.getElementById('chartSalesStacked')) {
+                    renderSalesStackedChart(data.sales_stacked_data);
+                }
+            });
+    }
+    if (document.getElementById('chartSalesStacked')) {
+        fetchAndRenderSalesStacked();
+    }
+
     // Gráfico de tendencia de velocidad de carga (línea)
     if (document.getElementById('trendPageLoad')) {
         new Chart(document.getElementById('trendPageLoad').getContext('2d'), {
@@ -84,13 +171,28 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             options: {
                 plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true, max: 100 } }
+                scales: { y: { beginAtZero: true, max: 100 } },
+                animation: { duration: 1200, easing: 'easeOutQuart' },
+                interaction: { intersect: false },
+                hover: { intersect: false },
+                tooltips: { enabled: false },
+                hoverOffset: 4
             }
         });
     }
 
-    // Gráfico circular de dispositivos
-    if (document.getElementById('pieDevices')) {
+    // Pie chart de dispositivos
+    if (document.getElementById('chartDevices')) {
+        // Soporte dark mode para todos los charts
+        const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (darkMode) {
+            Chart.defaults.color = '#f3f4f6';
+            document.documentElement.style.setProperty('--chart-text', '#f3f4f6');
+        } else {
+            Chart.defaults.color = '#1e293b';
+            document.documentElement.style.setProperty('--chart-text', '#1e293b');
+        }
+    
         // Obtener los datos de dispositivos desde el DOM (puedes mejorarlo con AJAX)
         const deviceLabels = [];
         const deviceCounts = [];
