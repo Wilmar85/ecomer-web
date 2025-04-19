@@ -51,6 +51,13 @@
                     </div>
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
+                <div class="flex items-center mb-4">
+                    <input id="terms" name="terms" type="checkbox" value="1" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" {{ old('terms') ? 'checked' : '' }} required>
+                    <label for="terms" class="ml-2 block text-sm text-gray-900">
+                        Acepto los <a href="{{ url('/terminos') }}" target="_blank" class="underline text-indigo-600 hover:text-indigo-800">Términos y Condiciones</a>
+                    </label>
+                </div>
+                <x-input-error :messages="$errors->get('terms')" class="mb-2" />
                 <div class="flex items-center justify-between">
                     <a href="{{ route('login') }}" class="text-sm text-indigo-600 hover:text-indigo-500">¿Ya tienes cuenta?</a>
                     <button type="submit" class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">

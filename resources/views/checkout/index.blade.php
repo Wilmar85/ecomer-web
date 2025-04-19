@@ -6,10 +6,10 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Formulario de Envío y Pago -->
-                <div class="md:col-span-2">
+                <div class="order-2 md:order-1 md:col-span-2">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Información de Envío y Pago</h3>
                         <form action="{{ route('checkout.process') }}" method="POST" id="checkout-form" class="space-y-4">
@@ -54,71 +54,83 @@
                                 </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-    <div>
-        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-        <select name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <option value="">Seleccione una ciudad</option>
-        </select>
-    </div>
-    <div>
-        <label for="neighborhood" class="block text-sm font-medium text-gray-700">Barrio</label>
-        <select name="neighborhood" id="neighborhood" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <option value="">Seleccione un barrio</option>
-        </select>
-    </div>
-</div>
-<script>
-const neighborhoodsByCity = {
-    'Bogotá': [
-        'Chapinero', 'Usaquén', 'Teusaquillo', 'Suba', 'Fontibón', 'Kennedy', 'Engativá', 'Barrios Unidos', 'Puente Aranda', 'Antonio Nariño', 'Santa Fe', 'San Cristóbal', 'Ciudad Bolívar', 'Tunjuelito', 'Bosa', 'Rafael Uribe Uribe', 'La Candelaria', 'Los Mártires', 'Sumapaz'
-    ],
-    'Medellín': [
-        'El Poblado', 'Laureles', 'Belen', 'Castilla', 'Robledo', 'Manrique', 'Aranjuez', 'Buenos Aires', 'San Javier', 'La América', 'La Candelaria', 'Doce de Octubre', 'Guayabal', 'San Antonio de Prado', 'Santa Cruz', 'Popular', 'Villa Hermosa'
-    ],
-    'Cali': [
-        'San Fernando', 'Granada', 'El Peñón', 'Aguablanca', 'Ciudad Jardín', 'San Antonio', 'La Flora', 'Versalles', 'El Ingenio', 'Santa Mónica', 'La Merced', 'Alfonso López', 'Siloé', 'Meléndez', 'San Nicolás', 'Sucre'
-    ],
-    'Barranquilla': [
-        'El Prado', 'Alto Prado', 'Villa Country', 'Ciudad Jardín', 'Boston', 'La Concepción', 'Las Delicias', 'San Vicente', 'Rebolo', 'La Unión', 'Las Nieves', 'Montecristo', 'La Ceiba', 'El Recreo'
-    ],
-    'Cartagena': [
-        'Getsemaní', 'Bocagrande', 'Manga', 'El Cabrero', 'La Matuna', 'Pie de la Popa', 'Crespo', 'Chambacú', 'San Diego', 'Torices', 'La Boquilla', 'El Bosque', 'Olaya Herrera'
-    ],
-    'Bucaramanga': [
-        'Cabecera', 'Alarcón', 'Antonia Santos', 'Provenza', 'La Concordia', 'Mutis', 'San Alonso', 'San Francisco', 'La Universidad', 'Sotomayor', 'Girardot', 'La Feria'
-    ],
-    'Pereira': [
-        'Cuba', 'Alamos', 'Centro', 'Boston', 'San Joaquín', 'Villavicencio', 'El Jardín', 'San Nicolás', 'La Circunvalar', 'Villa Santana', 'Kennedy', 'San Fernando'
-    ],
-    'Manizales': [
-        'Palogrande', 'La Enea', 'Chipre', 'El Cable', 'San Jorge', 'La Francia', 'Centro', 'Malhabar', 'Los Rosales', 'Villa Pilar', 'Campohermoso', 'Villahermosa'
-    ],
-    'Cúcuta': [
-        'La Ceiba', 'Caobos', 'Centro', 'La Riviera', 'Guaimaral', 'San Luis', 'San Rafael', 'El Contento', 'La Playa', 'Motilones', 'Los Caobos', 'La Cabrera'
-    ]
-};
-const citySelect = document.getElementById('city');
-citySelect.innerHTML = '<option value="">Seleccione una ciudad</option>';
-Object.keys(neighborhoodsByCity).forEach(function(city) {
-    const opt = document.createElement('option');
-    opt.value = city;
-    opt.textContent = city;
-    citySelect.appendChild(opt);
-});
-citySelect.addEventListener('change', function() {
-    const city = this.value;
-    const neighborhoodSelect = document.getElementById('neighborhood');
-    neighborhoodSelect.innerHTML = '<option value="">Seleccione un barrio</option>';
-    if (neighborhoodsByCity[city]) {
-        neighborhoodsByCity[city].forEach(function(barrio) {
-            const opt = document.createElement('option');
-            opt.value = barrio;
-            opt.textContent = barrio;
-            neighborhoodSelect.appendChild(opt);
-        });
-    }
-});
-</script>
+                                    <div>
+                                        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
+                                        <select name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                            <option value="">Seleccione una ciudad</option>
+                                            <option value="Bogotá">Bogotá</option>
+                                            <option value="Medellín">Medellín</option>
+                                            <option value="Cali">Cali</option>
+                                            <option value="Barranquilla">Barranquilla</option>
+                                            <option value="Cartagena">Cartagena</option>
+                                            <option value="Bucaramanga">Bucaramanga</option>
+                                            <option value="Pereira">Pereira</option>
+                                            <option value="Manizales">Manizales</option>
+                                            <option value="Cúcuta">Cúcuta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                    <div>
+                                        <label for="neighborhood" class="block text-sm font-medium text-gray-700">Barrio</label>
+                                        <select name="neighborhood" id="neighborhood" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                            <option value="">Seleccione un barrio</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                const neighborhoodsByCity = {
+                                    'Bogotá': [
+                                        'Chapinero', 'Usaquén', 'Teusaquillo', 'Suba', 'Fontibón', 'Kennedy', 'Engativá', 'Barrios Unidos', 'Puente Aranda', 'Antonio Nariño', 'Santa Fe', 'San Cristóbal', 'Ciudad Bolívar', 'Tunjuelito', 'Bosa', 'Rafael Uribe Uribe', 'La Candelaria', 'Los Mártires', 'Sumapaz'
+                                    ],
+                                    'Medellín': [
+                                        'El Poblado', 'Laureles', 'Belen', 'Castilla', 'Robledo', 'Manrique', 'Aranjuez', 'Buenos Aires', 'San Javier', 'La América', 'La Candelaria', 'Doce de Octubre', 'Guayabal', 'San Antonio de Prado', 'Santa Cruz', 'Popular', 'Villa Hermosa'
+                                    ],
+                                    'Cali': [
+                                        'San Fernando', 'Granada', 'El Peñón', 'Aguablanca', 'Ciudad Jardín', 'San Antonio', 'La Flora', 'Versalles', 'El Ingenio', 'Santa Mónica', 'La Merced', 'Alfonso López', 'Siloé', 'Meléndez', 'San Nicolás', 'Sucre'
+                                    ],
+                                    'Barranquilla': [
+                                        'El Prado', 'Alto Prado', 'Villa Country', 'Ciudad Jardín', 'Boston', 'La Concepción', 'Las Delicias', 'San Vicente', 'Rebolo', 'La Unión', 'Las Nieves', 'Montecristo', 'La Ceiba', 'El Recreo'
+                                    ],
+                                    'Cartagena': [
+                                        'Getsemaní', 'Bocagrande', 'Manga', 'El Cabrero', 'La Matuna', 'Pie de la Popa', 'Crespo', 'Chambacú', 'San Diego', 'Torices', 'La Boquilla', 'El Bosque', 'Olaya Herrera'
+                                    ],
+                                    'Bucaramanga': [
+                                        'Cabecera', 'Alarcón', 'Antonia Santos', 'Provenza', 'La Concordia', 'Mutis', 'San Alonso', 'San Francisco', 'La Universidad', 'Sotomayor', 'Girardot', 'La Feria'
+                                    ],
+                                    'Pereira': [
+                                        'Cuba', 'Alamos', 'Centro', 'Boston', 'San Joaquín', 'Villavicencio', 'El Jardín', 'San Nicolás', 'La Circunvalar', 'Villa Santana', 'Kennedy', 'San Fernando'
+                                    ],
+                                    'Manizales': [
+                                        'Palogrande', 'La Enea', 'Chipre', 'El Cable', 'San Jorge', 'La Francia', 'Centro', 'Malhabar', 'Los Rosales', 'Villa Pilar', 'Campohermoso', 'Villahermosa'
+                                    ],
+                                    'Cúcuta': [
+                                        'La Ceiba', 'Caobos', 'Centro', 'La Riviera', 'Guaimaral', 'San Luis', 'San Rafael', 'El Contento', 'La Playa', 'Motilones', 'Los Caobos', 'La Cabrera'
+                                    ]
+                                };
+                                const citySelect = document.getElementById('city');
+                                if (citySelect) {
+                                    citySelect.addEventListener('change', function() {
+                                        const city = this.value;
+                                        const neighborhoodSelect = document.getElementById('neighborhood');
+                                        if (neighborhoodSelect) {
+                                            neighborhoodSelect.innerHTML = '<option value="">Seleccione un barrio</option>';
+                                            if (neighborhoodsByCity[city]) {
+                                                neighborhoodsByCity[city].forEach(function(barrio) {
+                                                    const opt = document.createElement('option');
+                                                    opt.value = barrio;
+                                                    opt.textContent = barrio;
+                                                    neighborhoodSelect.appendChild(opt);
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                                </script>
+    
+
                             </div>
 
                             <!-- Método de Pago -->
@@ -185,9 +197,9 @@ citySelect.addEventListener('change', function() {
                 </div>
 
                 <!-- Resumen del Pedido -->
-                <div class="md:col-span-1">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Resumen del Pedido</h3>
+                <div class="order-1 md:order-2 md:col-span-1">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 md:sticky md:top-28">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Resumen del Pedido</h3>
                         <div class="space-y-4">
                             @foreach($cartItems as $item)
                             <div class="flex justify-between items-center py-2 border-b">

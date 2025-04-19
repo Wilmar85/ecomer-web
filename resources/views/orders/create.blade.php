@@ -20,7 +20,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('orders.store') }}" method="POST" class="space-y-8">
+                    <form action="{{ route('orders.store') }}" method="POST" class="space-y-8" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Resumen del pedido -->
@@ -89,46 +89,71 @@
                             <h3 class="text-lg font-medium text-gray-900">Información de Envío</h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre
-                                        completo</label>
-                                    <input type="text" name="name" id="name"
-                                        value="{{ old('name', auth()->user()->name) }}"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        required>
-                                </div>
-
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">Correo
-                                        electrónico</label>
-                                    <input type="email" name="email" id="email"
-                                        value="{{ old('email', auth()->user()->email) }}"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        required>
-                                </div>
-
-                                <div>
-                                    <label for="phone"
-                                        class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                    <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        required>
-                                <!-- Código postal eliminado y ya no es obligatorio -->
-                                </div>
-
-                                <div class="address-field">
-                                    <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
-                                    <input type="text" name="address" id="address" value="{{ old('address') }}"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                </div>
-
-                                <div class="address-field">
-    <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-    <select name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-        <option value="">Seleccione una ciudad</option>
-        <option value="Bogotá" {{ old('city') == 'Bogotá' ? 'selected' : '' }}>Bogotá</option>
-        <option value="Medellín" {{ old('city') == 'Medellín' ? 'selected' : '' }}>Medellín</option>
-        <option value="Cali" {{ old('city') == 'Cali' ? 'selected' : '' }}>Cali</option>
+    <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Nombre completo</label>
+        <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+    </div>
+    <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+        <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+    </div>
+    <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">Teléfono</label>
+        <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+        <!-- Código postal eliminado y ya no es obligatorio -->
+    </div>
+    <div class="address-field">
+        <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
+        <input type="text" name="address" id="address" value="{{ old('address') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+    </div>
+    <div class="address-field">
+        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
+        <select name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <option value="">Seleccione una ciudad</option>
+            <option value="Bogotá" {{ old('city') == 'Bogotá' ? 'selected' : '' }}>Bogotá</option>
+            <option value="Medellín" {{ old('city') == 'Medellín' ? 'selected' : '' }}>Medellín</option>
+            <option value="Cali" {{ old('city') == 'Cali' ? 'selected' : '' }}>Cali</option>
+        </select>
+    </div>
+</div>
+<!-- Departamento fuera del grid para máxima visibilidad -->
+<div class="address-field" style="margin-top: 1rem; border:2px solid red; background:#fffbe7; padding:1rem;">
+    <span style="color:red; font-weight:bold;">Aquí debe aparecer el departamento</span>
+    <label for="state" class="block text-sm font-medium text-gray-700 mt-2">Departamento</label>
+    <select name="state" id="state" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        <option value="">Seleccione un departamento</option>
+        <option value="Amazonas" {{ old('state') == 'Amazonas' ? 'selected' : '' }}>Amazonas</option>
+        <option value="Antioquia" {{ old('state') == 'Antioquia' ? 'selected' : '' }}>Antioquia</option>
+        <option value="Arauca" {{ old('state') == 'Arauca' ? 'selected' : '' }}>Arauca</option>
+        <option value="Atlántico" {{ old('state') == 'Atlántico' ? 'selected' : '' }}>Atlántico</option>
+        <option value="Bolívar" {{ old('state') == 'Bolívar' ? 'selected' : '' }}>Bolívar</option>
+        <option value="Boyacá" {{ old('state') == 'Boyacá' ? 'selected' : '' }}>Boyacá</option>
+        <option value="Caldas" {{ old('state') == 'Caldas' ? 'selected' : '' }}>Caldas</option>
+        <option value="Caquetá" {{ old('state') == 'Caquetá' ? 'selected' : '' }}>Caquetá</option>
+        <option value="Casanare" {{ old('state') == 'Casanare' ? 'selected' : '' }}>Casanare</option>
+        <option value="Cauca" {{ old('state') == 'Cauca' ? 'selected' : '' }}>Cauca</option>
+        <option value="Cesar" {{ old('state') == 'Cesar' ? 'selected' : '' }}>Cesar</option>
+        <option value="Chocó" {{ old('state') == 'Chocó' ? 'selected' : '' }}>Chocó</option>
+        <option value="Córdoba" {{ old('state') == 'Córdoba' ? 'selected' : '' }}>Córdoba</option>
+        <option value="Cundinamarca" {{ old('state') == 'Cundinamarca' ? 'selected' : '' }}>Cundinamarca</option>
+        <option value="Guainía" {{ old('state') == 'Guainía' ? 'selected' : '' }}>Guainía</option>
+        <option value="Guaviare" {{ old('state') == 'Guaviare' ? 'selected' : '' }}>Guaviare</option>
+        <option value="Huila" {{ old('state') == 'Huila' ? 'selected' : '' }}>Huila</option>
+        <option value="La Guajira" {{ old('state') == 'La Guajira' ? 'selected' : '' }}>La Guajira</option>
+        <option value="Magdalena" {{ old('state') == 'Magdalena' ? 'selected' : '' }}>Magdalena</option>
+        <option value="Meta" {{ old('state') == 'Meta' ? 'selected' : '' }}>Meta</option>
+        <option value="Nariño" {{ old('state') == 'Nariño' ? 'selected' : '' }}>Nariño</option>
+        <option value="Norte de Santander" {{ old('state') == 'Norte de Santander' ? 'selected' : '' }}>Norte de Santander</option>
+        <option value="Putumayo" {{ old('state') == 'Putumayo' ? 'selected' : '' }}>Putumayo</option>
+        <option value="Quindío" {{ old('state') == 'Quindío' ? 'selected' : '' }}>Quindío</option>
+        <option value="Risaralda" {{ old('state') == 'Risaralda' ? 'selected' : '' }}>Risaralda</option>
+        <option value="San Andrés y Providencia" {{ old('state') == 'San Andrés y Providencia' ? 'selected' : '' }}>San Andrés y Providencia</option>
+        <option value="Santander" {{ old('state') == 'Santander' ? 'selected' : '' }}>Santander</option>
+        <option value="Sucre" {{ old('state') == 'Sucre' ? 'selected' : '' }}>Sucre</option>
+        <option value="Tolima" {{ old('state') == 'Tolima' ? 'selected' : '' }}>Tolima</option>
+        <option value="Valle del Cauca" {{ old('state') == 'Valle del Cauca' ? 'selected' : '' }}>Valle del Cauca</option>
+        <option value="Vaupés" {{ old('state') == 'Vaupés' ? 'selected' : '' }}>Vaupés</option>
+        <option value="Vichada" {{ old('state') == 'Vichada' ? 'selected' : '' }}>Vichada</option>
     </select>
 </div>
 <div class="address-field">
@@ -138,6 +163,20 @@
     </select>
 </div>
 <script>
+    // Mostrar/ocultar campos de dirección según método de entrega
+    function toggleAddressFields() {
+        var delivery = document.getElementById('delivery');
+        var addressFields = document.querySelectorAll('.address-field');
+        addressFields.forEach(function(field) {
+            field.style.display = delivery.checked ? 'block' : 'none';
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleAddressFields();
+        document.getElementById('delivery').addEventListener('change', toggleAddressFields);
+        document.getElementById('pickup').addEventListener('change', toggleAddressFields);
+    });
+
     // Ciudades y barrios de ejemplo
     const neighborhoodsByCity = {
     'Bogotá': [
@@ -232,16 +271,22 @@ Object.keys(neighborhoodsByCity).forEach(function(city) {
 
                             <div class="space-y-4">
                                 @foreach ($paymentMethods as $key => $label)
-                                    <div class="flex items-center">
-                                        <input type="radio" name="payment_method" id="{{ $key }}" value="{{ $key }}"
-                                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                                            {{ old('payment_method', 'card') == $key ? 'checked' : '' }}>
-                                        <label for="{{ $key }}" class="ml-3 block text-sm font-medium text-gray-700">
-                                            {{ $label }}
-                                        </label>
-                                    </div>
-                                @endforeach
+    <div class="flex items-center">
+        <input type="radio" name="payment_method" id="{{ $key }}" value="{{ $key }}"
+            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+            {{ old('payment_method', 'card') == $key ? 'checked' : '' }}>
+        <label for="{{ $key }}" class="ml-3 block text-sm font-medium text-gray-700">
+            {{ $label }}
+        </label>
+    </div>
+@endforeach
                             </div>
+                        </div>
+
+                        <!-- Comprobante de pago solo si es efectivo -->
+                        <div id="payment-proof-field" style="display: none;">
+                            <label for="payment_proof" class="block text-sm font-medium text-gray-700">Comprobante de pago (opcional, imagen o PDF)</label>
+                            <input type="file" name="payment_proof" id="payment_proof" accept="image/*,application/pdf" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
 
                         <div class="flex justify-between items-center pt-6 border-t border-gray-200">
@@ -254,6 +299,20 @@ Object.keys(neighborhoodsByCity).forEach(function(city) {
                                 Confirmar Pedido
                             </button>
                         </div>
+                        <script>
+                        // Mostrar campo comprobante solo si es efectivo
+                        document.addEventListener('DOMContentLoaded', function() {
+                            function toggleProof() {
+                                var proof = document.getElementById('payment-proof-field');
+                                var cash = document.getElementById('cash');
+                                proof.style.display = cash && cash.checked ? 'block' : 'none';
+                            }
+                            document.querySelectorAll('input[name=payment_method]').forEach(function(el) {
+                                el.addEventListener('change', toggleProof);
+                            });
+                            toggleProof();
+                        });
+                        </script>
                     </form>
                 </div>
             </div>

@@ -72,6 +72,10 @@ class OrderController extends Controller
             'phone' => 'required|string',
             'payment_method' => 'required|in:card,cash,wompi'
         ];
+        // Si es efectivo, permitir comprobante
+        if ($request->input('payment_method') === 'cash') {
+            $rules['payment_proof'] = 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096';
+        }
 
         if ($request->input('delivery_method') === 'delivery') {
             $rules = array_merge($rules, [
@@ -82,6 +86,11 @@ class OrderController extends Controller
         }
 
         $validated = $request->validate($rules);
+        // Guardar comprobante si lo hay
+        $paymentProofPath = null;
+        if ($request->hasFile('payment_proof')) {
+            $paymentProofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
+        }
 
         try {
             DB::beginTransaction();
@@ -110,7 +119,11 @@ class OrderController extends Controller
                 ]);
             }
 
-            $order = Order::create($orderData);
+            // Agregar comprobante si existe
+        if ($paymentProofPath) {
+            $orderData['payment_proof'] = $paymentProofPath;
+        }
+        $order = Order::create($orderData);
 
             // Crear items de la orden y actualizar stock
             foreach ($cart->items as $item) {
