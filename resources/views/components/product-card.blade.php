@@ -15,41 +15,32 @@
             <p class="text-gray-600 text-sm mb-2 line-clamp-2">{{ Str::limit($product->description, 100) }}</p>
         </div>
         <div class="flex items-center justify-between pt-2 mb-2">
-    <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
-</div>
-<div class="flex gap-1">
-    <a href="{{ route('products.show', $product) }}"
-   class="w-1/2 text-xs py-2 flex justify-center items-center text-center bg-blue-600 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-    <span class="flex items-center gap-1">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 5-7 9-7 9s-7-4-7-9a7 7 0 0114 0z" />
-    </svg>
-    Ver Detalles
-</span>
-</a>
-    @auth
-        <form action="{{ route('cart.add') }}" method="POST" class="w-1/2">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <button type="submit" class="w-full text-xs py-2 flex justify-center items-center text-center bg-green-600 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
-    <span class="flex items-center gap-1">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A2 2 0 007.48 19h8.94a2 2 0 001.83-1.23L21 13M7 13V6a1 1 0 011-1h9a1 1 0 011 1v7" />
-    </svg>
-    Añadir a la tienda
-</span>
-</button>
-        </form>
-    @else
-        <a href="{{ route('register') }}" class="w-1/2 text-xs py-2 flex justify-center items-center text-center bg-yellow-500 border border-transparent rounded-md font-semibold text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition ease-in-out duration-150">
-    <span class="flex items-center gap-1">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A2 2 0 007.48 19h8.94a2 2 0 001.83-1.23L21 13M7 13V6a1 1 0 011-1h9a1 1 0 011 1v7" />
-    </svg>
-    Añadir a la tienda
-</span>
-</a>
-    @endauth
-</div>
+            <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
+        </div>
+        <div class="flex gap-1 justify-center">
+            <a href="{{ route('products.show', $product) }}"
+                class="w-10 h-10 flex justify-center items-center text-center bg-blue-600 border border-transparent rounded-full text-white hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 5-7 9-7 9s-7-4-7-9a7 7 0 0114 0z" />
+                </svg>
+            </a>
+            @auth
+                <form action="{{ route('cart.add') }}" method="POST" class="w-10 h-10">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <button type="submit" class="w-10 h-10 flex justify-center items-center text-center bg-green-600 border border-transparent rounded-full text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A2 2 0 007.48 19h8.94a2 2 0 001.83-1.23L21 13M7 13V6a1 1 0 011-1h9a1 1 0 011 1v7" />
+                        </svg>
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="w-10 h-10 flex justify-center items-center text-center bg-green-600 border border-transparent rounded-full text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A2 2 0 007.48 19h8.94a2 2 0 001.83-1.23L21 13M7 13V6a1 1 0 011-1h9a1 1 0 011 1v7" />
+                    </svg>
+                </a>
+            @endauth
+        </div>
     </div>
 </div>
