@@ -21,7 +21,7 @@
                     @endif
 
                     <form action="{{ route('admin.products.update', $product) }}" method="POST"
-                        enctype="multipart/form-data" class="space-y-6">
+                        enctype="multipart/form-data" autocomplete="off" class="space-y-6">
                         @csrf
                         @method('PUT')
 
@@ -32,6 +32,19 @@
                                 <input type="text" name="name" id="name"
                                     value="{{ old('name', $product->name) }}" required
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+
+                            <div>
+                                <label for="brand_name" class="block text-sm font-medium text-gray-700">Marca</label>
+                                <input type="text" name="brand_name" id="brand_name" list="brand-list" value="{{ old('brand_name', $product->brand->name ?? '') }}" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    placeholder="Escribe o selecciona una marca">
+                                <datalist id="brand-list">
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->name }}"></option>
+                                    @endforeach
+                                </datalist>
+                                <small class="text-gray-500">La marca se normalizará automáticamente (Ej: Samsung, Apple, etc.)</small>
                             </div>
 
                             <div>
@@ -152,7 +165,7 @@
         function deleteImage(imageId) {
             if (confirm('¿Estás seguro de que deseas eliminar esta imagen?')) {
                 const form = document.getElementById('delete-image-form');
-                form.action = `{{ route('admin.admin.product-images.destroy', ['productImage' => 'IMAGE_ID_PLACEHOLDER']) }}`.replace('IMAGE_ID_PLACEHOLDER', imageId);
+                form.action = "{{ route('admin.admin.product-images.destroy', ['productImage' => '']) }}/" + imageId;
                 form.submit();
             }
         }

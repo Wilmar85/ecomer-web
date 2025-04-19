@@ -26,6 +26,7 @@ class Product extends Model
         'is_on_sale',
         'sale_price',
         'category_id',
+        'brand_id',
         'active'
     ];
 

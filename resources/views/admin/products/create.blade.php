@@ -48,6 +48,18 @@
                             </div>
 
                             <div>
+    <label for="brand_name" class="block text-sm font-medium text-gray-700">Marca</label>
+    <input type="text" name="brand_name" id="brand_name" list="brand-list" value="{{ old('brand_name') }}" required
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        placeholder="Escribe o selecciona una marca">
+    <datalist id="brand-list">
+        @foreach ($brands as $brand)
+            <option value="{{ $brand->name }}"></option>
+        @endforeach
+    </datalist>
+    <small class="text-gray-500">La marca se normalizará automáticamente (Ej: Samsung, Apple, etc.)</small>
+</div>
+                            <div>
                                 <label for="price" class="block text-sm font-medium text-gray-700">Precio</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

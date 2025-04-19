@@ -16,11 +16,13 @@ class ProductController extends Controller
     public function create() {
         $categories = Category::all();
         $subcategories = Subcategory::all();
-        return view('admin.products.create', compact('categories', 'subcategories'));
+        $brands = \App\Models\Brand::all();
+        return view('admin.products.create', compact('categories', 'subcategories', 'brands'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'brand_name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'price' => 'required|numeric',
@@ -29,11 +31,31 @@ class ProductController extends Controller
             'active' => 'nullable|boolean',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        // Generar slug único
+        $baseSlug = \Illuminate\Support\Str::slug($validated['name']);
+        $slug = $baseSlug;
+        $counter = 1;
+        while (\App\Models\Product::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+        $validated['slug'] = $slug;
         if (empty($validated['sku'])) {
             $validated['sku'] = 'SKU-' . time() . '-' . mt_rand(1000, 9999);
         }
         $validated['active'] = $request->input('active', 0);
+        // Normalizar la marca (Primera letra mayúscula, resto minúsculas)
+        $brandName = ucfirst(mb_strtolower(trim($request->brand_name)));
+        // Buscar marca existente (ignorando mayúsculas/minúsculas)
+        $brand = \App\Models\Brand::whereRaw('LOWER(name) = ?', [mb_strtolower($brandName)])->first();
+        if (!$brand) {
+            // Si no existe, crearla
+            $brand = \App\Models\Brand::create([
+                'name' => $brandName,
+                'slug' => \Illuminate\Support\Str::slug($brandName)
+            ]);
+        }
+        $validated['brand_id'] = $brand->id;
         $product = Product::create($validated);
         $files = $request->file('images');
         if ($files) {
@@ -52,11 +74,13 @@ class ProductController extends Controller
     public function edit(Product $product) {
         $categories = Category::all();
         $subcategories = Subcategory::all();
-        return view('admin.products.edit', compact('product', 'categories', 'subcategories'));
+        $brands = \App\Models\Brand::all();
+        return view('admin.products.edit', compact('product', 'categories', 'subcategories', 'brands'));
     }
     public function update(Request $request, Product $product) {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'brand_name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'subcategory_id' => 'nullable|exists:subcategories,id',
             'price' => 'required|numeric',
@@ -65,11 +89,31 @@ class ProductController extends Controller
             'active' => 'nullable|boolean',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-        $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        // Generar slug único
+        $baseSlug = \Illuminate\Support\Str::slug($validated['name']);
+        $slug = $baseSlug;
+        $counter = 1;
+        while (\App\Models\Product::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+        $validated['slug'] = $slug;
         if (empty($validated['sku'])) {
             $validated['sku'] = 'SKU-' . time() . '-' . mt_rand(1000, 9999);
         }
         $validated['active'] = $request->input('active', 0);
+        // Normalizar la marca (Primera letra mayúscula, resto minúsculas)
+        $brandName = ucfirst(mb_strtolower(trim($request->brand_name)));
+        // Buscar marca existente (ignorando mayúsculas/minúsculas)
+        $brand = \App\Models\Brand::whereRaw('LOWER(name) = ?', [mb_strtolower($brandName)])->first();
+        if (!$brand) {
+            // Si no existe, crearla
+            $brand = \App\Models\Brand::create([
+                'name' => $brandName,
+                'slug' => \Illuminate\Support\Str::slug($brandName)
+            ]);
+        }
+        $validated['brand_id'] = $brand->id;
         $product->update($validated);
         if ($request->hasFile('images')) {
             // Elimina imágenes anteriores y sus archivos
