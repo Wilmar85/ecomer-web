@@ -25,9 +25,31 @@
                 </svg>
             </a>
             @auth
-                <form action="{{ route('cart.add') }}" method="POST" class="w-10 h-10">
+                <form action="{{ route('cart.add') }}" method="POST" class="w-10 h-10" x-data="{}" @submit.prevent="
+                    let form = $el;
+                    let data = new FormData(form);
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': data.get('_token') },
+                        body: data
+                    }).then(res => {
+                        if(res.redirected) { window.location.href = res.url; return; }
+                        if(res.ok) {
+                            res.clone().json().then(data => {
+                                if(typeof data.count !== 'undefined') {
+                                    window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: data.count } }));
+                                    if(window.Laravel && window.Laravel.updateCartCount) window.Laravel.updateCartCount(data.count);
+                                } else {
+                                    window.dispatchEvent(new CustomEvent('cart-updated'));
+                                }
+                            });
+                        }
+                        return res.json();
+                    }).catch(() => {});
+                ">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="quantity" value="1">
                     <button type="submit" class="w-10 h-10 flex justify-center items-center text-center bg-green-600 border border-transparent rounded-full text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A2 2 0 007.48 19h8.94a2 2 0 001.83-1.23L21 13M7 13V6a1 1 0 011-1h9a1 1 0 011 1v7" />

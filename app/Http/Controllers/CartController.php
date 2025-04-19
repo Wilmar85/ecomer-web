@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    /**
+     * Devuelve el número de productos en el carrito del usuario autenticado (AJAX)
+     */
+    public function cartCount(Request $request)
+    {
+        $cart = \App\Models\Cart::where('user_id', \Auth::id())->where('status', 'active')->first();
+        $count = $cart ? $cart->items()->count() : 0;
+        return response()->json(['count' => $count]);
+    }
+
     public function index(): View
     {
         $cart = Cart::firstOrCreate(
@@ -55,6 +65,16 @@ class CartController extends Controller
             ]);
         }
 
+        // Si la petición es AJAX, responder con JSON
+        if ($request->expectsJson() || $request->ajax() || $request->wantsJson()) {
+            $count = $cart->items()->count();
+            return response()->json([
+                'success' => true,
+                'message' => 'Producto agregado al carrito exitosamente.',
+                'count' => $count
+            ]);
+        }
+        // Si NO es AJAX, redirigir como antes
         return redirect()->route('cart.index')
             ->with('success', 'Producto agregado al carrito exitosamente.');
     }
