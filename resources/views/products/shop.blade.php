@@ -58,7 +58,7 @@
                 <main class="sm:w-3/4 flex-1 sm:pl-6 border-t sm:border-t-0 sm:border-l border-gray-200">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @forelse ($products as $product)
-                            <div class="bg-white rounded-lg shadow-md overflow-hidden group">
+    <x-product-card :product="$product" />
                                 @if ($product->images->isNotEmpty())
                                     <div class="aspect-w-3 aspect-h-2">
                                         <img src="{{ asset('storage/' . $product->images->first()->path) }}"
