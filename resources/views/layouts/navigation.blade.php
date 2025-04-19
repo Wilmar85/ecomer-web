@@ -182,4 +182,42 @@
     </div>
 </nav>
 
-</nav>
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/573203030595" target="_blank" id="whatsapp-float" title="¿Necesitas ayuda? Contáctanos por WhatsApp" style="position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:#25d366;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:box-shadow .2s, right 0.3s cubic-bezier(.4,0,.2,1);">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" width="34" height="34">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.08L2 22l5.17-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.61 0-3.16-.39-4.51-1.14l-.32-.17-3.07.8.82-3-.21-.33A7.93 7.93 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.13-5.47c-.2-.1-1.18-.58-1.36-.65-.18-.07-.31-.1-.44.1-.13.2-.5.65-.61.78-.11.13-.23.15-.43.05-.2-.1-.84-.31-1.6-.98-.59-.53-.99-1.18-1.11-1.38-.11-.2-.01-.3.08-.4.08-.08.2-.23.3-.35.1-.12.13-.2.2-.33.07-.13.03-.25-.01-.35-.04-.1-.44-1.06-.6-1.46-.16-.39-.32-.34-.44-.35-.11-.01-.25-.01-.39-.01-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.65s.72 1.92.82 2.05c.1.13 1.41 2.14 3.42 2.92.48.17.85.27 1.14.34.48.1.92.09 1.27.06.39-.04 1.18-.48 1.35-.94.17-.46.17-.85.12-.94-.05-.09-.17-.13-.36-.23z"/>
+    </svg>
+</a>
+<style>
+#whatsapp-float:hover {
+    box-shadow:0 6px 24px rgba(37,211,102,0.18),0 1.5px 4px rgba(0,0,0,0.10);
+    background:#1ebe57;
+}
+@media (max-width: 640px) {
+    #whatsapp-float { width:48px; height:48px; right:16px; bottom:16px; }
+    #whatsapp-float svg { width:28px; height:28px; }
+}
+#whatsapp-float.move-left {
+    right: 104px !important;
+}
+@media (max-width: 640px) {
+    #whatsapp-float.move-left {
+        right: 80px !important;
+    }
+}
+</style>
+<script>
+// Ajuste global: mueve el botón de WhatsApp a la izquierda si el de subir está visible (usa Alpine.store)
+document.addEventListener('alpine:init', () => {
+  Alpine.effect(() => {
+    const btn = document.getElementById('whatsapp-float');
+    if(btn && window.Alpine && Alpine.store && Alpine.store('scrollBtn')) {
+      if(Alpine.store('scrollBtn').visible) {
+        btn.classList.add('move-left');
+      } else {
+        btn.classList.remove('move-left');
+      }
+    }
+  });
+});
+</script>

@@ -96,13 +96,5 @@
             Aceptar
         </button>
     </div>
-    <!-- Botón flotante para subir al menú (solo home) -->
-    <div x-data="{ showBtn: false }" x-init="window.addEventListener('scroll', () => { showBtn = window.scrollY > 100 })" x-show="showBtn" style="display: none;" class="fixed bottom-6 right-6 z-50">
-        <button @click="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-blue-600 hover:bg-blue-800 text-white rounded-full shadow-lg flex items-center justify-center w-14 h-14 transition duration-200 focus:outline-none">
-            <!-- Icono de flecha hacia arriba -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
-        </button>
-    </div>
+
 </x-app-layout>
