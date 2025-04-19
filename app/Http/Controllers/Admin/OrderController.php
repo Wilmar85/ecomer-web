@@ -8,9 +8,18 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::paginate(10);
+        $validSorts = ['id', 'name', 'total', 'status', 'created_at'];
+        $sort = $request->get('sort', 'id');
+        $direction = $request->get('direction', 'desc');
+        if (!in_array($sort, $validSorts)) {
+            $sort = 'id';
+        }
+        if (!in_array($direction, ['asc', 'desc'])) {
+            $direction = 'desc';
+        }
+        $orders = Order::orderBy($sort, $direction)->paginate(10)->appends($request->except('page'));
         return view('admin.orders.index', compact('orders'));
     }
 

@@ -20,30 +20,44 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Número de Pedido
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Cliente
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Total
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Estado
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Fecha
-                                    </th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Acciones
-                                    </th>
+                                    @php
+    $sort = request('sort', 'id');
+    $direction = request('direction', 'desc');
+    function sort_link($label, $column, $sort, $direction) {
+        $icon = '';
+        if ($sort === $column) {
+            $icon = $direction === 'asc' ? '↑' : '↓';
+        }
+        $newDirection = ($sort === $column && $direction === 'asc') ? 'desc' : 'asc';
+        $query = array_merge(request()->except(['page', 'sort', 'direction']), ['sort' => $column, 'direction' => $newDirection]);
+        $url = request()->url() . '?' . http_build_query($query);
+        return '<a href="' . $url . '" class="hover:underline ' . ($sort === $column ? 'font-bold text-indigo-700' : '') . '">' . $label . ' ' . $icon . '</a>';
+    }
+@endphp
+<th scope="col"
+    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    {!! sort_link('Número de Pedido', 'id', $sort, $direction) !!}
+</th>
+<th scope="col"
+    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    {!! sort_link('Cliente', 'name', $sort, $direction) !!}
+</th>
+<th scope="col"
+    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    {!! sort_link('Total', 'total', $sort, $direction) !!}
+</th>
+<th scope="col"
+    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    {!! sort_link('Estado', 'status', $sort, $direction) !!}
+</th>
+<th scope="col"
+    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    {!! sort_link('Fecha', 'created_at', $sort, $direction) !!}
+</th>
+<th scope="col"
+    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Acciones
+</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
