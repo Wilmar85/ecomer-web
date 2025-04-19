@@ -180,6 +180,123 @@
             </div>
         </div>
 
+        <!-- MÉTRICAS DE MARKETING (GOOGLE ANALYTICS) -->
+        <div class="mt-12">
+            <h2 class="text-xl font-bold mb-6">Métricas de Marketing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="font-semibold text-gray-700">Tráfico del sitio web (últimos 30 días)</div>
+                        <div class="text-3xl">
+                            @if($trafficSummary !== null)
+                                {{ number_format($trafficSummary) }} sesiones
+                            @else
+                                <span class="text-red-500">Conecta Google Analytics para ver esta métrica</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="font-semibold text-gray-700 mb-2">Fuentes de tráfico (últimos 30 días)</div>
+                        @if($trafficSources !== null)
+                            <ul>
+                                @foreach($trafficSources as $source => $count)
+                                    <li class="flex justify-between border-b py-1">
+                                        <span>{{ $source }}</span>
+                                        <span class="font-semibold">{{ number_format($count) }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <span class="text-red-500">Conecta Google Analytics para ver esta métrica</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="font-semibold text-gray-700">Tasa de Clics (CTR)</div>
+                        <div class="text-3xl">
+                            @if($ctr !== null)
+                                {{ $ctr }}%
+                            @else
+                                <span class="text-red-500">No disponible o sin datos</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÉTRICAS DE INVENTARIO -->
+        <div class="mt-12">
+            <h2 class="text-xl font-bold mb-6">Métricas de Inventario</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="font-semibold text-gray-700 mb-2">Niveles de Stock</div>
+                        <ul>
+                            @forelse($stockLevels as $product)
+                                <li class="flex justify-between border-b py-1">
+                                    <span>{{ $product->name }}</span>
+                                    <span class="font-semibold">{{ $product->stock }}</span>
+                                </li>
+                            @empty
+                                <li>No hay productos.</li>
+                            @endforelse
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="font-semibold text-gray-700 mb-2">Unidades Vendidas</div>
+                        <ul>
+                            @forelse($unitsSold as $item)
+                                <li class="flex justify-between border-b py-1">
+                                    <span>{{ $item->product->name ?? 'Producto #' . $item->product_id }}</span>
+                                    <span class="font-semibold">{{ $item->total_sold }}</span>
+                                </li>
+                            @empty
+                                <li>No hay ventas.</li>
+                            @endforelse
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="font-semibold text-gray-700 mb-2">Productos Más Vendidos (Top 10)</div>
+                        <ul>
+                            @forelse($topSellingProducts as $item)
+                                <li class="flex justify-between border-b py-1">
+                                    <span>{{ $item->product->name ?? 'Producto #' . $item->product_id }}</span>
+                                    <span class="font-semibold">{{ $item->total_sold }}</span>
+                                </li>
+                            @empty
+                                <li>No hay datos.</li>
+                            @endforelse
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6">
+                        <div class="font-semibold text-gray-700 mb-2">Productos de Bajo Stock (≤ 5 unidades)</div>
+                        <ul>
+                            @forelse($lowStockProducts as $product)
+                                <li class="flex justify-between border-b py-1">
+                                    <span>{{ $product->name }}</span>
+                                    <span class="font-semibold text-red-600">{{ $product->stock }}</span>
+                                </li>
+                            @empty
+                                <li>No hay productos en bajo stock.</li>
+                            @endforelse
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- MÉTRICAS DE CLIENTES -->
         <div class="mt-12">
             <h2 class="text-xl font-bold mb-6">Métricas de Clientes</h2>

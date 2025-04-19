@@ -92,6 +92,42 @@ class DashboardController extends Controller
         // Tasa de adquisición: nuevos clientes / total clientes (últimos 30 días)
         $acquisitionRate = $totalCustomers > 0 ? round($newCustomers / $totalCustomers * 100, 2) : null;
 
+        // Google Analytics: tráfico y fuentes
+        $trafficSummary = null;
+        $trafficSources = null;
+        try {
+            $ga = app(\App\Services\GoogleAnalyticsService::class);
+            if ($ga->isConfigured()) {
+                $trafficSummary = $ga->getTrafficSummary(30);
+                $trafficSources = $ga->getTrafficSources(30);
+                $ctr = $ga->getClickThroughRate(30);
+            } else {
+                $ctr = null;
+            }
+        } catch (\Throwable $e) {
+            $trafficSummary = null;
+            $trafficSources = null;
+            $ctr = null;
+        }
+
+        // INVENTARIO
+        // Niveles de stock (todos los productos)
+        $stockLevels = \App\Models\Product::select('id', 'name', 'stock')->orderBy('name')->get();
+
+        // Unidades vendidas (por producto)
+        $unitsSold = \App\Models\OrderItem::select('product_id')
+            ->selectRaw('SUM(quantity) as total_sold')
+            ->groupBy('product_id')
+            ->with('product')
+            ->orderByDesc('total_sold')
+            ->get();
+
+        // Productos más vendidos (top 10)
+        $topSellingProducts = $unitsSold->take(10);
+
+        // Productos de bajo stock (stock <= 5)
+        $lowStockProducts = \App\Models\Product::where('stock', '<=', 5)->orderBy('stock')->get();
+
         return view('admin.dashboard', compact(
             'totalRevenue',
             'salesByProduct',
@@ -106,7 +142,14 @@ class DashboardController extends Controller
             'demographicsByState',
             'customerLifetimeValue',
             'retentionRate',
-            'acquisitionRate'
+            'acquisitionRate',
+            'trafficSummary',
+            'trafficSources',
+            'ctr',
+            'stockLevels',
+            'unitsSold',
+            'topSellingProducts',
+            'lowStockProducts'
         ));
     }
 }
