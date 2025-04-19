@@ -9,6 +9,15 @@
                         <hr class="border-gray-200 mb-4">
                     </div>
                     <form action="{{ route('shop.index') }}" method="GET" class="space-y-6">
+    <div>
+        <label class="block text-sm font-semibold mb-2">Marca</label>
+        <select name="brand" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <option value="">Todas</option>
+            @foreach ($brands as $brand)
+                <option value="{{ $brand->id }}" {{ request('brand') == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
+            @endforeach
+        </select>
+    </div>
                         <div>
                             <label class="block text-sm font-semibold mb-2">Buscar</label>
                             <input type="text" name="search" value="{{ request('search') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Buscar productos...">

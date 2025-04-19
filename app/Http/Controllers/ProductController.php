@@ -24,18 +24,27 @@ class ProductController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        if ($request->filled('price_min')) {
-            $query->where('price', '>=', $request->price_min);
+        if ($request->filled('price_range')) {
+            [$min, $max] = explode('-', $request->price_range);
+            $query->where('price', '>=', $min)->where('price', '<=', $max);
+        } else {
+            if ($request->filled('price_min')) {
+                $query->where('price', '>=', $request->price_min);
+            }
+            if ($request->filled('price_max')) {
+                $query->where('price', '<=', $request->price_max);
+            }
         }
 
-        if ($request->filled('price_max')) {
-            $query->where('price', '<=', $request->price_max);
+        if ($request->filled('brand')) {
+            $query->where('brand_id', $request->brand);
         }
 
         $products = $query->latest()->paginate(12);
         $categories = Category::all();
+$brands = \App\Models\Brand::all();
 
-        return view('shop.index', compact('products', 'categories'));
+        return view('shop.index', compact('products', 'categories', 'brands'));
     }
 
     public function create(): View

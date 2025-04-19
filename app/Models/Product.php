@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
     use HasFactory;
 
     protected $fillable = [

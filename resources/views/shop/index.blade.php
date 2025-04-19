@@ -30,8 +30,32 @@
                                 @endforeach
                             </select>
                         </div>
-                        <!-- Rango de precio -->
-                        <div class="flex gap-2">
+                        <!-- Filtro por marca -->
+                        <div>
+                            <label for="brand" class="block text-sm font-medium text-gray-700 mb-1">Marca</label>
+                            <select name="brand" id="brand" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                <option value="">Todas las marcas</option>
+                                @if(isset($brands))
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}" {{ request('brand') == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <!-- Rango de precio predefinido -->
+                        <div>
+                            <label for="price_range" class="block text-sm font-medium text-gray-700 mb-1">Rango de precio rápido</label>
+                            <select name="price_range" id="price_range" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                <option value="">Todos</option>
+                                <option value="0-100" {{ request('price_range') == '0-100' ? 'selected' : '' }}>$0 - $100</option>
+                                <option value="100-250" {{ request('price_range') == '100-250' ? 'selected' : '' }}>$100 - $250</option>
+                                <option value="250-500" {{ request('price_range') == '250-500' ? 'selected' : '' }}>$250 - $500</option>
+                                <option value="500-1000" {{ request('price_range') == '500-1000' ? 'selected' : '' }}>$500 - $1000</option>
+                                <option value="1000-999999" {{ request('price_range') == '1000-999999' ? 'selected' : '' }}>$1000+</option>
+                            </select>
+                        </div>
+                        <!-- Rango de precio personalizado -->
+                        <div class="flex gap-2 mt-2">
                             <div class="flex-1">
                                 <label for="price_min" class="block text-sm font-medium text-gray-700 mb-1">Precio mínimo</label>
                                 <input type="number" name="price_min" id="price_min" value="{{ request('price_min') }}"
@@ -71,4 +95,26 @@
             </div>
         </div>
     </div>
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const priceRange = document.getElementById('price_range');
+    const priceMin = document.getElementById('price_min');
+    const priceMax = document.getElementById('price_max');
+    if (priceRange && priceMin && priceMax) {
+        priceRange.addEventListener('change', function () {
+            if (this.value) {
+                const [min, max] = this.value.split('-');
+                priceMin.value = min;
+                priceMax.value = max;
+            } else {
+                priceMin.value = '';
+                priceMax.value = '';
+            }
+        });
+    }
+});
+</script>
+@endpush
+
 </x-app-layout>
