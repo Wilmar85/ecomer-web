@@ -81,6 +81,7 @@
                             </div>
 
                             <script>
+                                // Manejo de barrios por ciudad
                                 const neighborhoodsByCity = {
                                     'Bogotá': [
                                         'Chapinero', 'Usaquén', 'Teusaquillo', 'Suba', 'Fontibón', 'Kennedy', 'Engativá', 'Barrios Unidos', 'Puente Aranda', 'Antonio Nariño', 'Santa Fe', 'San Cristóbal', 'Ciudad Bolívar', 'Tunjuelito', 'Bosa', 'Rafael Uribe Uribe', 'La Candelaria', 'Los Mártires', 'Sumapaz'
@@ -156,6 +157,17 @@
                             </div>
 
                             <script>
+                            // Manejo de required dinámico para dirección, ciudad y barrio
+                            function toggleShippingRequired() {
+                                const isDelivery = document.getElementById('delivery').checked;
+                                document.getElementById('street').required = isDelivery;
+                                document.getElementById('city').required = isDelivery;
+                                document.getElementById('neighborhood').required = isDelivery;
+                            }
+                            document.getElementById('delivery').addEventListener('change', toggleShippingRequired);
+                            document.getElementById('pickup').addEventListener('change', toggleShippingRequired);
+                            document.addEventListener('DOMContentLoaded', toggleShippingRequired);
+
                             // Mostrar/ocultar comprobante y método de envío
                             function togglePaymentFields() {
                                 const paymentCash = document.getElementById('payment_cash').checked;

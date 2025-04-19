@@ -99,7 +99,7 @@ class CheckoutController extends Controller
                 'shipping_method' => 'required|in:delivery,pickup',
                 'street' => 'required_if:shipping_method,delivery',
                 'city' => 'required_if:shipping_method,delivery',
-                'state' => 'required_if:shipping_method,delivery',
+                'neighborhood' => 'required_if:shipping_method,delivery',
                 'phone' => 'required',
                 'payment_proof' => 'required_if:payment_method,comprobante|image|mimes:jpeg,png,jpg,gif,svg|max:4096'
             ]);
@@ -154,10 +154,8 @@ class CheckoutController extends Controller
                 'payment_proof' => $paymentProofPath,
                 'shipping_method' => $shippingMethod,
                 'shipping_name' => $request->name,
-                'shipping_address' => $shippingMethod === 'delivery' ? $request->street : 'Pickup in store',
+                'shipping_address' => $shippingMethod === 'delivery' ? ($request->street . ', Barrio: ' . $request->neighborhood) : 'Pickup in store',
                 'shipping_city' => $shippingMethod === 'delivery' ? $request->city : '',
-                'shipping_state' => $shippingMethod === 'delivery' ? $request->state : '',
-                'shipping_zip' => $shippingMethod === 'delivery' ? $request->postal_code : '',
                 'shipping_phone' => $request->phone,
                 'email' => $request->email,
                 'name' => $request->name,
