@@ -140,7 +140,7 @@
                                 <div class="flex items-center space-x-4">
                                     <label class="inline-flex items-center">
                                         <input type="radio" name="payment_method" id="payment_cash" value="cash" class="form-radio h-4 w-4 text-indigo-600" checked>
-                                        <span class="ml-2">Pago en Efectivo (recoge en tienda)</span>
+                                        <span class="ml-2">Pago en Efectivo</span>
                                     </label>
                                     <label class="inline-flex items-center">
                                         <input type="radio" name="payment_method" id="payment_proof_radio" value="comprobante" class="form-radio h-4 w-4 text-indigo-600">
@@ -157,46 +157,55 @@
                             </div>
 
                             <script>
-                            // Manejo de required dinámico para dirección, ciudad y barrio
-                            function toggleShippingRequired() {
-                                const isDelivery = document.getElementById('delivery').checked;
-                                document.getElementById('street').required = isDelivery;
-                                document.getElementById('city').required = isDelivery;
-                                document.getElementById('neighborhood').required = isDelivery;
-                            }
-                            document.getElementById('delivery').addEventListener('change', toggleShippingRequired);
-                            document.getElementById('pickup').addEventListener('change', toggleShippingRequired);
-                            document.addEventListener('DOMContentLoaded', toggleShippingRequired);
+                            // Lógica combinada para métodos de pago y envío
+function updateCheckoutFields() {
+    // DEPURACIÓN: Verifica si la función se ejecuta y el estado de los radios
+    console.log('updateCheckoutFields ejecutada');
+    const isDelivery = document.getElementById('delivery').checked;
+    const paymentProofRadio = document.getElementById('payment_proof_radio');
+    console.log('isDelivery:', isDelivery, 'paymentProofRadio.checked:', paymentProofRadio.checked);
 
-                            // Mostrar/ocultar comprobante y método de envío
-                            function togglePaymentFields() {
-                                const paymentCash = document.getElementById('payment_cash').checked;
-                                const comprobanteSection = document.getElementById('comprobante-section');
-                                const paymentProofInput = document.getElementById('payment_proof');
-                                const pickupRadio = document.getElementById('pickup');
-                                const deliveryRadio = document.getElementById('delivery');
-                                const shippingSection = document.getElementById('shipping-address-section');
+    const street = document.getElementById('street');
+    const city = document.getElementById('city');
+    const neighborhood = document.getElementById('neighborhood');
+    const paymentProofInput = document.getElementById('payment_proof');
+    const paymentCashRadio = document.getElementById('payment_cash');
+    const comprobanteSection = document.getElementById('comprobante-section');
+    // Dirección solo requerida/habilitada si es delivery
+    street.required = isDelivery;
+    city.required = isDelivery;
+    neighborhood.required = isDelivery;
+    street.disabled = !isDelivery;
+    city.disabled = !isDelivery;
+    neighborhood.disabled = !isDelivery;
+    // Ocultar/mostrar sección dirección
+    const shippingSection = document.getElementById('shipping-address-section');
+    shippingSection.style.display = isDelivery ? '' : 'none';
+    if (!isDelivery) {
+        street.value = '';
+        city.value = '';
+        neighborhood.value = '';
+    }
+    // Comprobante solo requerido si se selecciona comprobante
+    if (paymentProofRadio.checked) {
+        comprobanteSection.style.display = 'block';
+        paymentProofInput.required = true;
+    } else {
+        comprobanteSection.style.display = 'none';
+        paymentProofInput.required = false;
+        paymentProofInput.value = '';
+    }
+}
 
-                                if (paymentCash) {
-                                    comprobanteSection.style.display = 'none';
-                                    paymentProofInput.required = false;
-                                    // Solo permitir recoger en tienda
-                                    pickupRadio.checked = true;
-                                    pickupRadio.disabled = false;
-                                    deliveryRadio.checked = false;
-                                    deliveryRadio.disabled = true;
-                                    shippingSection.style.display = 'none';
-                                } else {
-                                    comprobanteSection.style.display = 'block';
-                                    paymentProofInput.required = true;
-                                    // Permitir ambos métodos de envío
-                                    pickupRadio.disabled = false;
-                                    deliveryRadio.disabled = false;
-                                }
-                            }
-                            document.getElementById('payment_cash').addEventListener('change', togglePaymentFields);
-                            document.getElementById('payment_proof_radio').addEventListener('change', togglePaymentFields);
-                            document.addEventListener('DOMContentLoaded', togglePaymentFields);
+document.getElementById('delivery').addEventListener('change', updateCheckoutFields);
+document.getElementById('pickup').addEventListener('change', updateCheckoutFields);
+document.getElementById('payment_cash').addEventListener('change', updateCheckoutFields);
+document.getElementById('payment_proof_radio').addEventListener('change', updateCheckoutFields);
+// Ejecuta siempre después de definir la función y listeners
+updateCheckoutFields();
+document.addEventListener('DOMContentLoaded', updateCheckoutFields);
+
+                            
                             </script>
 
                             <div class="mt-6">
@@ -204,7 +213,22 @@
                                     Confirmar Pedido
                                 </button>
                             </div>
-                        </form>
+                            <script>
+    // Garantiza consistencia antes de enviar el formulario
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+        const paymentCash = document.getElementById('payment_cash').checked;
+        const pickupRadio = document.getElementById('pickup');
+        const deliveryRadio = document.getElementById('delivery');
+        // Habilita ambos radios antes de enviar
+        pickupRadio.disabled = false;
+        deliveryRadio.disabled = false;
+        if (paymentCash) {
+            pickupRadio.checked = true;
+            deliveryRadio.checked = false;
+        }
+    });
+    </script>
+</form>
                     </div>
                 </div>
 

@@ -218,8 +218,14 @@ class CheckoutController extends Controller
             abort(403);
         }
 
-        $order->status = 'completed';
-        $order->save();
+        // Solo marcar como completed si NO es pickup ni efectivo
+        if (
+            ($order->shipping_method !== 'pickup') &&
+            ($order->payment_method !== 'cash')
+        ) {
+            $order->status = 'completed';
+            $order->save();
+        }
 
         return view('checkout.success', compact('order'));
     }
