@@ -120,12 +120,14 @@ $brands = \App\Models\Brand::all();
 
     public function edit(Product $product): View
     {
+        $this->authorize('update', $product);
         $categories = Category::all();
         return view('products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product): RedirectResponse
     {
+        $this->authorize('update', $product);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -163,6 +165,7 @@ $brands = \App\Models\Brand::all();
 
     public function destroy(Product $product): RedirectResponse
     {
+        $this->authorize('delete', $product);
         $product->delete();
 
         return redirect()->route('products.index')

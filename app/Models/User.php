@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function preferences()
+    {
+        return $this->hasOne(\App\Models\UserPreference::class);
+    }
+
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);

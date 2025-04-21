@@ -141,14 +141,17 @@ class OrderController extends Controller
 
             DB::commit();
 
+            // Notificar al usuario
+            \Auth::user()->notify(new \App\Notifications\OrderCreatedNotification($order));
+
             // Si el método de pago es Wompi, redirigir al widget embebido
             if ($validated['payment_method'] === 'wompi') {
                 return redirect()->route('wompi.widget', $order);
             }
 
-            return redirect()->route('orders.show', $order)
-                ->with('success', 'Pedido creado exitosamente.');
-
+            // Redirigir a la vista de pedidos
+            return redirect()->route('orders.show', $order->id)
+                ->with('success', 'Pedido realizado exitosamente.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', $e->getMessage());

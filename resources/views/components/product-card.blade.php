@@ -6,8 +6,21 @@
             $imgUrl = method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : (property_exists($product->images->first(), 'image_path') ? asset('storage/' . $product->images->first()->image_path) : asset('storage/' . $product->images->first()->path));
         @endphp
         <a href="{{ route('products.show', $product) }}">
-            <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+            <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-48 object-cover" loading="lazy">
         </a>
+        <!-- Ejemplo de Alpine.js para modal rápido -->
+        <button x-data="{ open: false }" @click="open = true" class="absolute top-2 right-2 bg-white rounded-full shadow p-1 hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 5-7 9-7 9s-7-4-7-9a7 7 0 0114 0z" />
+            </svg>
+        </button>
+        <div x-data="{ open: false }" x-show="open" @click.away="open = false" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40" style="display:none;">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+                <h2 class="font-bold text-lg mb-2">{{ $product->name }}</h2>
+                <p class="mb-2">{{ $product->description }}</p>
+                <button @click="open = false" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">Cerrar</button>
+            </div>
+        </div>
     @endif
     <div class="p-4 flex flex-col flex-1 justify-between">
         <div>

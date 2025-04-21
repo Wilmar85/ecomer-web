@@ -8,4 +8,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: process.env.VITE_HOST || 'localhost', // Alterna entre localhost y 0.0.0.0 según variable de entorno
+        cors: true, // Permite CORS para desarrollo
+    },
 });

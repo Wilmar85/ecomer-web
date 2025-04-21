@@ -31,6 +31,9 @@ class CartController extends Controller
         return view('cart.index', compact('cart'));
     }
 
+    /**
+     * Agrega un producto al carrito con validación de stock y manejo de concurrencia.
+     */
     public function addItem(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -38,45 +41,51 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $product = Product::findOrFail($validated['product_id']);
-
-        if ($product->stock < $validated['quantity']) {
-            return back()->with('error', 'No hay suficiente stock disponible.');
-        }
-
-        $cart = Cart::firstOrCreate(
-            ['user_id' => Auth::id(), 'status' => 'active'],
-            ['total' => 0]
-        );
-
-        $cartItem = $cart->items()->where('product_id', $product->id)->first();
-
-        if ($cartItem) {
-            $newQuantity = $cartItem->quantity + $validated['quantity'];
-            if ($newQuantity > $product->stock) {
-                return back()->with('error', 'No hay suficiente stock disponible.');
+        try {
+            \DB::transaction(function () use ($validated, $request) {
+                $product = Product::lockForUpdate()->findOrFail($validated['product_id']);
+                if ($product->stock < $validated['quantity']) {
+                    throw new \Exception('No hay suficiente stock disponible.');
+                }
+                $cart = Cart::firstOrCreate(
+                    ['user_id' => \Auth::id(), 'status' => 'active'],
+                    ['total' => 0]
+                );
+                $cartItem = $cart->items()->where('product_id', $product->id)->first();
+                if ($cartItem) {
+                    $newQuantity = $cartItem->quantity + $validated['quantity'];
+                    if ($newQuantity > $product->stock) {
+                        throw new \Exception('No hay suficiente stock disponible.');
+                    }
+                    $cartItem->update(['quantity' => $newQuantity]);
+                } else {
+                    $cart->items()->create([
+                        'product_id' => $product->id,
+                        'quantity' => $validated['quantity'],
+                        'price' => $product->price
+                    ]);
+                }
+            });
+        } catch (\Exception $e) {
+            if ($request->expectsJson() || $request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ], 400);
             }
-            $cartItem->update(['quantity' => $newQuantity]);
-        } else {
-            $cart->items()->create([
-                'product_id' => $product->id,
-                'quantity' => $validated['quantity'],
-                'price' => $product->price
-            ]);
+            return back()->with('error', $e->getMessage());
         }
 
-        // Si la petición es AJAX, responder con JSON
+        $cart = Cart::where('user_id', \Auth::id())->where('status', 'active')->first();
         if ($request->expectsJson() || $request->ajax() || $request->wantsJson()) {
-            $count = $cart->items()->count();
+            $count = $cart ? $cart->items()->count() : 0;
             return response()->json([
                 'success' => true,
                 'message' => 'Producto agregado al carrito exitosamente.',
                 'count' => $count
             ]);
         }
-        // Si NO es AJAX, redirigir como antes
-        return redirect()->route('cart.index')
-            ->with('success', 'Producto agregado al carrito exitosamente.');
+        return redirect()->route('cart.index')->with('success', 'Producto agregado al carrito exitosamente.');
     }
 
     public function updateItem(Request $request, $itemId): RedirectResponse
@@ -100,6 +109,9 @@ class CartController extends Controller
         return back()->with('success', 'Carrito actualizado exitosamente.');
     }
 
+    /**
+     * Elimina un producto del carrito y elimina el carrito si queda vacío.
+     */
     public function removeItem($itemId): RedirectResponse
     {
         $cart = Cart::where('user_id', Auth::id())
@@ -107,10 +119,15 @@ class CartController extends Controller
             ->firstOrFail();
 
         $cart->items()->findOrFail($itemId)->delete();
-
+        if ($cart->items()->count() === 0) {
+            $cart->delete();
+        }
         return back()->with('success', 'Producto eliminado del carrito exitosamente.');
     }
 
+    /**
+     * Vacía el carrito y lo elimina si queda sin productos.
+     */
     public function clear(): RedirectResponse
     {
         $cart = Cart::where('user_id', Auth::id())
@@ -119,8 +136,9 @@ class CartController extends Controller
 
         $cart->items()->delete();
         $cart->updateTotal();
-
-        return redirect()->route('cart.index')
-            ->with('success', 'Carrito vaciado exitosamente.');
+        if ($cart->items()->count() === 0) {
+            $cart->delete();
+        }
+        return back()->with('success', 'Carrito vaciado exitosamente.');
     }
 }
