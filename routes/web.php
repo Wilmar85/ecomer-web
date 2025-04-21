@@ -30,12 +30,15 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\BrandController;
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 // Sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+
+Route::get('/brands', [BrandController::class, 'index'])->name('brands.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

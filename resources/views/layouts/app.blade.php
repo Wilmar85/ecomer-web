@@ -18,6 +18,7 @@
         @vite(['resources/css/app.css', 'resources/sass/main.scss', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+        @include('components.top-banner')
         <div class="min-h-screen bg-gray-100 flex flex-col">
             @include('layouts.navigation')
 

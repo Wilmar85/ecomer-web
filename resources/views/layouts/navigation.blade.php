@@ -24,6 +24,7 @@
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contacto') }}
                     </x-nav-link>
+                    
                 </div>
             </div>
 
