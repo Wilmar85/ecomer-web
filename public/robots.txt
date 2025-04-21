@@ -1,7 +1,8 @@
 User-agent: *
+Allow: /
 Disallow: /admin
 Disallow: /login
 Disallow: /register
 Disallow: /dashboard
 
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://intereleticosfa.com/sitemap.xml

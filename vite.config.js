@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
     plugins: [
@@ -7,9 +8,21 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/sass/main.scss', 'resources/js/app.js'],
             refresh: true,
         }),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: 'public/fonts',
+                    dest: ''
+                },
+                {
+                    src: 'public/favicon.ico',
+                    dest: ''
+                }
+            ]
+        })
     ],
     server: {
-        host: process.env.VITE_HOST || 'localhost', // Alterna entre localhost y 0.0.0.0 según variable de entorno
-        cors: true, // Permite CORS para desarrollo
+        host: process.env.VITE_HOST || 'localhost',
+        cors: true,
     },
 });

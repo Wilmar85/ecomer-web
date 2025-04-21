@@ -1,8 +1,8 @@
 @php
-    $metaTitle = 'Inicio | E-commerce Web';
-    $metaDescription = 'Bienvenido a la mejor tienda online. Descubre productos de calidad, ofertas y envío gratis en compras mayores a $500.';
-    $metaKeywords = 'inicio, ecommerce, ofertas, productos, tienda online';
-    $ogTitle = 'Bienvenido a E-commerce Web';
+    $metaTitle = 'Inicio | InterEleticosf&A';
+    $metaDescription = 'Bienvenido a InterEleticosf&A, tu tienda online de confianza para productos de calidad, ofertas exclusivas y envío gratis en compras mayores a $500.';
+    $metaKeywords = 'inicio, ecommerce, ofertas, productos, tienda online, InterEleticosfA';
+    $ogTitle = 'Bienvenido a InterEleticosf&A';
     $ogDescription = 'Explora nuestra tienda online y encuentra productos increíbles a precios bajos.';
     $ogImage = asset('images/default-og.png');
     $canonical = url('/');
@@ -88,13 +88,18 @@
         </div>
     </div>
     <!-- Banner de Cookies (Ley Colombiana) -->
-    <div x-data="{ showCookieBanner: localStorage.getItem('cookieAccepted') !== '1' }" x-show="showCookieBanner" class="fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 z-50 flex flex-col md:flex-row items-center justify-between">
+    <div x-data="{ showCookieBanner: localStorage.getItem('cookieAccepted') !== '1' && localStorage.getItem('cookieAccepted') !== '0' }" x-show="showCookieBanner" class="fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 z-50 flex flex-col md:flex-row items-center justify-between gap-2">
         <span>
             Usamos cookies para mejorar tu experiencia y cumplir la <b>Ley 1581 de 2012</b> y <b>Decreto 1377 de 2013</b> de Colombia. Consulta nuestra <a href="{{ url('/cookies') }}" class="underline text-blue-300">Política de Cookies</a>.
         </span>
-        <button @click="localStorage.setItem('cookieAccepted', '1'); showCookieBanner = false" class="mt-2 md:mt-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Aceptar
-        </button>
+        <div class="flex gap-2 mt-2 md:mt-0">
+            <button @click="localStorage.setItem('cookieAccepted', '1'); showCookieBanner = false" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Aceptar
+            </button>
+            <button @click="localStorage.setItem('cookieAccepted', '0'); showCookieBanner = false" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                Rechazar
+            </button>
+        </div>
     </div>
 
 </x-app-layout>

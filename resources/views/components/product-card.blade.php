@@ -6,7 +6,7 @@
             $imgUrl = method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : (property_exists($product->images->first(), 'image_path') ? asset('storage/' . $product->images->first()->image_path) : asset('storage/' . $product->images->first()->path));
         @endphp
         <a href="{{ route('products.show', $product) }}">
-            <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-48 object-cover" loading="lazy">
+            <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="w-full h-48 object-cover object-center max-w-full max-h-48 rounded-t-lg" style="aspect-ratio: 4/3;" loading="lazy">
         </a>
         <!-- Ejemplo de Alpine.js para modal rápido -->
         <button x-data="{ open: false }" @click="open = true" class="absolute top-2 right-2 bg-white rounded-full shadow p-1 hover:bg-gray-100">

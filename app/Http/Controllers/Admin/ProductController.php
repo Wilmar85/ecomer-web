@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class ProductController extends Controller
 {
@@ -65,6 +66,7 @@ class ProductController extends Controller
             foreach ($files as $image) {
                 if ($image && $image->isValid()) {
                     $path = $image->store('products', 'public');
+ImageOptimizer::optimize(storage_path('app/public/' . $path));
                     $product->images()->create(['image_path' => $path]);
                 }
             }
@@ -128,6 +130,7 @@ class ProductController extends Controller
             foreach ($files as $image) {
                 if ($image && $image->isValid()) {
                     $path = $image->store('products', 'public');
+ImageOptimizer::optimize(storage_path('app/public/' . $path));
                     $product->images()->create(['image_path' => $path]);
                 }
             }

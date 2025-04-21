@@ -1,3 +1,9 @@
+@php
+    $metaTitle = 'Sobre Nosotros | InterEleticosf&A';
+    $metaDescription = 'Descubre la historia, misión, visión y valores de InterEleticosf&A, tu tienda online de confianza.';
+    $metaKeywords = 'sobre nosotros, empresa, misión, visión, valores, ecommerce, InterEleticosfA';
+@endphp
+
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

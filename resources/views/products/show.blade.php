@@ -58,7 +58,7 @@
             </h2>
             <div class="flex gap-2 items-center">
                 @can('update', $product)
-                    <a href="{{ route('products.edit', $product) }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Editar</a>
+                    <a href="{{ route('admin.products.edit', $product) }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Editar</a>
                 @endcan
                 <a href="{{ route('products.index') }}" class="text-blue-500 hover:text-blue-700">
                     {{ __('Volver a Productos') }}

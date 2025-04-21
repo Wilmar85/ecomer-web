@@ -53,12 +53,12 @@
 
                                         @if (Auth::user()?->isAdmin())
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('products.edit', $product) }}"
+                                                <a href="{{ route('admin.products.edit', $product) }}"
                                                     class="text-yellow-500 hover:text-yellow-700">
                                                     Editar
                                                 </a>
 
-                                                <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                                <form action="{{ route('admin.products.destroy', $product) }}" method="POST"
                                                     class="inline"
                                                     onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
                                                     @csrf

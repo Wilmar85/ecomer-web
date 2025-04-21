@@ -1,5 +1,5 @@
 {{-- SEO Meta Tags Dinámicos y Estructurados --}}
-<title>{{ $metaTitle ?? config('app.name', 'E-commerce Web') }}</title>
+<title>{{ $metaTitle ?? config('app.name', 'InterEleticosf&A') }}</title>
 <meta name="description" content="{{ $metaDescription ?? 'Tienda online de productos de calidad al mejor precio. ¡Descubre nuestras ofertas!' }}">
 <meta name="keywords" content="{{ $metaKeywords ?? 'ecommerce, tienda, compras, ofertas, productos, categorías' }}">
 <meta name="robots" content="index, follow">
