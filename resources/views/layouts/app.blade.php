@@ -15,7 +15,7 @@
         <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/sass/main.scss', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         @include('components.top-banner')

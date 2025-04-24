@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Mixins reutilizables para media queries, flex, etc.
 @mixin flex-center {
   display: flex;
@@ -16,7 +18,7 @@ $breakpoints: (
 
 // Mixin para media query "hasta" (máximo)
 @mixin respond-max($breakpoint) {
-  $size: map-get($breakpoints, $breakpoint);
+  $size: map.get($breakpoints, $breakpoint);
   @if $size {
     @media (max-width: #{$size}) {
       @content;
@@ -28,7 +30,7 @@ $breakpoints: (
 
 // Mixin para media query "desde" (mínimo)
 @mixin respond-min($breakpoint) {
-  $size: map-get($breakpoints, $breakpoint);
+  $size: map.get($breakpoints, $breakpoint);
   @if $size {
     @media (min-width: #{$size}) {
       @content;

@@ -1,5 +1,5 @@
-import './bootstrap';
-
+//import './bootstrap';
+import '../sass/main.scss';
 
 import Alpine from 'alpinejs';
 

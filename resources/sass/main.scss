@@ -1,49 +1,27 @@
 // Archivo principal de Sass
 //config
-@import './config/color';
-@import './config/fonts';
+@use './config/color' as c;
+@use './config/fonts' as f;
 //mixins
-@import './mixins/_breakpoints.scss';
+@use './mixins/_breakpoints.scss' as b;
 //estilos base
-@import './base/normalize';
+@use './base/normalize' as n;
 //Componentes
-@import './components/_buttons';
-@import './components/_alerts';
-@import './components/_inputs';
-@import './components/_forms';
-@import './components/_modals';
-@import './components/_cards';
-@import './components/_navbars';
-@import './components/_dropdowns';
-@import './components/_tooltips';
-@import './components/_pagination';
-@import './components/_badges';
-@import './components/_progress';
-@import './components/_tables';
-@import './components/_list-group';
-@import './components/_toasts';
-@import './components/_spinners';
-@import './components/_carousel';
-@import './components/_tabs';
-@import './components/_accordion';
-@import './components/_pagination';
-@import './components/_breadcrumbs';
-@import './components/_offcanvas';
-@import './components/_list-group';
-@import './components/_media';
-@import './components/_jumbotron';
-@import './components/_alerts';
-@import './components/_typography';
-@import './components/_grid';
-@import './components/_utilities';
-@import './components/_helpers';
-@import './components/_scrollspy';
-@import './components/_utilities-api';
+//@use './components/_alerts';
+@use './components/_top-banner';
+
+// ... resto del código
+
+// @import './components/_grid';
+// @import './components/_utilities';
+// @import './components/_helpers';
+// @import './components/_scrollspy';
+// @import './components/_utilities-api';
 
 
 body {
-  background: $gray-light;
-  font-family: $font-main;
+  background: c.$gray-light;
+  font-family: c.$font-main;
 }
 
 // Puedes seguir agregando más reglas y overrides aquí
