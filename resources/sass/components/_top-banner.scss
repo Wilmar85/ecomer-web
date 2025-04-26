@@ -15,6 +15,18 @@
   justify-content: space-between; 
   box-shadow: c.$box-shadow;
  }
+.barner__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0
+}
+
 .banner__container--left, .banner__container--right {
     display: flex;
     align-items: center;
@@ -34,10 +46,9 @@
     height: 1rem;
     fill: c.$secondary;
   }
- &:hover {
-    .banner__span__icon path {
-       fill: c.$primary;
-    }
+
+&:hover .banner__span__icon path {
+    fill: c.$primary;
   }
 }
 
