@@ -52,73 +52,66 @@
     </script>
     @endpush
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="products-show__header-bar">
+            <h2 class="products-show__header">
                 {{ $product->name }}
             </h2>
-            <div class="flex gap-2 items-center">
+            <div>
                 @can('update', $product)
-                    <a href="{{ route('admin.products.edit', $product) }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Editar</a>
+                    <a href="{{ route('admin.products.edit', $product) }}" class="products-show__edit-btn">Editar</a>
                 @endcan
-                <a href="{{ route('products.index') }}" class="text-blue-500 hover:text-blue-700">
+                <a href="{{ route('products.index') }}" class="products-show__back-link">
                     {{ __('Volver a Productos') }}
                 </a>
             </div>
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    @if (session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-                            role="alert">
-                            <span class="block sm:inline">{{ session('success') }}</span>
-                        </div>
-                    @endif
+    <div class="products-show">
+        <div class="products-show__container">
+            @if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    <span>{{ session('error') }}</span>
+                </div>
+            @endif
 
-                    @if (session('error'))
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
-                            role="alert">
-                            <span class="block sm:inline">{{ session('error') }}</span>
+            <div class="products-show__gallery">
+                @if ($product->images->isNotEmpty())
+                    <div x-data="{ selectedImage: '{{ method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path) }}' }">
+                        <div class="products-show__img-wrapper">
+                            <img :src="selectedImage" alt="{{ $product->name }}" class="products-show__img">
                         </div>
-                    @endif
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="space-y-4">
-                            @if ($product->images->isNotEmpty())
-    <div x-data="{ selectedImage: '{{ method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path) }}' }">
-        <div class="relative h-96 overflow-hidden rounded-lg">
-            <img :src="selectedImage" alt="{{ $product->name }}" class="w-full h-full object-cover transition-all duration-200">
-        </div>
-        @if ($product->images->count() > 1)
-            <div class="grid grid-cols-4 gap-2 mt-2">
-                @foreach ($product->images as $image)
-                    @php
-                        $imgUrl = method_exists($image, 'getImageUrlAttribute') ? $image->image_url : asset('storage/' . $image->image_path);
-                    @endphp
-                    <img src="{{ $imgUrl }}" alt="{{ $product->name }}"
-                        class="w-full h-24 object-cover rounded cursor-pointer hover:opacity-75 border-2 border-transparent hover:border-blue-400"
-                        @click="selectedImage = '{{ $imgUrl }}'">
-                @endforeach
-            </div>
-        @endif
-    </div>
-                            @else
-                                <div class="h-96 bg-gray-200 flex items-center justify-center rounded-lg">
-                                    <span class="text-gray-500">Sin imagen</span>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="space-y-6">
-                            <div>
-                                <h1 class="text-3xl font-bold text-gray-900">{{ $product->name }}</h1>
-                                <p class="text-sm text-gray-500">Categoría: {{ $product->category->name }}</p>
+                        @if ($product->images->count() > 1)
+                            <div class="products-show__thumbs">
+                                @foreach ($product->images as $image)
+                                    @php
+                                        $imgUrl = method_exists($image, 'getImageUrlAttribute') ? $image->image_url : asset('storage/' . $image->image_path);
+                                    @endphp
+                                    <img src="{{ $imgUrl }}" alt="{{ $product->name }}"
+                                        class="products-show__thumb"
+                                        @click="selectedImage = '{{ $imgUrl }}'">
+                                @endforeach
                             </div>
+                        @endif
+                    </div>
+                @else
+                    <div class="products-show__img--placeholder">
+                        <span>Sin imagen</span>
+                    </div>
+                @endif
+            </div>
 
-                            <div class="text-2xl font-bold text-gray-900">
+            <div class="products-show__info">
+                <h1 class="products-show__name">{{ $product->name }}</h1>
+                <p class="products-show__meta">Categoría: {{ $product->category->name }}</p>
+                <div class="products-show__price">
+                    ${{ number_format($product->price, 2) }}
+                </div>
                                 ${{ number_format($product->price, 2) }}
                             </div>
 

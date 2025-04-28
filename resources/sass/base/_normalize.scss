@@ -246,6 +246,14 @@ legend {
   white-space: normal; /* 1 */
 }
 
+h1 {
+  font-size: 2.2rem;
+  margin-top: 0;
+  margin-bottom: 1.15em;
+  font-weight: 800;
+  line-height: 1.14;
+}
+
 /**
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
@@ -297,7 +305,10 @@ textarea {
  */
 
 [type="search"]::-webkit-search-decoration {
+  appearance: none;
+  appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 /**

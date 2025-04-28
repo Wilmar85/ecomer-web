@@ -1,27 +1,27 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="admin-categories-edit__title">
             {{ __('Editar Categoría') }}
         </h2>
     </x-slot>
-    <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="admin-categories-edit__section">
+        <div class="admin-categories-edit__container">
+            <div class="admin-categories-edit__card">
+                <div class="admin-categories-edit__content">
                     <form method="POST" action="{{ route('admin.categories.update', $category) }}">
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
-                            <label class="block text-gray-700">Nombre</label>
-                            <input type="text" name="name" value="{{ old('name', $category->name) }}" class="form-input mt-1 block w-full" required />
+                            <label class="admin-categories-edit__label">Nombre</label>
+                            <input type="text" name="name" value="{{ old('name', $category->name) }}" class="admin-categories-edit__input" required />
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-700">Descripción</label>
-                            <textarea name="description" class="form-input mt-1 block w-full">{{ old('description', $category->description) }}</textarea>
+                            <label class="admin-categories-edit__label">Descripción</label>
+                            <textarea name="description" class="admin-categories-edit__input">{{ old('description', $category->description) }}</textarea>
                         </div>
-                        <div class="flex justify-end">
-                            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary mr-2">Cancelar</a>
-                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <div class="admin-categories-edit__actions">
+                            <a href="{{ route('admin.categories.index') }}" class="admin-categories-edit__button admin-categories-edit__button--secondary">Cancelar</a>
+                            <button type="submit" class="admin-categories-edit__button admin-categories-edit__button--primary">Actualizar</button>
                         </div>
                     </form>
                 </div>

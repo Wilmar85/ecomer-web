@@ -1,0 +1,21 @@
+@use '../mixins/breakpoints' as *;
+
+.admin-products-edit {
+  &__header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+  }
+  &__form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

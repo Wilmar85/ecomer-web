@@ -1,0 +1,208 @@
+// BEM SASS para la página de Contacto
+
+.contact img, .contact__img {
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 1.2rem auto;
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 12px rgba(80,80,80,0.09);
+}
+
+// Moderniza los íconos SVG
+.contact svg {
+  width: 1.7rem !important;
+  height: 1.7rem !important;
+  color: #2563eb;
+  background: #f1f5f9;
+  border-radius: 0.6rem;
+  padding: 0.22rem;
+  box-shadow: 0 1px 6px rgba(80,80,80,0.09);
+  margin-right: 0.6rem;
+  transition: background 0.18s, color 0.18s;
+}
+.contact .flex.items-center:hover svg {
+  background: #2563eb;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .contact img, .contact__img {
+    max-width: 110px;
+  }
+  .contact svg {
+    width: 1.1rem !important;
+    height: 1.1rem !important;
+    padding: 0.13rem;
+  }
+}
+
+// Mejora títulos y separadores
+div.contact__card {
+  border: 1.5px solid #e0e7ef;
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 8px 32px rgba(80,80,80,0.10);
+  padding-top: 2.2rem;
+  padding-bottom: 2.2rem;
+}
+.contact__title {
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #2563eb;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.7rem;
+  text-shadow: 0 2px 12px rgba(80,80,80,0.07);
+}
+.contact__content {
+  gap: 2.8rem;
+}
+
+// Mejora el formulario
+.contact__form, form[action*="contact"] {
+  background: #f8fafc;
+  border-radius: 1.1rem;
+  padding: 1.1rem 1.2rem 1rem 1.2rem;
+  box-shadow: 0 2px 14px rgba(80,80,80,0.08);
+  border: 1.5px solid #e0e7ef;
+}
+.contact__input, .contact__textarea, input[type="text"], input[type="email"], textarea {
+  background: #fff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  box-shadow: 0 1px 3px rgba(80,80,80,0.04);
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.contact__input:focus, .contact__textarea:focus, input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px #2563eb22;
+  outline: none;
+}
+.contact__button, button[type="submit"] {
+  background: linear-gradient(135deg, #2563eb 60%, #60a5fa 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+  box-shadow: 0 2px 8px 0 rgba(80,80,80,0.13);
+  margin-top: 0.8rem;
+}
+.contact__button:hover, button[type="submit"]:hover {
+  background: linear-gradient(135deg, #1d4ed8 60%, #38bdf8 100%);
+  box-shadow: 0 6px 18px 0 rgba(80,80,80,0.18);
+  transform: scale(1.04);
+}
+
+
+
+.contact {
+  padding: 2.5rem 0;
+  background: #f5f7fa;
+
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  &__card {
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 24px rgba(80,80,80,0.08);
+    padding: 2.5rem 2rem 2rem 2rem;
+    overflow: hidden;
+  }
+
+  &__title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: center;
+  }
+
+  &__info {
+    flex: 1 1 320px;
+    color: #475569;
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+
+  &__form {
+    flex: 1 1 320px;
+    background: #f1f5f9;
+    border-radius: 1rem;
+    padding: 1.2rem 1.2rem 1rem 1.2rem;
+    box-shadow: 0 2px 8px rgba(80,80,80,0.06);
+  }
+
+  &__input-group {
+    margin-bottom: 1.2rem;
+  }
+
+  &__label {
+    display: block;
+    color: #2563eb;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  &__input, &__textarea {
+    width: 100%;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    background: #fff;
+    transition: border 0.2s;
+    box-shadow: 0 1px 3px rgba(80,80,80,0.04);
+    &:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+  }
+
+  &__button {
+    background: linear-gradient(135deg, #2563eb 60%, #60a5fa 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.8rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+    box-shadow: 0 2px 8px 0 rgba(80,80,80,0.13);
+    &:hover {
+      background: linear-gradient(135deg, #1d4ed8 60%, #38bdf8 100%);
+      box-shadow: 0 6px 18px 0 rgba(80,80,80,0.18);
+      transform: scale(1.04);
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .contact__content {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .contact__card {
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+  }
+}

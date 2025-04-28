@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <h1 class="text-2xl font-bold mb-4">Política de Cookies</h1>
+<div class="cookies">
+    <div class="cookies__card">
+        <h1 class="cookies__title">Política de Cookies</h1>
         <p class="mb-4">
             Este sitio web utiliza cookies para mejorar la experiencia del usuario, analizar el tráfico y personalizar el contenido, cumpliendo con la <b>Ley 1581 de 2012</b>, el <b>Decreto 1377 de 2013</b> y las directrices de la <b>Superintendencia de Industria y Comercio (SIC)</b> de Colombia.
         </p>

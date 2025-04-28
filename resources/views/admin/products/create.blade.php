@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="admin-products-create__header">
             {{ __('Crear Nuevo Producto') }}
         </h2>
     </x-slot>
@@ -21,7 +21,7 @@
                     @endif
 
                     <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data"
-                        class="space-y-6">
+                        class="admin-products-create__form">
                         @csrf
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

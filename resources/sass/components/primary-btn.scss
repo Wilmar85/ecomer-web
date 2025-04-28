@@ -1,0 +1,23 @@
+@use '../mixins/breakpoints' as *;
+
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  background: #1f2937;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.98rem;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover, &:focus {
+    background: #374151;
+  }
+  &:active {
+    background: #111827;
+  }
+}

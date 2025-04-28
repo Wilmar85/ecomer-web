@@ -1,0 +1,40 @@
+@use '../config/_color.scss' as c;
+
+.admin-categories-edit {
+  &__container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+
+  &__form {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(30,41,59,0.08);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__field {
+    margin-bottom: 1rem;
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: c.$gray-dark;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid c.$gray-light;
+    
+    &--error {
+      border-color: c.$danger;
+    }
+  }
+}

@@ -1,0 +1,134 @@
+@use '../config/_color.scss' as c;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  &__trigger {
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: box-shadow 0.2s;
+    outline: none;
+  }
+  &__content {
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    min-width: 12rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
+    z-index: 50;
+    padding: 0.5rem 0;
+    overflow: hidden;
+  }
+  &__item {
+    padding: 0.5rem 1.2rem;
+    color: c.$gray-dark;
+    background: none;
+    border: none;
+    text-align: left;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    &:hover, &:focus {
+      background: c.$gray-light;
+      color: c.$secondary;
+    }
+  }
+}
+
+// Oculta el dropdown en mobile por defecto
+@media (max-width: 639px) {
+  .dropdown {
+    display: none !important;
+  }
+  // Permite forzar su visibilidad con una clase
+  .dropdown--mobile-visible {
+    display: block !important;
+  }
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  &__trigger {
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: box-shadow 0.2s;
+    outline: none;
+  }
+  &__content {
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    min-width: 12rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
+    z-index: 50;
+    padding: 0.5rem 0;
+    overflow: hidden;
+  }
+  &__item {
+    padding: 0.5rem 1.2rem;
+    color: c.$gray-dark;
+    background: none;
+    border: none;
+    text-align: left;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    &:hover, &:focus {
+      background: c.$gray-light;
+      color: c.$secondary;
+    }
+  }
+}
+
+// Oculta el dropdown en mobile por defecto
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  &__trigger {
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: box-shadow 0.2s;
+    outline: none;
+  }
+  &__content {
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    min-width: 12rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
+    z-index: 50;
+    padding: 0.5rem 0;
+    overflow: hidden;
+  }
+  &__item {
+    padding: 0.5rem 1.2rem;
+    color: c.$gray-dark;
+    background: none;
+    border: none;
+    text-align: left;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    &:hover, &:focus {
+      background: c.$gray-light;
+      color: c.$secondary;
+    }
+  }
+}
+
+// Oculta el dropdown en mobile por defecto
+@media (max-width: 639px) {
+  .dropdown {
+    display: none !important;
+  }
+  .dropdown--mobile-visible {
+    display: block !important;
+  }
+}
+

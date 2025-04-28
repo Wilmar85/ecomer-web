@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="admin-products-edit__header">
             {{ __('Editar Producto') }}
         </h2>
     </x-slot>
@@ -21,7 +21,7 @@
                     @endif
 
                     <form action="{{ route('admin.products.update', $product) }}" method="POST"
-                        enctype="multipart/form-data" autocomplete="off" class="space-y-6">
+                        enctype="multipart/form-data" autocomplete="off" class="admin-products-edit__form">
                         @csrf
                         @method('PUT')
 

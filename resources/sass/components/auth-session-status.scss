@@ -1,0 +1,7 @@
+@use '../config/_color.scss' as c;
+
+.auth-session-status {
+  color: c.$success;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}

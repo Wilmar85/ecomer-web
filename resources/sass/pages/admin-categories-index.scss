@@ -1,0 +1,101 @@
+@use '../config/_color.scss' as c;
+
+.categories__title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: c.$primary;
+  margin-bottom: 2rem;
+}
+.categories__table {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.06);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+.categories__table-main {
+  width: 100%;
+  border-collapse: collapse;
+}
+.categories__table-th {
+  font-weight: 700;
+  color: c.$gray-dark;
+  background: #f1f5f9;
+  padding: 0.75rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+.categories__table-td {
+  padding: 0.75rem;
+  color: c.$gray-dark;
+}
+.categories__table-row {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+.categories__table-cell {
+  font-size: 1rem;
+  color: c.$gray-dark;
+}
+.categories__table-cell--muted {
+  color: c.$gray-light;
+}
+.categories__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.categories__btn {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  &--primary { background: c.$primary; color: #fff; }
+  &--secondary { background: #fff; color: c.$primary; border: 1px solid c.$primary; }
+  &--warning { background: #fbbf24; color: #fff; }
+  &--danger { background: #ef4444; color: #fff; }
+}
+.categories__modal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background: rgba(30,41,59,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.categories__modal-content {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgba(30,41,59,0.08);
+  padding: 2rem;
+  min-width: 320px;
+  max-width: 95vw;
+}
+.categories__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.categories__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.categories__label {
+  font-weight: 700;
+  color: c.$gray-dark;
+}
+.categories__input, .categories__textarea {
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+.categories__form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}

@@ -1,2 +1,1 @@
-<img src="{{ asset('images/logo.png') }}" alt="Logo" loading="lazy" {{ $attributes }}>
-
+<img src="{{ asset('images/logo.png') }}" class="application-logo" loading="lazy" {{ $attributes }}>

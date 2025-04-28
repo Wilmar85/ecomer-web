@@ -1,26 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="products-edit__header-bar">
+            <h2 class="products-edit__header">
                 {{ __('Editar Producto') }}
             </h2>
             @can('delete', $product)
                 <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="ml-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Eliminar</button>
+                    <button type="submit" class="products-edit__delete-btn">Eliminar</button>
                 </form>
             @endcan
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="products-edit">
+        <div class="products-edit__container">
+            <div class="products-edit__card">
+                <div class="products-edit__form-wrapper">
                     @if ($errors->any())
-                        <div class="mb-4">
-                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                        <div class="products-edit__msg">
+                            <div class="products-edit__alert products-edit__alert--error"
                                 role="alert">
                                 <strong class="font-bold">¡Error!</strong>
                                 <ul>
@@ -33,15 +33,15 @@
                     @endif
 
                     <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data"
-                        class="space-y-6">
+                        class="products-edit__form">
                         @csrf
                         @method('PUT')
 
                         <div>
                             <x-input-label for="name" :value="__('Nombre del producto')" />
-                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                            <x-text-input id="name" name="name" type="text" class="products-edit__input"
                                 :value="old('name', $product->name)" required autofocus />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('name')" class="products-edit__input-error" />
                         </div>
 
                         <div>
@@ -56,21 +56,21 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('category_id')" class="products-edit__input-error" />
                         </div>
 
                         <div>
                             <x-input-label for="price" :value="__('Precio')" />
-                            <x-text-input id="price" name="price" type="number" class="mt-1 block w-full"
+                            <x-text-input id="price" name="price" type="number" class="products-edit__input"
                                 :value="old('price', $product->price)" step="0.01" required />
-                            <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('price')" class="products-edit__input-error" />
                         </div>
 
                         <div>
                             <x-input-label for="stock" :value="__('Stock')" />
-                            <x-text-input id="stock" name="stock" type="number" class="mt-1 block w-full"
+                            <x-text-input id="stock" name="stock" type="number" class="products-edit__input"
                                 :value="old('stock', $product->stock)" required />
-                            <x-input-error :messages="$errors->get('stock')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('stock')" class="products-edit__input-error" />
                         </div>
 
                         <div>
@@ -78,7 +78,7 @@
                             <textarea id="description" name="description"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                 rows="4">{{ old('description', $product->description) }}</textarea>
-                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('description')" class="products-edit__input-error" />
                         </div>
 
                         <!-- Imágenes actuales -->
@@ -133,7 +133,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <x-input-error :messages="$errors->get('images')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('images')" class="products-edit__input-error" />
 <div id="image-upload-feedback" class="mb-4 hidden">
     <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
         <span class="block sm:inline" id="image-upload-message"></span>

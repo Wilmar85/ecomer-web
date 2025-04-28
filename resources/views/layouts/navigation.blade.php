@@ -1,20 +1,20 @@
-<nav x-data="{ open: false }" class="bg-gray-800 border-b border-red-600">
+<nav class="menu__nav">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class="menu__container">
+        <div class="menu__row">
         
         
-            <div class="flex">
+            <div class="menu__left">
 
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="menu__logo">
                     <a href="{{ route('home') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-white-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-12 sm:-my-px sm:ms-10 sm:flex">
+                <div class="menu__links-desktop">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
@@ -34,7 +34,7 @@
             <!-- Settings Dropdown -->
 
             <!-- Cart and Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
+            <div class="menu__actions-desktop">
                 {{-- Usamos @auth para asegurarnos de que el usuario está logueado --}}
                 @auth
                     @if(Auth::user()->isAdmin())
@@ -97,8 +97,7 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button class="menu__burger inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,7 +112,7 @@
 
     <!-- Responsive Navigation Menu -->
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+    <div class="menu__links-mobile">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}

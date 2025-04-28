@@ -1,0 +1,21 @@
+@use '../config/_color.scss' as c;
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: c.$gray;
+  border-bottom: 2px solid transparent;
+  background: none;
+  text-decoration: none;
+  transition: color 0.2s, border-bottom 0.2s;
+  &--active {
+    color: c.$secondary;
+    border-bottom: 2px solid c.$secondary;
+  }
+  &:hover, &:focus {
+    color: c.$secondary;
+  }
+}

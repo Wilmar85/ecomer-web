@@ -20,56 +20,46 @@
 @endpush
 
 <x-app-layout>
-    <div class="py-12">
+    <div class="home">
         <!-- Banner Informativo -->
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-12">
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg shadow-xl overflow-hidden">
-                <div class="px-6 py-12 md:px-12 text-center md:text-left">
-                    <div class="md:flex md:items-center md:justify-between">
-                        <div class="md:w-2/3">
-                            <h1 class="text-3xl font-extrabold text-white sm:text-4xl">
-                                Bienvenido a nuestra tienda en línea
-                            </h1>
-                            <p class="mt-4 text-lg text-blue-100">
-                                Descubre nuestra selección de productos de alta calidad a los mejores precios.
-                                ¡Envío gratis en compras mayores a $500!
-                            </p>
-                            <div class="mt-8">
-                                <a href="{{ route('shop.index') }}"
-                                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Ir a la Tienda
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+        <section class="home__section home__banner">
+            <div class="home__banner-content">
+                <h1 class="home__banner-title">
+                    Bienvenido a nuestra tienda en línea
+                </h1>
+                <p class="home__banner-desc">
+                    Descubre nuestra selección de productos de alta calidad a los mejores precios.
+                    ¡Envío gratis en compras mayores a $500!
+                </p>
+                <div>
+                    <a href="{{ route('shop.index') }}" class="home__banner-cta">
+                        Ir a la Tienda
+                    </a>
                 </div>
             </div>
-        </div>
+        </section>
+
 
         <!-- Categorías Destacadas -->
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Categorías Destacadas</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <section class="home__section home__categories">
+            <h2 class="home__categories-title">Categorías Destacadas</h2>
+            <div class="home__categories-grid">
                 @foreach ($categories as $category)
-                    <a href="{{ route('categories.show', $category) }}" class="group">
-                        <div
-                            class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 transform hover:scale-105">
-                            <div class="p-4">
-                                <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600">
-                                    {{ $category->name }}</h3>
-                                <p class="text-sm text-gray-600">{{ $category->products_count }} productos</p>
-                            </div>
+                    <a href="{{ route('categories.show', $category) }}" class="home__categories-card">
+                        <div>
+                            <h3 class="home__categories-card-title">{{ $category->name }}</h3>
+                            <p class="home__categories-card-count">{{ $category->products_count }} productos</p>
                         </div>
                     </a>
                 @endforeach
             </div>
-        </div>
+        </section>
 
         <!-- Productos vistos recientemente -->
         @if(isset($visitedProducts) && $visitedProducts->isNotEmpty())
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Productos que has visto recientemente</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="home__recent">
+            <h2 class="home__recent-title">Productos que has visto recientemente</h2>
+            <div class="home__recent-grid">
                 @foreach ($visitedProducts as $product)
     <x-product-card :product="$product" />
 @endforeach
@@ -78,9 +68,9 @@
         @endif
 
         <!-- Productos Destacados -->
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Productos Destacados</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="home__products">
+            <h2 class="home__products-title">Productos Destacados</h2>
+            <div class="home__recent-grid">
                 @foreach ($products as $product)
                     <x-product-card :product="$product" />
                 @endforeach
@@ -88,10 +78,10 @@
         </div>
 
         <!-- Marcas de Clientes -->
-        {{-- <x-brand-section :brands="[
+        <x-brand-section :brands="[
             'MERCURY', 'TITANIUM', 'ZAFIRO', 'ILUMAX', 'ECOLITE', 'EXCELITE', 'INTERLED', 'DEXON', 'BRIOLIGH', 'ROYAL', 'LUMEK',
             'TITANIUM', 'DIXTON', 'BAYTER', 'SPARKLED', 'KARLUX', 'FELGOLUX', 'NEW LIGHT', 'DIGITAL LIGHT', 'SICOLUX', 'ACRILED', 'MARWA'
-        ]" /> --}}
+        ]" />
     </div>
     <!-- Banner de Cookies (Ley Colombiana) -->
     <div x-data="{ showCookieBanner: localStorage.getItem('cookieAccepted') !== '1' && localStorage.getItem('cookieAccepted') !== '0' }" x-show="showCookieBanner" class="fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 z-50 flex flex-col md:flex-row items-center justify-between gap-2">

@@ -1,0 +1,38 @@
+@use '../config/_color.scss' as c;
+
+.verify-email__info {
+  font-size: 1rem;
+  color: c.$gray;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.verify-email__status {
+  font-size: 1rem;
+  color: c.$success;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.verify-email__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.verify-email__button {
+  background: none;
+  border: none;
+  color: c.$secondary;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  &:hover, &:focus {
+    color: c.$primary;
+    background: c.$gray-light;
+  }
+}

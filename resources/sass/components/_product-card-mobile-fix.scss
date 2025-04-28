@@ -1,0 +1,10 @@
+// Limita el ancho de la tarjeta de producto en móviles para evitar pantalla completa
+@media (max-width: 600px) {
+  .product-card {
+    max-width: 98vw;
+    min-width: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -1,0 +1,151 @@
+@use '../config/_color.scss' as c;
+
+.menu__nav {
+  background: c.$secondary;
+  border-bottom: 2px solid c.$primary;
+  box-shadow: 0 2px 16px rgba(30,41,59,0.07);
+  position: relative;
+  z-index: 30;
+}
+.menu__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.menu__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+}
+.menu__logo {
+  display: flex;
+  align-items: center;
+  img, svg {
+    height: 2.5rem;
+    width: auto;
+  }
+}
+.menu__links-desktop {
+  display: none;
+  @media (min-width: 640px) {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    margin-left: 2rem;
+  }
+}
+.menu__actions-desktop {
+  display: none;
+  @media (min-width: 640px) {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: 2rem;
+  }
+}
+.menu__links-mobile {
+  display: none !important;
+  background: rgba(36, 59, 85, 0.92);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-top: 1.5px solid rgba(255,255,255,0.13);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  border-bottom-left-radius: 1.3rem;
+  border-bottom-right-radius: 1.3rem;
+  padding: 1.4rem 1.1rem 2.2rem 1.1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 40;
+  transform: translateY(-24px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(.4,2,.6,1), transform 0.32s cubic-bezier(.4,2,.6,1);
+  @media (min-width: 640px) {
+    display: none !important;
+  }
+}
+.menu__links-mobile--open {
+  display: block !important;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  animation: fadeDown 0.32s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.menu__links-mobile .responsive-nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  transition: background 0.2s, color 0.2s;
+  &:hover, &--active {
+    background: c.$primary;
+    color: #fff;
+  }
+}
+.menu__links-desktop .nav-link {
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  transition: background 0.2s, color 0.2s;
+  &:hover, &--active {
+    background: c.$primary;
+    color: #fff;
+  }
+}
+.menu__actions-desktop > * {
+  margin-left: 1rem;
+}
+.menu__burger {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.13);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0 2px 8px rgba(30,41,59,0.13);
+  color: #fff;
+  font-size: 2.1rem;
+  cursor: pointer;
+  border-radius: 0.9rem;
+  padding: 0.38rem 0.7rem;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+  z-index: 50;
+  @media (min-width: 640px) {
+    display: none;
+  }
+  &:hover, &:focus {
+    background: rgba(255,255,255,0.22);
+    box-shadow: 0 4px 16px rgba(30,41,59,0.18);
+    transform: scale(1.07);
+  }
+}
+
+.menu__links-mobile--open {
+  display: block !important;
+  animation: fadeIn 0.25s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: none;}
+}
+// Mobile overlay for menu
+.menu__overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30,41,59,0.7);
+  z-index: 20;
+  @media (max-width: 639px) {
+    display: block;
+  }
+}

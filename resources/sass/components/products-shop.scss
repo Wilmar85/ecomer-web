@@ -1,0 +1,84 @@
+// Modern sidebar filters for products shop
+.products-shop {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 640px) {
+    flex-direction: row;
+    gap: 2.5rem;
+  }
+
+  &__sidebar {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
+    border: 1.5px solid rgba(200,200,200,0.16);
+    padding: 2.2rem 1.4rem 2rem 1.4rem;
+    min-width: 270px;
+    max-width: 320px;
+    margin-bottom: 2rem;
+    position: sticky;
+    top: 2.5rem;
+    align-self: flex-start;
+    @media (max-width: 639px) {
+      position: static;
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1.5rem;
+      border-radius: 1.1rem;
+      padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+    }
+  }
+  &__filter-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.1rem;
+    letter-spacing: -0.01em;
+    text-align: left;
+  }
+  &__filter-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.4rem;
+    margin-top: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+  &__filter-input {
+    width: 100%;
+    background: rgba(245,247,250,0.93);
+    border: 1.2px solid #e5e7eb;
+    border-radius: 0.7rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.18s, box-shadow 0.18s;
+    margin-bottom: 0.5rem;
+    color: #334155;
+    &:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px #2563eb33;
+      outline: none;
+    }
+  }
+  &__filter-btn {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.7rem 0;
+    background: linear-gradient(90deg,#2563eb 0%,#1e40af 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0.9rem;
+    font-size: 1.07rem;
+    font-weight: 700;
+    box-shadow: 0 2px 12px rgba(37,99,235,0.09);
+    cursor: pointer;
+    transition: background 0.22s, transform 0.15s;
+    &:hover, &:focus {
+      background: linear-gradient(90deg,#1e40af 0%,#2563eb 100%);
+      transform: translateY(-2px) scale(1.03);
+    }
+  }
+}

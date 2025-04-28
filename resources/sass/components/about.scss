@@ -1,0 +1,94 @@
+// BEM SASS para la página Sobre Nosotros
+.about {
+  padding: 2.5rem 0;
+  background: #f5f7fa;
+
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  &__card {
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 24px rgba(80,80,80,0.08);
+    padding: 2.5rem 2rem 2rem 2rem;
+    overflow: hidden;
+  }
+
+  &__title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  &__intro {
+    margin-bottom: 2.2rem;
+  }
+
+  &__desc {
+    font-size: 1.15rem;
+    color: #334155;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  &__mission-vision {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  &__mission, &__vision {
+    flex: 1 1 280px;
+    background: #f1f5f9;
+    border-radius: 1rem;
+    padding: 1.2rem 1.2rem 1rem 1.2rem;
+    box-shadow: 0 2px 8px rgba(80,80,80,0.06);
+  }
+
+  &__subtitle {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.8rem;
+  }
+
+  &__text {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  &__values-section {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  &__values-list {
+    list-style: disc inside;
+    margin: 1.2rem 0 0 0;
+    padding: 0;
+    color: #64748b;
+    font-size: 1.05rem;
+  }
+
+  &__value {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .about__mission-vision {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .about__card {
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
+  }
+}

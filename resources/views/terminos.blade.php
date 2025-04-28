@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-4">Términos y Condiciones</h1>
-    <div class="bg-white p-6 rounded-lg shadow">
+<div class="terminos">
+    <h1 class="terminos__title">Términos y Condiciones</h1>
+    <div class="terminos__card">
         <p>
             Aquí van los términos y condiciones de uso de la plataforma. Puedes personalizarlos según las necesidades de tu negocio.
         </p>

@@ -1,0 +1,9 @@
+@use '../config/_color.scss' as c;
+
+.input-error {
+  color: c.$danger;
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+  list-style: none;
+  padding: 0;
+}

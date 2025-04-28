@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="orders-create__header">
             {{ __('Finalizar Compra') }}
         </h2>
     </x-slot>
@@ -20,95 +20,68 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('orders.store') }}" method="POST" class="space-y-8" enctype="multipart/form-data">
+                    <form action="{{ route('orders.store') }}" method="POST" class="orders-create__form" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Resumen del pedido -->
-                        <div class="bg-gray-50 p-6 rounded-lg mb-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Resumen del Pedido</h3>
-                            <div class="space-y-4">
-                                @foreach ($cart->items as $item)
-                                    <div class="flex justify-between items-center">
-                                        <div class="flex items-center space-x-4">
-                                            @if ($item->product->images->isNotEmpty())
-                                                <img src="{{ asset('storage/' . $item->product->images->first()->path) }}"
-                                                    alt="{{ $item->product->name }}"
-                                                    class="w-16 h-16 object-cover rounded">
-                                            @else
-                                                <div
-                                                    class="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-                                                    <span class="text-gray-500 text-xs">Sin imagen</span>
-                                                </div>
-                                            @endif
-                                            <div>
-                                                <h4 class="text-sm font-medium text-gray-900">{{ $item->product->name }}
-                                                </h4>
-                                                <p class="text-sm text-gray-500">Cantidad: {{ $item->quantity }}</p>
+                        <div class="orders-create__summary">
+                            <h3 class="orders-create__subtitle">Resumen del Pedido</h3>
                                             </div>
+                                        @endif
+                                        <div>
+                                            <h4 class="orders-create__summary-name">{{ $item->product->name }}</h4>
+                                            <p class="orders-create__summary-qty">Cantidad: {{ $item->quantity }}</p>
                                         </div>
-                                        <p class="text-sm font-medium text-gray-900">
-                                            ${{ number_format($item->subtotal, 2) }}</p>
                                     </div>
-                                @endforeach
+                                    <p class="orders-create__summary-price">
+                                        ${{ number_format($item->subtotal, 2) }}</p>
+                                </div>
+                            @endforeach
 
-                                <div class="border-t border-gray-200 pt-4">
-                                    <div class="flex justify-between text-base font-medium text-gray-900">
-                                        <p>Total</p>
-                                        <p>${{ number_format($cart->total, 2) }}</p>
-                                    </div>
+                            <div class="orders-create__summary-total">
+                                <div class="orders-create__summary-total-row">
+                                    <p class="orders-create__summary-total-label">Total</p>
+                                    <p class="orders-create__summary-total-value">${{ number_format($cart->total, 2) }}</p>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Método de entrega -->
-                        <div class="space-y-6">
-                            <h3 class="text-lg font-medium text-gray-900">Método de Entrega</h3>
-                            <div class="space-y-4">
-                                <div class="flex items-center">
-                                    <input type="radio" name="delivery_method" id="delivery" value="delivery"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" checked
-                                        onchange="toggleAddressFields()">
-                                    <label for="delivery" class="ml-3 block text-sm font-medium text-gray-700">
-                                        Envío a domicilio
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input type="radio" name="delivery_method" id="pickup" value="pickup"
-                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                                        onchange="toggleAddressFields()">
-                                    <label for="pickup" class="ml-3 block text-sm font-medium text-gray-700">
-                                        Recoger en tienda
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Información de envío -->
+                    <!-- Método de entrega -->
+                    <div class="orders-create__delivery-method">
+                        <h3 class="orders-create__subtitle">Método de Entrega</h3>
+                        <div class="orders-create__delivery-method-list">
+                            <div class="orders-create__delivery-method-item">
+                                <input type="radio" name="delivery_method" id="delivery" value="delivery"
+                                       class="orders-create__radio" checked
+                                       onchange="toggleAddressFields()">
+                                <label for="delivery" class="orders-create__label">
+                                    Envío a domicilio
+                                </label>
                         <div class="space-y-6" id="shipping-info">
-                            <h3 class="text-lg font-medium text-gray-900">Información de Envío</h3>
+                            <h3 class="orders-create__subtitle">Información de Envío</h3>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="orders-create__shipping-grid">
     <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">Nombre completo</label>
-        <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+        <label for="name" class="orders-create__label">Nombre completo</label>
+        <input type="text" name="name" id="name" value="{{ old('name', auth()->user()->name) }}" class="orders-create__input" required>
     </div>
     <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
-        <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+        <label for="email" class="orders-create__label">Correo electrónico</label>
+        <input type="email" name="email" id="email" value="{{ old('email', auth()->user()->email) }}" class="orders-create__input" required>
     </div>
     <div>
-        <label for="phone" class="block text-sm font-medium text-gray-700">Teléfono</label>
-        <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+        <label for="phone" class="orders-create__label">Teléfono</label>
+        <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" class="orders-create__input" required>
         <!-- Código postal eliminado y ya no es obligatorio -->
     </div>
     <div class="address-field">
-        <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
-        <input type="text" name="address" id="address" value="{{ old('address') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        <label for="address" class="orders-create__label">Dirección</label>
+        <input type="text" name="address" id="address" value="{{ old('address') }}" class="orders-create__input">
     </div>
     <div class="address-field">
-        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-        <select name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        <label for="city" class="orders-create__label">Ciudad</label>
+        <select name="city" id="city" class="orders-create__input">
             <option value="">Seleccione una ciudad</option>
             <option value="Bogotá" {{ old('city') == 'Bogotá' ? 'selected' : '' }}>Bogotá</option>
             <option value="Medellín" {{ old('city') == 'Medellín' ? 'selected' : '' }}>Medellín</option>
@@ -119,8 +92,8 @@
 <!-- Departamento fuera del grid para máxima visibilidad -->
 <div class="address-field" style="margin-top: 1rem; border:2px solid red; background:#fffbe7; padding:1rem;">
     <span style="color:red; font-weight:bold;">Aquí debe aparecer el departamento</span>
-    <label for="state" class="block text-sm font-medium text-gray-700 mt-2">Departamento</label>
-    <select name="state" id="state" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+    <label for="state" class="orders-create__label">Departamento</label>
+    <select name="state" id="state" class="orders-create__input">
         <option value="">Seleccione un departamento</option>
         <option value="Amazonas" {{ old('state') == 'Amazonas' ? 'selected' : '' }}>Amazonas</option>
         <option value="Antioquia" {{ old('state') == 'Antioquia' ? 'selected' : '' }}>Antioquia</option>

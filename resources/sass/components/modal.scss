@@ -1,0 +1,36 @@
+@use '../mixins/breakpoints' as *;
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow-y: auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    transition: opacity 0.2s;
+    z-index: 40;
+    &__bg {
+      position: absolute;
+      inset: 0;
+      background: #111827;
+      opacity: 0.7;
+    }
+  }
+  &__container {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18);
+    padding: 2rem;
+    margin: 1.5rem auto;
+    width: 100%;
+    max-width: 40rem;
+    z-index: 50;
+    position: relative;
+    transition: all 0.2s;
+  }
+}

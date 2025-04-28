@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="cart-index__header">
             {{ __('Carrito de Compras') }}
         </h2>
     </x-slot>
@@ -26,13 +26,13 @@
                     @if ($cart->items->isEmpty())
                         <div class="text-center py-8">
                             <p class="text-gray-500 mb-4">Tu carrito está vacío</p>
-                            <a href="{{ route('products.index') }}" class="text-blue-500 hover:text-blue-700">
+                            <a href="{{ route('products.index') }}" class="cart-index__btn">
                                 Continuar comprando
                             </a>
                         </div>
                     @else
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
+                            <table class="cart-index__table">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th

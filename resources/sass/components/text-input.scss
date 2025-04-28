@@ -1,0 +1,18 @@
+@use '../config/_color.scss' as c;
+
+.text-input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid c.$gray;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: c.$gray-dark;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  &:focus {
+    border-color: c.$secondary;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(29,53,87,0.1);
+  }
+}

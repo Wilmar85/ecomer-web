@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="orders-show__header-bar">
+            <h2 class="orders-show__header">
                 {{ __('Detalles del Pedido #') . $order->id }}
             </h2>
             <a href="{{ route('orders.history') }}"
-                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded">
+                class="orders-show__btn">
                 Volver a Mis Pedidos
             </a>
         </div>
@@ -17,73 +17,68 @@
                 <div class="p-6 text-gray-900">
                     <!-- Mensajes de feedback de pago -->
                     @if (session('success'))
-                        <div class="mb-4 rounded-lg bg-green-100 px-4 py-3 text-green-800 border border-green-300">
+                        <div class="orders-show__alert orders-show__alert--success">
                             <strong>¡Éxito!</strong> {{ session('success') }}
                         </div>
                     @endif
                     @if (session('error'))
-                        <div class="mb-4 rounded-lg bg-red-100 px-4 py-3 text-red-800 border border-red-300">
+                        <div class="orders-show__alert orders-show__alert--error">
                             <strong>Error:</strong> {{ session('error') }}
                         </div>
                     @endif
                     <!-- Estado del Pedido -->
-                    <div class="mb-8">
-                        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg">
+                    <div class="orders-show__section orders-show__section--status">
+                        <div class="orders-show__status-bar">
                             <div>
-                                <p class="text-sm text-gray-500">Estado del pedido</p>
-                                <span
-                                    class="mt-1 px-2 inline-flex text-sm leading-5 font-semibold rounded-full
-                                    {{ $order->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
-                                    {{ $order->status === 'processing' ? 'bg-blue-100 text-blue-800' : '' }}
-                                    {{ $order->status === 'completed' ? 'bg-green-100 text-green-800' : '' }}
-                                    {{ $order->status === 'cancelled' ? 'bg-red-100 text-red-800' : '' }}">
+                                <p class="orders-show__status-label">Estado del pedido</p>
+                                <span class="orders-show__status orders-show__status--{{ $order->status }}">
                                     {{ ucfirst($order->status) }}
                                 </span>
                             </div>
-                            <div class="text-right">
-                                <p class="text-sm text-gray-500">Fecha del pedido</p>
-                                <p class="mt-1 text-sm font-medium text-gray-900">
+                            <div class="orders-show__status-date">
+                                <p class="orders-show__status-date-label">Fecha del pedido</p>
+                                <p class="orders-show__status-date-value">
                                     {{ $order->created_at->format('d/m/Y H:i') }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="orders-show__main-grid">
                         <!-- Comprobante de Pago -->
                         @if($order->payment_proof)
                         <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Comprobante de Pago</h3>
-                            <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Comprobante de pago" class="w-full max-w-xs rounded shadow border">
-                            <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="block mt-2 text-indigo-600 hover:underline text-sm">Ver tamaño completo</a>
+                            <h3 class="orders-show__subtitle">Comprobante de Pago</h3>
+                            <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Comprobante de pago" class="orders-show__proof-img">
+                            <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="orders-show__proof-link">Ver tamaño completo</a>
                         </div>
                         @endif
                         <!-- Información de Envío -->
                         <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Información de Envío</h3>
+                            <h3 class="orders-show__subtitle">Información de Envío</h3>
                             <dl class="grid grid-cols-1 gap-4">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Nombre</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->name }}</dd>
+                                    <dt class="orders-show__shipping-label">Nombre</dt>
+                                    <dd class="orders-show__shipping-value">{{ $order->name }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Email</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->email }}</dd>
+                                    <dt class="orders-show__shipping-label">Email</dt>
+                                    <dd class="orders-show__shipping-value">{{ $order->email }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Teléfono</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->phone }}</dd>
+                                    <dt class="orders-show__shipping-label">Teléfono</dt>
+                                    <dd class="orders-show__shipping-value">{{ $order->phone }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Dirección</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->shipping_address }}</dd>
+                                    <dt class="orders-show__shipping-label">Dirección</dt>
+                                    <dd class="orders-show__shipping-value">{{ $order->shipping_address }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Ciudad</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->shipping_city }}</dd>
+                                    <dt class="orders-show__shipping-label">Ciudad</dt>
+                                    <dd class="orders-show__shipping-value">{{ $order->shipping_city }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Código Postal</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->shipping_zip }}</dd>
+                                    <dt class="orders-show__shipping-label">Código Postal</dt>
+                                    <dd class="orders-show__shipping-value">{{ $order->shipping_zip }}</dd>
                                 </div>
                             </dl>
                         </div>
@@ -93,11 +88,11 @@
                             <h3 class="text-lg font-medium text-gray-900 mb-4">Información del Pago</h3>
                             <dl class="grid grid-cols-1 gap-4">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Método de Pago</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ ucfirst($order->payment_method) }}</dd>
+                                    <dt class="orders-show__shipping-label">Método de Pago</dt>
+                                    <dd class="orders-show__shipping-value">{{ ucfirst($order->payment_method) }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Estado del Pago</dt>
+                                    <dt class="orders-show__shipping-label">Estado del Pago</dt>
                                     <dd class="mt-1">
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -106,7 +101,7 @@
                                     </dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Total</dt>
+                                    <dt class="orders-show__shipping-label">Total</dt>
                                     <dd class="mt-1 text-lg font-medium text-gray-900">
                                         ${{ number_format($order->total, 2) }}</dd>
                                 </div>

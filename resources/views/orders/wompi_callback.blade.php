@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="orders-wompi-callback__header">
             {{ __('Estado del Pago - Wompi') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
-                <div class="p-8 text-gray-900 flex flex-col items-center">
+                <div class="orders-wompi-callback__main">
                     @php
                         $status = $order->status;
                         $statusColor = [
@@ -38,31 +38,31 @@
                     @endphp
 
                     {!! $icon !!}
-                    <h3 class="text-2xl font-semibold mb-2 text-{{ $statusColor }}-600">{{ $mainMsg }}</h3>
-                    <p class="mb-6 text-gray-700">{{ $descMsg }}</p>
+                    <h3 class="orders-wompi-callback__status orders-wompi-callback__status--{{ $statusColor }}">{{ $mainMsg }}</h3>
+                    <p class="orders-wompi-callback__desc">{{ $descMsg }}</p>
 
-                    <div class="w-full bg-gray-50 rounded-lg p-4 mb-6">
+                    <div class="orders-wompi-callback__summary">
                         <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
-                            <span class="font-medium">Pedido:</span>
+                            <span class="orders-wompi-callback__summary-label">Pedido:</span>
                             <span>#{{ $order->id }}</span>
                         </div>
                         <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
-                            <span class="font-medium">Referencia de pago:</span>
+                            <span class="orders-wompi-callback__summary-label">Referencia de pago:</span>
                             <span>{{ $order->order_number ?? '-' }}</span>
                         </div>
                         <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
-                            <span class="font-medium">Estado:</span>
+                            <span class="orders-wompi-callback__summary-label">Estado:</span>
                             <span class="capitalize">{{ $order->status }}</span>
                         </div>
                         <div class="flex flex-col sm:flex-row sm:justify-between">
-                            <span class="font-medium">Total pagado:</span>
-                            <span class="font-bold text-gray-900">${{ number_format($order->total, 2) }}</span>
+                            <span class="orders-wompi-callback__summary-label">Total pagado:</span>
+                            <span class="orders-wompi-callback__summary-value orders-wompi-callback__summary-value--total">${{ number_format($order->total, 2) }}</span>
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row gap-3 w-full">
-                        <a href="{{ route('orders.show', $order) }}" class="flex-1 inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow transition">Ver detalles del pedido</a>
-                        <a href="{{ route('shop.index') }}" class="flex-1 inline-block text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow transition">Volver a la tienda</a>
+                    <div class="orders-wompi-callback__actions">
+                        <a href="{{ route('orders.show', $order) }}" class="orders-wompi-callback__btn orders-wompi-callback__btn--primary">Ver detalles del pedido</a>
+                        <a href="{{ route('shop.index') }}" class="orders-wompi-callback__btn orders-wompi-callback__btn--secondary">Volver a la tienda</a>
                     </div>
                 </div>
             </div>

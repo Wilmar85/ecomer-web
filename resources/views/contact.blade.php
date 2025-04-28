@@ -5,11 +5,11 @@
 @endphp
 
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Contáctanos</h1>
+    <div class="contact">
+    <div class="contact__container">
+        <div class="contact__card">
+            <div class="contact__content">
+                <h1 class="contact__title">Contáctanos</h1>
 
 @if(session('success'))
     <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">

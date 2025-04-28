@@ -1,0 +1,89 @@
+// BEM SASS para la página Welcome
+.welcome {
+  padding: 2.5rem 0 0 0;
+  background: #f5f7fa;
+
+  &__banner {
+    background: linear-gradient(120deg, #2563eb 60%, #60a5fa 100%);
+    color: #fff;
+    border-radius: 1.2rem;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    box-shadow: 0 8px 36px 0 rgba(31, 38, 135, 0.12);
+  }
+  &__banner-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 1.2rem;
+  }
+  &__banner-content {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  &__banner-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__banner-main {
+    flex: 1 1 340px;
+    text-align: left;
+  }
+
+  &__categories {
+    margin-bottom: 2.8rem;
+  }
+  &__categories-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #18181b;
+    margin-bottom: 1.2rem;
+  }
+  &__categories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  &__products {
+    margin-bottom: 2.8rem;
+  }
+  &__products-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.2rem;
+  }
+  &__products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .welcome__banner-flex {
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: center;
+  }
+  .welcome__banner-main {
+    text-align: center;
+  }
+}
+@media (max-width: 700px) {
+  .welcome__banner {
+    padding: 1.2rem 0.5rem;
+  }
+  .welcome__products-grid,
+  .welcome__categories-grid {
+    gap: 0.7rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

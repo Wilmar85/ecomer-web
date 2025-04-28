@@ -1,0 +1,161 @@
+@use '../mixins/breakpoints' as *;
+
+.orders-create {
+  &__header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+  &__summary {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  &__subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 1rem;
+  }
+  &__summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  &__summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+  }
+  &__summary-product {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  &__summary-img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    background: #f3f4f6;
+  }
+  &__summary-img--placeholder {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 0.8rem;
+  }
+  &__summary-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #222;
+  }
+  &__summary-qty {
+    font-size: 0.95rem;
+    color: #6b7280;
+  }
+  &__summary-price {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #222;
+  }
+  &__summary-total {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+  &__summary-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+  }
+  &__label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.25rem;
+  }
+  &__input {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    color: #222;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.01);
+    margin-bottom: 0.5rem;
+  }
+  &__delivery-method {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  &__delivery-method-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  &__delivery-method-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  &__radio {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: #2563eb;
+    border: 1px solid #d1d5db;
+  }
+  &__shipping-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @include respond-max('sm') {
+    &__form {
+      padding: 1rem;
+      gap: 1rem;
+    }
+    &__summary {
+      padding: 1rem;
+    }
+    &__shipping-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    &__header {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    &__label, &__input {
+      font-size: 0.95rem;
+    }
+    &__summary-img, &__summary-img--placeholder {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}

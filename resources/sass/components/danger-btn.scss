@@ -1,0 +1,24 @@
+@use '../config/_color.scss' as c;
+@use 'sass:color';
+
+.danger-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  background: c.$danger;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.98rem;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover, &:focus {
+    background: color.adjust(c.$danger, $lightness: -10%);
+  }
+  &:active {
+    background: color.adjust(c.$danger, $lightness: -20%);
+  }
+}

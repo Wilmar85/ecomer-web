@@ -1,0 +1,45 @@
+@use '../config/color' as c;
+@use '../mixins/breakpoints' as b;
+
+.header {
+  width: 100%;
+  background: c.$primary;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.07);
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    img, svg {
+      height: 2.5rem;
+      width: auto;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  @include b.respond-max('md') {
+    flex-direction: column;
+    padding: 1rem;
+    &__nav {
+      gap: 1rem;
+    }
+    &__actions {
+      gap: 1rem;
+    }
+  }
+}

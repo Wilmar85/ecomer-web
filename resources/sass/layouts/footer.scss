@@ -1,0 +1,38 @@
+@use '../config/color' as c;
+@use '../mixins/breakpoints' as b;
+
+.footer {
+  width: 100%;
+  background: c.$gray-dark;
+  color: #fff;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 1rem;
+  border-top: 2px solid c.$primary;
+
+  &__section {
+    margin-bottom: 1.5rem;
+  }
+
+  &__links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  &__copyright {
+    font-size: 0.95rem;
+    color: c.$gray;
+    margin-top: 1.5rem;
+  }
+
+  @include b.respond-max('md') {
+    padding: 1.2rem 0.5rem;
+    font-size: 0.95rem;
+    &__links {
+      gap: 0.75rem;
+    }
+  }
+}

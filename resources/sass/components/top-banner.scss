@@ -1,0 +1,79 @@
+@use '../config/color' as c;
+@use '../mixins/breakpoints' as b;
+
+.top-banner {
+  background-color: c.$primary;
+  color: c.$gray-dark;
+  width: 80%;
+  display: flex;
+  padding: .75rem 2.5rem .75rem 5.5rem; 
+  font-size: c.$font-size-sm; 
+  font-family: c.$font-main;
+  font-weight: 400;
+  line-height: .75rem;  
+  align-items: center;
+  justify-content: space-between; 
+  box-shadow: c.$box-shadow;
+
+  &__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  &__container--left,
+  &__container--right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    img {
+      max-width: 80px;
+      height: auto;
+      object-fit: contain;
+      @include b.respond-max('md') {
+        max-width: 48px;
+      }
+      @include b.respond-max('sm') {
+        max-width: 36px;
+      }
+    }
+  }
+
+  &__span {
+    padding: 6px;
+    background-color: c.$white;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__icon {
+      width: 1rem;
+      height: 1rem;
+      fill: c.$secondary;
+    }
+
+    &:hover .top-banner__span__icon path {
+      fill: c.$primary;
+    }
+  }
+
+  @include b.respond-max('md') {
+    display: none;
+  }
+  @include b.respond-max('lg') {
+    &__container--left {
+      display: none;
+    }
+    & {
+      justify-content: space-around;
+    }
+  }
+}
