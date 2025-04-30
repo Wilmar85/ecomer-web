@@ -1,14 +1,14 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-col sm:flex-row gap-8">
+    <div class="products-shop__section">
+        <div class="products-shop__container">
+            <div class="products-shop__layout">
                 <!-- Sidebar de Filtros -->
                 <aside class="products-shop__sidebar">
-                    <div class="mb-6">
+                    <div class="products-shop__spacer">
                         <h2 class="products-shop__filter-title">Filtrar productos</h2>
-                        <hr class="border-gray-200 mb-4">
+                        <hr class="products-shop__divider">
                     </div>
-                    <form action="{{ route('shop.index') }}" method="GET" class="space-y-6">
+                    <form action="{{ route('shop.index') }}" method="GET" class="products-shop__form-spacer">
     <div>
         <label class="products-shop__filter-label">Marca</label>
         <select name="brand" class="products-shop__filter-input">
@@ -31,16 +31,17 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="flex gap-2">
-                            <div class="flex-1">
+                        <div class="products-shop__price-row">
+                            <div class="products-shop__price-col">
                                 <label class="products-shop__filter-label">Precio mín</label>
                                 <input type="number" name="price_min" step="0.01" value="{{ request('price_min') }}" class="products-shop__filter-input" placeholder="0">
                             </div>
-                            <div class="flex-1">
+                            <div class="products-shop__price-col">
                                 <label class="products-shop__filter-label">Precio máx</label>
                                 <input type="number" name="price_max" step="0.01" value="{{ request('price_max') }}" class="products-shop__filter-input" placeholder="99999">
                             </div>
                         </div>
+                        
                         <div>
                             <label class="products-shop__filter-label">Stock</label>
                             <select name="stock" class="products-shop__filter-input">
@@ -59,7 +60,11 @@
                                 <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Nombre Z-A</option>
                             </select>
                         </div>
-                        <button type="submit" class="products-shop__filter-btn">Filtrar</button>
+                        <div class="products-shop__filter-btn-row">
+                            <button type="submit" class="products-shop__filter-btn">
+                                Filtrar
+                            </button>
+                        </div>
                     </form>
                 </aside>
 
@@ -67,44 +72,44 @@
                 <main class="products-shop__main">
                     <div class="products-shop__grid">
                         @forelse ($products as $product)
-    <x-product-card :product="$product" />
-                                @if ($product->images->isNotEmpty())
-                                    <div class="aspect-w-3 aspect-h-2">
-                                        <img src="{{ asset('storage/' . $product->images->first()->path) }}"
-                                            alt="{{ $product->name }}"
-                                            class="w-full h-48 object-cover object-center group-hover:opacity-75">
-                                    </div>
-                                @endif
-                                <div class="p-4">
-                                    <h3 class="products-shop__card-title">{{ $product->name }}</h3>
-                                    <p class="products-shop__card-desc">{{ Str::limit($product->description, 100) }}</p>
-                                    <div class="products-shop__card-footer">
-    <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
-    <a href="{{ route('products.show', $product) }}"
-        class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-        Ver Detalles
-    </a>
-</div>
-<div class="mt-2">
-    @auth
-        <form action="{{ route('cart.add') }}" method="POST" class="inline">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <button type="submit" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                Añadir a la tienda
-            </button>
-        </form>
-    @else
-        <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-yellow-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition ease-in-out duration-150">
-            Añadir a la tienda
-        </a>
-    @endauth
+                            <x-product-card :product="$product" />
+                            @if ($product->images->isNotEmpty())
+                                <div class="products-shop__img-aspect">
+                                    <img src="{{ asset('storage/' . $product->images->first()->path) }}"
+                                        alt="{{ $product->name }}"
+                                        class="products-shop__img">
+                                </div>
+                            @endif
+                            <div class="products-shop__card-body">
+                                <h3 class="products-shop__card-title">{{ $product->name }}</h3>
+                                <p class="products-shop__card-desc">{{ Str::limit($product->description, 100) }}</p>
+                                <div class="products-shop__card-footer">
+                                    <span class="products-shop__price">${{ number_format($product->price, 2) }}</span>
+                                    <a href="{{ route('products.show', $product) }}"
+                                        class="products-shop__details-btn">
+                                        Ver Detalles
+                                    </a>
+                                </div>
+                                <div class="products-shop__mt">
+                                    @auth
+                                        <form action="{{ route('cart.add') }}" method="POST" class="products-shop__form-inline">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit" class="products-shop__add-btn">
+                                                Añadir a la tienda
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('register') }}" class="products-shop__add-btn--tertiary">
+                                            Añadir a la tienda
+                                        </a>
+                                    @endauth
 </div>
                                 </div>
                             </div>
                         @empty
                             <div class="col-span-full text-center py-12">
-                                <p class="text-gray-500">No se encontraron productos.</p>
+                                <p class="products-shop__empty">No se encontraron productos.</p>
                             </div>
                         @endforelse
                     </div>

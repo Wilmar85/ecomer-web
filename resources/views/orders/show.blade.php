@@ -11,10 +11,10 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="orders-show__section">
+        <div class="orders-show__container">
+            <div class="orders-show__card">
+                <div class="orders-show__content">
                     <!-- Mensajes de feedback de pago -->
                     @if (session('success'))
                         <div class="orders-show__alert orders-show__alert--success">
@@ -46,16 +46,16 @@
                     <div class="orders-show__main-grid">
                         <!-- Comprobante de Pago -->
                         @if($order->payment_proof)
-                        <div class="bg-gray-50 p-6 rounded-lg">
+                        <div class="orders-show__info-card">
                             <h3 class="orders-show__subtitle">Comprobante de Pago</h3>
                             <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Comprobante de pago" class="orders-show__proof-img">
                             <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="orders-show__proof-link">Ver tamaño completo</a>
                         </div>
                         @endif
                         <!-- Información de Envío -->
-                        <div class="bg-gray-50 p-6 rounded-lg">
+                        <div class="orders-show__info-card">
                             <h3 class="orders-show__subtitle">Información de Envío</h3>
-                            <dl class="grid grid-cols-1 gap-4">
+                            <dl class="orders-show__info-grid">
                                 <div>
                                     <dt class="orders-show__shipping-label">Nombre</dt>
                                     <dd class="orders-show__shipping-value">{{ $order->name }}</dd>
@@ -84,18 +84,18 @@
                         </div>
 
                         <!-- Información del Pago -->
-                        <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Información del Pago</h3>
-                            <dl class="grid grid-cols-1 gap-4">
+                        <div class="orders-show__info-card">
+                            <h3 class="orders-show__subtitle">Información del Pago</h3>
+                            <dl class="orders-show__info-grid">
                                 <div>
                                     <dt class="orders-show__shipping-label">Método de Pago</dt>
                                     <dd class="orders-show__shipping-value">{{ ucfirst($order->payment_method) }}</dd>
                                 </div>
                                 <div>
                                     <dt class="orders-show__shipping-label">Estado del Pago</dt>
-                                    <dd class="mt-1">
+                                    <dd class="orders-show__info-separator">
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            class="orders-show__payment-status">
                                             Pagado
                                         </span>
                                     </dd>
@@ -110,11 +110,11 @@
                     </div>
 
                     <!-- Productos del Pedido -->
-                    <div class="mt-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Productos del Pedido</h3>
-                        <div class="bg-gray-50 rounded-lg overflow-hidden">
-                            <div class="flow-root">
-                                <ul role="list" class="divide-y divide-gray-200">
+                    <div class="orders-show__products-section">
+                        <h3 class="orders-show__subtitle">Productos del Pedido</h3>
+                        <div class="orders-show__products-card">
+                            <div class="orders-show__products-list">
+                                <ul role="list" class="orders-show__products-list-items">
                                     @foreach ($order->items as $item)
                                         <li class="p-6">
                                             <div class="flex items-center">

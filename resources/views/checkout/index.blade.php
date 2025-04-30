@@ -1,47 +1,47 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="checkout-index__header">
             {{ __('Finalizar Compra') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="checkout-index__section">
+        <div class="checkout-index__container">
+            <div class="checkout-index__main-grid">
                 <!-- Formulario de Envío y Pago -->
-                <div class="order-2 md:order-1 md:col-span-2">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Información de Envío y Pago</h3>
+                <div class="checkout-index__form-section">
+                    <div class="checkout-index__card">
+                        <h3 class="checkout-index__subtitle">Información de Envío y Pago</h3>
                         <form action="{{ route('checkout.process') }}" method="POST" id="checkout-form" class="space-y-4">
                             @csrf
                             
                             <!-- Información Personal -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="checkout-index__personal-grid">
                                 <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
-                                    <input type="text" name="name" id="name" value="{{ auth()->user()->name }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                                    <label for="name" class="checkout-index__label">Nombre Completo</label>
+                                    <input type="text" name="name" id="name" value="{{ auth()->user()->name }}" class="checkout-index__input" required>
                                 </div>
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                    <input type="email" name="email" id="email" value="{{ auth()->user()->email }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                                    <label for="email" class="checkout-index__label">Correo Electrónico</label>
+                                    <input type="email" name="email" id="email" value="{{ auth()->user()->email }}" class="checkout-index__input" required>
                                 </div>
                                 <div>
-                                    <label for="phone" class="block text-sm font-medium text-gray-700">Teléfono</label>
-                                    <input type="tel" name="phone" id="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                                    <label for="phone" class="checkout-index__label">Teléfono</label>
+                                    <input type="tel" name="phone" id="phone" class="checkout-index__input" required>
                                 </div>
                             </div>
 
                             <!-- Método de Envío -->
                             <div class="mt-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Método de Envío</label>
-                                <div class="space-y-2">
-                                    <div class="flex items-center">
-                                        <input type="radio" name="shipping_method" id="delivery" value="delivery" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" checked>
-                                        <label for="delivery" class="ml-2 block text-sm text-gray-700">Envío a Domicilio</label>
+                                <label class="checkout-index__label checkout-index__label--section">Método de Envío</label>
+                                <div class="checkout-index__shipping-method-list">
+                                    <div class="checkout-index__shipping-method">
+                                        <input type="radio" name="shipping_method" id="delivery" value="delivery" class="checkout-index__radio" checked>
+                                        <label for="delivery" class="checkout-index__radio-label">Envío a Domicilio</label>
                                     </div>
-                                    <div class="flex items-center">
-                                        <input type="radio" name="shipping_method" id="pickup" value="pickup" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
-                                        <label for="pickup" class="ml-2 block text-sm text-gray-700">Recoger en Tienda</label>
+                                    <div class="checkout-index__shipping-method">
+                                        <input type="radio" name="shipping_method" id="pickup" value="pickup" class="checkout-index__radio">
+                                        <label for="pickup" class="checkout-index__radio-label">Recoger en Tienda</label>
                                     </div>
                                 </div>
                             </div>
@@ -49,14 +49,14 @@
                             <!-- Dirección de Envío (visible solo para envío a domicilio) -->
                             <div id="shipping-address-section">
                                 <div class="mt-4">
-                                    <label for="street" class="block text-sm font-medium text-gray-700">Dirección</label>
-                                    <input type="text" name="street" id="street" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <label for="street" class="checkout-index__label">Dirección</label>
+                                    <input type="text" name="street" id="street" class="checkout-index__input">
                                 </div>
 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <div class="checkout-index__address-grid">
                                     <div>
-                                        <label for="city" class="block text-sm font-medium text-gray-700">Ciudad</label>
-                                        <select name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <label for="city" class="checkout-index__label">Ciudad</label>
+                                        <select name="city" id="city" class="checkout-index__input">
                                             <option value="">Seleccione una ciudad</option>
                                             <option value="Bogotá">Bogotá</option>
                                             <option value="Medellín">Medellín</option>
@@ -70,10 +70,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <div class="checkout-index__address-grid">
                                     <div>
-                                        <label for="neighborhood" class="block text-sm font-medium text-gray-700">Barrio</label>
-                                        <select name="neighborhood" id="neighborhood" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <label for="neighborhood" class="checkout-index__label">Barrio</label>
+                                        <select name="neighborhood" id="neighborhood" class="checkout-index__input">
                                             <option value="">Seleccione un barrio</option>
                                         </select>
                                     </div>
@@ -135,25 +135,25 @@
                             </div>
 
                             <!-- Método de Pago -->
-                            <div class="mt-6">
-                                <label class="block text-sm font-medium text-gray-700">Método de Pago</label>
-                                <div class="flex items-center space-x-4">
-                                    <label class="inline-flex items-center">
-                                        <input type="radio" name="payment_method" id="payment_cash" value="cash" class="form-radio h-4 w-4 text-indigo-600" checked>
-                                        <span class="ml-2">Pago en Efectivo</span>
+                            <div class="checkout-index__section-separator">
+                                <label class="checkout-index__label">Método de Pago</label>
+                                <div class="checkout-index__payment-method-list">
+                                    <label class="checkout-index__payment-method">
+                                        <input type="radio" name="payment_method" id="payment_cash" value="cash" class="checkout-index__radio" checked>
+                                        <span class="checkout-index__radio-label">Pago en Efectivo</span>
                                     </label>
-                                    <label class="inline-flex items-center">
-                                        <input type="radio" name="payment_method" id="payment_proof_radio" value="comprobante" class="form-radio h-4 w-4 text-indigo-600">
-                                        <span class="ml-2">Comprobante de Pago (subir imagen)</span>
+                                    <label class="checkout-index__payment-method">
+                                        <input type="radio" name="payment_method" id="payment_proof_radio" value="comprobante" class="checkout-index__radio">
+                                        <span class="checkout-index__radio-label">Comprobante de Pago (subir imagen)</span>
                                     </label>
                                 </div>
                             </div>
 
                             <!-- Comprobante de Pago -->
-                            <div class="mt-6" id="comprobante-section" style="display:none;">
-                                <label for="payment_proof" class="block text-sm font-medium text-gray-700">Comprobante de Pago (imagen)</label>
-                                <input type="file" name="payment_proof" id="payment_proof" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <p class="text-xs text-gray-500 mt-1">Adjunta una foto o captura del comprobante de pago para separar tu compra.</p>
+                            <div class="checkout-index__section-separator" id="comprobante-section" style="display:none;">
+                                <label for="payment_proof" class="checkout-index__label">Comprobante de Pago (imagen)</label>
+                                <input type="file" name="payment_proof" id="payment_proof" accept="image/*" class="checkout-index__input">
+                                <p class="checkout-index__help">Adjunta una foto o captura del comprobante de pago para separar tu compra.</p>
                             </div>
 
                             <script>
@@ -208,8 +208,8 @@ document.addEventListener('DOMContentLoaded', updateCheckoutFields);
                             
                             </script>
 
-                            <div class="mt-6">
-                                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            <div class="checkout-index__submit">
+                                <button type="submit" class="primary-btn">
                                     Confirmar Pedido
                                 </button>
                             </div>

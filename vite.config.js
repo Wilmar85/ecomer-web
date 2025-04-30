@@ -15,10 +15,6 @@ export default defineConfig({
         viteStaticCopy({
             targets: [
                 {
-                    src: 'public/fonts',
-                    dest: ''
-                },
-                {
                     src: 'public/favicon.ico',
                     dest: ''
                 }

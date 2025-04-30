@@ -1,33 +1,33 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="admin-users__title">
             {{ __('Editar Usuario') }}
         </h2>
     </x-slot>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="admin-users__section">
+        <div class="admin-users__container">
+            <div class="admin-users__card">
+                <div class="admin-users__card-body">
                     <form method="POST" action="{{ route('admin.users.update', $user) }}">
                         @csrf
                         @method('PUT')
-                        <div class="mb-4">
-                            <label class="block">Nombre</label>
-                            <input type="text" name="name" value="{{ old('name', $user->name) }}" class="border rounded w-full px-3 py-2" required>
+                        <div class="admin-users__form-group">
+                            <label class="admin-users__label">Nombre</label>
+                            <input type="text" name="name" value="{{ old('name', $user->name) }}" class="admin-users__input" required>
                         </div>
-                        <div class="mb-4">
-                            <label class="block">Email</label>
-                            <input type="email" name="email" value="{{ old('email', $user->email) }}" class="border rounded w-full px-3 py-2" required>
+                        <div class="admin-users__form-group">
+                            <label class="admin-users__label">Email</label>
+                            <input type="email" name="email" value="{{ old('email', $user->email) }}" class="admin-users__input" required>
                         </div>
-                        <div class="mb-4">
-                            <label class="block">Contraseña (dejar en blanco para no cambiar)</label>
-                            <input type="password" name="password" class="border rounded w-full px-3 py-2">
+                        <div class="admin-users__form-group">
+                            <label class="admin-users__label">Contraseña (dejar en blanco para no cambiar)</label>
+                            <input type="password" name="password" class="admin-users__input">
                         </div>
-                        <div class="mb-4">
-                            <label class="block">Confirmar Contraseña</label>
-                            <input type="password" name="password_confirmation" class="border rounded w-full px-3 py-2">
+                        <div class="admin-users__form-group">
+                            <label class="admin-users__label">Confirmar Contraseña</label>
+                            <input type="password" name="password_confirmation" class="admin-users__input">
                         </div>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Actualizar</button>
+                        <button type="submit" class="admin-users__submit-btn">Actualizar</button>
                     </form>
                 </div>
             </div>

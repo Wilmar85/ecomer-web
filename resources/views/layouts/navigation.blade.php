@@ -47,12 +47,12 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                class="menu__user-btn">
                                 {{-- Ahora es seguro acceder a 'name' porque estamos dentro de @auth --}}
                                 <div>{{ Auth::user()->name }}</div>
 
-                                <div class="ms-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                <div class="menu__user-arrow">
+                                    <svg class="menu__user-arrow-icon" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -86,19 +86,19 @@
 
                 {{-- Opcional: Mostrar enlaces de Login/Register si el usuario NO está logueado --}}
                 @guest
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline dark:text-gray-500">Log in</a>
+                    <a href="{{ route('login') }}" class="menu__login-link">Log in</a>
 
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}"
-                            class="ms-4 text-sm text-gray-700 underline dark:text-gray-500">Register</a>
+                            class="menu__register-link">Register</a>
                     @endif
                 @endguest
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button class="menu__burger inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <div class="menu__burger-container">
+                <button class="menu__burger">
+                    <svg class="menu__burger-icon" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
@@ -113,7 +113,7 @@
     <!-- Responsive Navigation Menu -->
     <!-- Responsive Navigation Menu -->
     <div class="menu__links-mobile">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="menu__links-mobile-list">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
@@ -127,10 +127,10 @@
                 {{ __('Contact') }}
             </x-responsive-nav-link>
             @auth
-                <div class="flex items-center justify-between px-4 py-2">
-                    <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')" class="flex items-center">
+                <div class="menu__cart-mobile">
+                    <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')" class="menu__cart-mobile-inner">
                         <span>{{ __('Carrito') }}</span>
-                        <x-cart-counter :count="Auth::user()->cart ? Auth::user()->cart->items->count() : 0" class="ml-2" />
+                        <x-cart-counter :count="Auth::user()->cart ? Auth::user()->cart->items->count() : 0" class="menu__cart-mobile-count" />
                     </x-responsive-nav-link>
                 </div>
             @endauth
@@ -139,14 +139,14 @@
         {{-- Envolvemos las opciones de usuario responsivas con @auth --}}
         @auth
             <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="px-4">
+            <div class="menu__user-mobile-section">
+                <div class="menu__user-mobile-info">
                     {{-- Ahora es seguro acceder a name y email --}}
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="menu__user-mobile-name">{{ Auth::user()->name }}</div>
+                    <div class="menu__user-mobile-email">{{ Auth::user()->email }}</div>
                 </div>
 
-                <div class="mt-3 space-y-1">
+                <div class="menu__user-mobile-links">
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
@@ -168,8 +168,8 @@
 
         {{-- Opcional: Puedes añadir aquí un @guest para mostrar enlaces de Login/Register en el menú responsivo si lo deseas --}}
         @guest
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="mt-3 space-y-1">
+            <div class="menu__user-mobile-section">
+                <div class="menu__user-mobile-links">
                      <x-responsive-nav-link :href="route('login')">
                          {{ __('Log in') }}
                      </x-responsive-nav-link>
@@ -210,12 +210,12 @@
 }
 </style>
 <script>
-// Ajuste global: mueve el botón de WhatsApp a la izquierda si el de subir está visible (usa Alpine.store)
-document.addEventListener('alpine:init', () => {
-  Alpine.effect(() => {
+
+
+
     const btn = document.getElementById('whatsapp-float');
-    if(btn && window.Alpine && Alpine.store && Alpine.store('scrollBtn')) {
-      if(Alpine.store('scrollBtn').visible) {
+
+
         btn.classList.add('move-left');
       } else {
         btn.classList.remove('move-left');

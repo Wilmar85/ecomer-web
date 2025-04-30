@@ -10,7 +10,7 @@
         <div class="confirm-password__field">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <x-text-input id="password" class="confirm-password__input"
                             type="password"
                             name="password"
                             required autocomplete="current-password" />

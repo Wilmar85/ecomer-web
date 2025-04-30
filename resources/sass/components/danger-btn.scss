@@ -1,6 +1,8 @@
 @use '../config/_color.scss' as c;
 @use 'sass:color';
 
+// Asegúrate que la variable $danger esté definida en _color.scss y sea pública (sin !default ni private)
+// Alternativa robusta usando color.scale para máxima compatibilidad
 .danger-btn {
   display: inline-flex;
   align-items: center;
@@ -15,10 +17,13 @@
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: background 0.2s;
-  &:hover, &:focus {
-    background: color.adjust(c.$danger, $lightness: -10%);
+
+  &:hover,
+  &:focus {
+    // color.scale es más compatible que color.adjust
+    background: color.scale(c.$danger, $lightness: -10%);
   }
   &:active {
-    background: color.adjust(c.$danger, $lightness: -20%);
+    background: color.scale(c.$danger, $lightness: -20%);
   }
 }

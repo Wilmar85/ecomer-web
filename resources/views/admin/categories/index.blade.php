@@ -18,7 +18,7 @@
                     @if (session('success'))
                         <div class="admin-categories-index__alert admin-categories-index__alert--success"
                             role="alert">
-                            <span class="block sm:inline">{{ session('success') }}</span>
+                            <span class="admin-categories-index__alert-text">{{ session('success') }}</span>
                         </div>
                     @endif
 
@@ -39,36 +39,36 @@
                                         Productos
                                     </th>
                                     <th scope="col"
-                                        class="categories__table-th">
+                                        class="admin-categories-index__th">
                                         Acciones
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="categories__table-body">
+                            <tbody class="admin-categories-index__tbody">
                                 @foreach ($categories as $category)
-                                    <tr class="categories__table-row">
-                                        <td class="categories__table-td">
-                                            <div class="categories__title">
+                                    <tr class="admin-categories-index__tr">
+                                        <td class="admin-categories-index__td">
+                                            <div class="admin-categories-index__title-cell">
                                                 {{ $category->name }}
                                             </div>
                                         </td>
-                                        <td class="categories__table-td">
-                                            <div class="categories__table-cell">
+                                        <td class="admin-categories-index__td">
+                                            <div class="admin-categories-index__cell">
                                                 {{ $category->description }}
                                             </div>
                                         </td>
-                                        <td class="categories__table-td">
-                                            <div class="categories__table-cell">
+                                        <td class="admin-categories-index__td">
+                                            <div class="admin-categories-index__cell">
                                                 {{ $category->products_count }}
                                             </div>
                                         </td>
-                                        <td class="categories__table-td">
-                                            <div class="categories__actions">
-                                                <a href="{{ route('admin.categories.edit', $category) }}" class="categories__btn categories__btn--warning">Editar</a>
+                                        <td class="admin-categories-index__td">
+                                            <div class="admin-categories-index__actions">
+                                                <a href="{{ route('admin.categories.edit', $category) }}" class="admin-categories-index__btn admin-categories-index__btn--warning">Editar</a>
                                                 <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="categories__btn categories__btn--danger">Eliminar</button>
+                                                    <button type="submit" class="admin-categories-index__btn admin-categories-index__btn--danger">Eliminar</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -83,22 +83,22 @@
     </div>
 
     <!-- Modal para crear/editar categoría -->
-    <div id="categoryModal" class="categories__modal">
-        <div class="categories__modal-content">
-            <form id="categoryForm" method="POST" class="categories__form">
+    <div id="categoryModal" class="admin-categories-index__modal">
+        <div class="admin-categories-index__modal-content">
+            <form id="categoryForm" method="POST" class="admin-categories-index__form">
                 @csrf
                 <div id="methodField"></div>
 
-                <div class="categories__form-group">
-                    <label for="name" class="categories__label">Nombre</label>
+                <div class="admin-categories-index__form-group">
+                    <label for="name" class="admin-categories-index__label">Nombre</label>
                     <input type="text" name="name" id="name" required
-                        class="categories__input">
+                        class="admin-categories-index__input">
                 </div>
 
-                <div class="categories__form-group">
-                    <label for="description" class="categories__label">Descripción</label>
+                <div class="admin-categories-index__form-group">
+                    <label for="description" class="admin-categories-index__label">Descripción</label>
                     <textarea name="description" id="description" rows="3"
-                        class="categories__textarea"></textarea>
+                        class="admin-categories-index__textarea"></textarea>
                 </div>
 
                 <div class="categories__form-actions">

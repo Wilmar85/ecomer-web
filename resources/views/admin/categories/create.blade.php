@@ -10,11 +10,11 @@
                 <div class="admin-categories-create__content">
                     <form method="POST" action="{{ route('admin.categories.store') }}">
                         @csrf
-                        <div class="mb-4">
+                        <div class="admin-categories-create__field">
                             <label class="admin-categories-create__label">Nombre</label>
                             <input type="text" name="name" class="admin-categories-create__input" required />
                         </div>
-                        <div class="mb-4">
+                        <div class="admin-categories-create__field">
                             <label class="admin-categories-create__label">Descripción</label>
                             <textarea name="description" class="admin-categories-create__input"></textarea>
                         </div>

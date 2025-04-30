@@ -1,0 +1,112 @@
+// Estilos extraídos de brand-section.scss que pertenecen a login y registro
+.login__logo, .register__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.10);
+  margin-bottom: 1rem;
+}
+.login__logo svg, .register__logo svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.register {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.register__container {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 32px 0 rgba(40, 60, 90, 0.12);
+  padding: 2.5rem 2rem;
+  max-width: 460px;
+  width: 100%;
+  margin: 2rem auto;
+  animation: fade-in 0.7s cubic-bezier(.4,0,.2,1);
+}
+.register__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22223b;
+  margin-bottom: 2rem;
+}
+.register__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.register__input-group label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a4e69;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+.register__input {
+  width: 100%;
+  border: 1.5px solid #e0e7ef;
+  border-radius: 0.7rem;
+  background: #f8fafc;
+  padding: 0.65rem 1rem 0.65rem 2.2rem;
+  font-size: 1rem;
+  color: #22223b;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 6px 0 rgba(40, 60, 90, 0.03);
+  outline: none;
+}
+.register__input:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 2px 12px 0 rgba(108, 99, 255, 0.10);
+}
+.register__button {
+  width: 100%;
+  background: linear-gradient(90deg, #6c63ff 0%, #48b1f5 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.8rem 0;
+  margin-top: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px 0 rgba(108,99,255,0.13);
+  position: relative;
+  transition: background 0.18s, box-shadow 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.register__button:hover {
+  background: linear-gradient(90deg, #5a54e8 0%, #389be6 100%);
+  box-shadow: 0 4px 18px 0 rgba(108,99,255,0.18);
+}
+.register__link {
+  color: #6c63ff;
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 0.98rem;
+  transition: color 0.18s;
+}
+.register__link:hover {
+  color: #22223b;
+}
+@media (max-width: 600px) {
+  .register__container {
+    padding: 1.2rem 0.5rem;
+    border-radius: 1rem;
+  }
+  .register__title {
+    font-size: 1.4rem;
+  }
+}

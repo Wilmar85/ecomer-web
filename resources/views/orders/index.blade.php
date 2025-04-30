@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="orders-index__section">
+        <div class="orders-index__container">
+            <div class="orders-index__card">
+                <div class="orders-index__content">
                     <h2 class="orders-index__header">Mis Pedidos</h2>
 
                     @if($orders->isEmpty())
@@ -46,7 +46,7 @@
                                                 {{ ucfirst($order->payment_method) }}
                                             </td>
                                             <td class="orders-index__td">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <td class="orders-index__td orders-index__td--actions">
                                                 <a href="{{ route('orders.show', $order) }}" class="orders-index__details">Ver detalles</a>
                                             </td>
                                         </tr>

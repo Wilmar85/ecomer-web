@@ -1,39 +1,39 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="admin-subcategories__title">
             {{ __('Gestión de Subcategorías') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="admin-subcategories__section">
+        <div class="admin-subcategories__container">
+            <div class="admin-subcategories__card">
+                <div class="admin-subcategories__card-body">
                     @if (session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                            <span class="block sm:inline">{{ session('success') }}</span>
+                        <div class="admin-subcategories__alert" role="alert">
+                            <span class="admin-subcategories__alert-text">{{ session('success') }}</span>
                         </div>
                     @endif
-                    <div class="mb-4 flex justify-end">
+                    <div class="admin-subcategories__actions">
                         <a href="{{ route('admin.subcategories.create') }}" class="btn btn-primary">Crear Subcategoría</a>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                    <div class="admin-subcategories__table-wrapper">
+                        <table class="admin-subcategories__table">
+                            <thead class="admin-subcategories__thead">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                                    <th class="admin-subcategories__th">ID</th>
+                                    <th class="admin-subcategories__th">Nombre</th>
+                                    <th class="admin-subcategories__th">Categoría</th>
+                                    <th class="admin-subcategories__th">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="admin-subcategories__tbody">
                                 @foreach ($subcategories as $subcategory)
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $subcategory->id }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $subcategory->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $subcategory->category->name ?? '-' }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap flex gap-2">
+                                        <td class="admin-subcategories__td">{{ $subcategory->id }}</td>
+                                        <td class="admin-subcategories__td">{{ $subcategory->name }}</td>
+                                        <td class="admin-subcategories__td">{{ $subcategory->category->name ?? '-' }}</td>
+                                        <td class="admin-subcategories__td admin-subcategories__td--actions">
                                             <a href="{{ route('admin.subcategories.edit', $subcategory) }}" class="btn btn-sm btn-warning">Editar</a>
                                             <form action="{{ route('admin.subcategories.destroy', $subcategory) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta subcategoría?')">
                                                 @csrf

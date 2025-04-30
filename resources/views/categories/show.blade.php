@@ -34,24 +34,24 @@
 @endpush
 
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">{{ $category->name }}</h1>
+    <div class="categories-show__section">
+        <div class="categories-show__container">
+            <div class="categories-show__header">
+                <h1 class="categories-show__title">{{ $category->name }}</h1>
                 @if ($category->description)
-                    <p class="mt-2 text-gray-600">{{ $category->description }}</p>
+                    <p class="categories-show__desc">{{ $category->description }}</p>
                 @endif
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="categories-show__products">
                 @forelse ($products as $product)
     <x-product-card :product="$product" />
 @empty
-    <div class="col-span-full text-center text-gray-500">No hay productos en esta categoría.</div>
+    <div class="categories-show__empty">No hay productos en esta categoría.</div>
 @endforelse
             </div>
 
-            <div class="mt-8">
+            <div class="categories-show__pagination">
                 {{ $products->links() }}
             </div>
         </div>

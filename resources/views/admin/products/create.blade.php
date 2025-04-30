@@ -5,14 +5,14 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="admin-products-create__section">
+        <div class="admin-products-create__container">
+            <div class="admin-products-create__card">
+                <div class="admin-products-create__content">
                     @if ($errors->any())
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                        <div class="admin-products-create__alert--error"
                             role="alert">
-                            <ul class="list-disc list-inside">
+                            <ul class="admin-products-create__error-list">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
@@ -24,19 +24,19 @@
                         class="admin-products-create__form">
                         @csrf
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="admin-products-create__form-grid">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700">Nombre del
+                                <label for="name" class="admin-products-create__label">Nombre del
                                     producto</label>
                                 <input type="text" name="name" id="name" value="{{ old('name') }}" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="admin-products-create__input-group admin-products-create__input">
                             </div>
 
                             <div>
                                 <label for="category_id"
-                                    class="block text-sm font-medium text-gray-700">Categoría</label>
+                                    class="admin-products-create__label">Categoría</label>
                                 <select name="category_id" id="category_id" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="admin-products-create__input-group admin-products-create__input">
                                     <option value="">Seleccionar categoría</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
@@ -48,9 +48,9 @@
                             </div>
 
                             <div>
-    <label for="brand_name" class="block text-sm font-medium text-gray-700">Marca</label>
+    <label for="brand_name" class="admin-products-create__label">Marca</label>
     <input type="text" name="brand_name" id="brand_name" list="brand-list" value="{{ old('brand_name') }}" required
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        class="admin-products-create__input-group admin-products-create__input"
         placeholder="Escribe o selecciona una marca">
     <datalist id="brand-list">
         @foreach ($brands as $brand)
@@ -60,7 +60,7 @@
     <small class="text-gray-500">La marca se normalizará automáticamente (Ej: Samsung, Apple, etc.)</small>
 </div>
                             <div>
-                                <label for="price" class="block text-sm font-medium text-gray-700">Precio</label>
+                                <label for="price" class="admin-products-create__label">Precio</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm">$</span>
@@ -72,20 +72,20 @@
                             </div>
 
                             <div>
-                                <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+                                <label for="stock" class="admin-products-create__label">Stock</label>
                                 <input type="number" name="stock" id="stock" value="{{ old('stock', isset($product) ? $product->stock : '') }}" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="admin-products-create__input-group admin-products-create__input">
                             </div>
                         </div>
 
                         <div>
-                            <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
+                            <label for="description" class="admin-products-create__label">Descripción</label>
                             <textarea name="description" id="description" rows="4" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('description') }}</textarea>
+                                class="admin-products-create__input-group admin-products-create__input">{{ old('description') }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Imágenes del producto</label>
+                            <label class="admin-products-create__label">Imágenes del producto</label>
                             <div
                                 class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                 <div class="space-y-1 text-center">

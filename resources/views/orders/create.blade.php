@@ -5,14 +5,14 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="orders-create__section">
+        <div class="orders-create__container">
+            <div class="orders-create__card">
+                <div class="orders-create__content">
                     @if ($errors->any())
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                        <div class="orders-create__alert orders-create__alert--error"
                             role="alert">
-                            <ul class="list-disc list-inside">
+                            <ul class="orders-create__error-list">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
@@ -58,7 +58,7 @@
                                 <label for="delivery" class="orders-create__label">
                                     Envío a domicilio
                                 </label>
-                        <div class="space-y-6" id="shipping-info">
+                        <div class="orders-create__shipping-fields" id="shipping-info">
                             <h3 class="orders-create__subtitle">Información de Envío</h3>
 
                             <div class="orders-create__shipping-grid">
@@ -239,10 +239,10 @@ Object.keys(neighborhoodsByCity).forEach(function(city) {
                         document.addEventListener('DOMContentLoaded', toggleAddressFields);
                         </script>
                         <!-- Método de pago -->
-                        <div class="space-y-6">
-                            <h3 class="text-lg font-medium text-gray-900">Método de Pago</h3>
+                        <div class="orders-create__shipping-fields">
+                            <h3 class="orders-create__subtitle">Método de Pago</h3>
 
-                            <div class="space-y-4">
+                            <div class="orders-create__payment-fields">
                                 @foreach ($paymentMethods as $key => $label)
     <div class="flex items-center">
         <input type="radio" name="payment_method" id="{{ $key }}" value="{{ $key }}"

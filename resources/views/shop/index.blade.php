@@ -67,6 +67,10 @@
                                 placeholder="0">
                         </div>
                     </div>
+                    <!-- Botón para enviar el formulario de filtros -->
+                    <div class="shop__filter shop__filter--submit">
+                        <button type="submit" class="shop__filter-button">Aplicar filtros</button>
+                    </div>
                 </form>
             </aside>
             <!-- Lista de productos -->

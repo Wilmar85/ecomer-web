@@ -82,9 +82,9 @@
 
             <div class="products-show__gallery">
                 @if ($product->images->isNotEmpty())
-                    <div x-data="{ selectedImage: '{{ method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path) }}' }">
+                    <div data-gallery>
                         <div class="products-show__img-wrapper">
-                            <img :src="selectedImage" alt="{{ $product->name }}" class="products-show__img">
+                            <img src="{{ method_exists($product->images->first(), 'getImageUrlAttribute') ? $product->images->first()->image_url : asset('storage/' . $product->images->first()->image_path) }}" data-gallery-main alt="{{ $product->name }}" class="products-show__img">
                         </div>
                         @if ($product->images->count() > 1)
                             <div class="products-show__thumbs">
@@ -94,7 +94,7 @@
                                     @endphp
                                     <img src="{{ $imgUrl }}" alt="{{ $product->name }}"
                                         class="products-show__thumb"
-                                        @click="selectedImage = '{{ $imgUrl }}'">
+                                        data-gallery-thumb data-src="{{ $imgUrl }}">
                                 @endforeach
                             </div>
                         @endif
@@ -115,36 +115,36 @@
                                 ${{ number_format($product->price, 2) }}
                             </div>
 
-                            <div class="prose max-w-none">
+                            <div class="products-show__description">
                                 {{ $product->description }}
                             </div>
 
-                            <div class="text-sm text-gray-600">
+                            <div class="products-show__stock">
                                 Stock disponible: {{ $product->stock }}
                             </div>
 
                             @auth
-                                <form action="{{ route('cart.add') }}" method="POST" class="space-y-4">
+                                <form action="{{ route('cart.add') }}" method="POST" class="products-show__form-spacer">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
 
                                     <div>
                                         <label for="quantity"
-                                            class="block text-sm font-medium text-gray-700">Cantidad</label>
+                                            class="input-label">Cantidad</label>
                                         <input type="number" name="quantity" id="quantity" min="1"
                                             max="{{ $product->stock }}" value="1"
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                            class="products-show__input">
                                     </div>
 
                                     <button type="submit"
-                                        class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                        class="products-show__add-btn"
                                         {{ $product->stock < 1 ? 'disabled' : '' }}>
                                         {{ $product->stock < 1 ? 'Sin stock' : 'Agregar al carrito' }}
                                     </button>
                                 </form>
                             @else
-                                <div class="text-center py-4">
-                                    <a href="{{ route('login') }}" class="text-blue-500 hover:text-blue-700">
+                                <div class="products-show__login">
+                                    <a href="{{ route('login') }}" class="products-show__login-link">
                                         Inicia sesión para comprar
                                     </a>
                                 </div>

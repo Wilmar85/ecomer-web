@@ -81,21 +81,27 @@
         <x-brand-section :brands="[
             'MERCURY', 'TITANIUM', 'ZAFIRO', 'ILUMAX', 'ECOLITE', 'EXCELITE', 'INTERLED', 'DEXON', 'BRIOLIGH', 'ROYAL', 'LUMEK',
             'TITANIUM', 'DIXTON', 'BAYTER', 'SPARKLED', 'KARLUX', 'FELGOLUX', 'NEW LIGHT', 'DIGITAL LIGHT', 'SICOLUX', 'ACRILED', 'MARWA'
-        ]" />
+        ]" /> 
     </div>
     <!-- Banner de Cookies (Ley Colombiana) -->
-    <div x-data="{ showCookieBanner: localStorage.getItem('cookieAccepted') !== '1' && localStorage.getItem('cookieAccepted') !== '0' }" x-show="showCookieBanner" class="fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 z-50 flex flex-col md:flex-row items-center justify-between gap-2">
+
+    <x-cookie-banner />
+
+
+
+
+    {{-- <div class="cookie-banner">
         <span>
-            Usamos cookies para mejorar tu experiencia y cumplir la <b>Ley 1581 de 2012</b> y <b>Decreto 1377 de 2013</b> de Colombia. Consulta nuestra <a href="{{ url('/cookies') }}" class="underline text-blue-300">Política de Cookies</a>.
+            Usamos cookies para mejorar tu experiencia y cumplir la <b>Ley 1581 de 2012</b> y <b>Decreto 1377 de 2013</b> de Colombia. Consulta nuestra <a href="{{ url('/cookies') }}" class="cookie-banner__link">Política de Cookies</a>.
         </span>
-        <div class="flex gap-2 mt-2 md:mt-0">
-            <button @click="localStorage.setItem('cookieAccepted', '1'); showCookieBanner = false" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <div class="cookie-banner__actions">
+            <button @click="localStorage.setItem('cookieAccepted', '1'); showCookieBanner = false" class="primary-btn">
                 Aceptar
             </button>
-            <button @click="localStorage.setItem('cookieAccepted', '0'); showCookieBanner = false" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+            <button @click="localStorage.setItem('cookieAccepted', '0'); showCookieBanner = false" class="secondary-btn">
                 Rechazar
             </button>
         </div>
-    </div>
+    </div> --}}
 
 </x-app-layout>

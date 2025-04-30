@@ -5,14 +5,14 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="admin-products-edit__section">
+        <div class="admin-products-edit__container">
+            <div class="admin-products-edit__card">
+                <div class="admin-products-edit__card-body">
                     @if ($errors->any())
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+                        <div class="admin-products-edit__alert"
                             role="alert">
-                            <ul class="list-disc list-inside">
+                            <ul class="admin-products-edit__error-list">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
@@ -25,33 +25,33 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="admin-products-edit__form-grid">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700">Nombre del
+                                <label for="name" class="admin-products-edit__label">Nombre del
                                     producto</label>
                                 <input type="text" name="name" id="name"
                                     value="{{ old('name', $product->name) }}" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="admin-products-edit__input">
                             </div>
 
                             <div>
-                                <label for="brand_name" class="block text-sm font-medium text-gray-700">Marca</label>
+                                <label for="brand_name" class="admin-products-edit__label">Marca</label>
                                 <input type="text" name="brand_name" id="brand_name" list="brand-list" value="{{ old('brand_name', $product->brand->name ?? '') }}" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    class="admin-products-edit__input"
                                     placeholder="Escribe o selecciona una marca">
                                 <datalist id="brand-list">
                                     @foreach ($brands as $brand)
                                         <option value="{{ $brand->name }}"></option>
                                     @endforeach
                                 </datalist>
-                                <small class="text-gray-500">La marca se normalizará automáticamente (Ej: Samsung, Apple, etc.)</small>
+                                <small class="admin-products-edit__help">La marca se normalizará automáticamente (Ej: Samsung, Apple, etc.)</small>
                             </div>
 
                             <div>
                                 <label for="category_id"
-                                    class="block text-sm font-medium text-gray-700">Categoría</label>
+                                    class="admin-products-edit__label">Categoría</label>
                                 <select name="category_id" id="category_id" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="admin-products-edit__input">
                                     <option value="">Seleccionar categoría</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
@@ -63,41 +63,41 @@
                             </div>
 
                             <div>
-                                <label for="price" class="block text-sm font-medium text-gray-700">Precio</label>
-                                <div class="mt-1 relative rounded-md shadow-sm">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500 sm:text-sm">$</span>
+                                <label for="price" class="admin-products-edit__label">Precio</label>
+                                <div class="admin-products-edit__input-group">
+                                    <div class="admin-products-edit__input-absolute">
+                                        <span class="admin-products-edit__input-left">$</span>
                                     </div>
                                     <input type="number" name="price" id="price"
                                         value="{{ old('price', $product->price) }}" step="0.01" required
-                                        class="pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        class="admin-products-edit__input admin-products-edit__input-padding-l">
                                 </div>
                             </div>
 
                             <div>
-                                <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+                                <label for="stock" class="admin-products-edit__label">Stock</label>
                                 <input type="number" name="stock" id="stock"
                                     value="{{ old('stock', isset($product) ? $product->stock : '') }}" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="admin-products-edit__input">
                             </div>
                         </div>
 
                         <div>
-                            <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
+                            <label for="description" class="admin-products-edit__label">Descripción</label>
                             <textarea name="description" id="description" rows="4" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('description', $product->description) }}</textarea>
+                                class="admin-products-edit__input">{{ old('description', $product->description) }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Imágenes actuales</label>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                            <label class="admin-products-edit__label admin-products-edit__input-block">Imágenes actuales</label>
+                            <div class="admin-products-edit__images-grid">
                                 @foreach ($product->images as $image)
-                                    <div class="relative">
-                                        <img src="{{ method_exists($image, 'getImageUrlAttribute') ? $image->image_url : asset('storage/' . $image->image_path) }}" alt="{{ $product->name }}" class="w-full h-32 object-cover rounded-lg">
-                                        <div class="absolute top-0 right-0 p-1">
+                                    <div class="admin-products-edit__image-wrapper">
+                                        <img src="{{ method_exists($image, 'getImageUrlAttribute') ? $image->image_url : asset('storage/' . $image->image_path) }}" alt="{{ $product->name }}" class="admin-products-edit__image admin-products-edit__image-fullwidth admin-products-edit__image-rounded">
+                                        <div class="admin-products-edit__image-remove admin-products-edit__input-absolute">
                                             <button type="button" onclick="deleteImage({{ $image->id }})"
-                                                class="bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
-                                                <svg class="h-4 w-4" fill="none" stroke="currentColor"
+                                                class="admin-products-edit__image-remove-btn admin-products-edit__image-remove-bg admin-products-edit__image-remove-hover">
+                                                <svg class="admin-products-edit__image-remove-svg" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -108,45 +108,44 @@
                                 @endforeach
                             </div>
 
-                            <label class="block text-sm font-medium text-gray-700">Agregar nuevas imágenes</label>
-                            <div
-                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                <div class="space-y-1 text-center">
-                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
+                            <label class="admin-products-edit__label">Agregar nuevas imágenes</label>
+                            <div class="admin-products-edit__input-group admin-products-edit__input-flex admin-products-edit__input-justify-center admin-products-edit__input-padding admin-products-edit__input-border admin-products-edit__input-rounded">
+                                <div class="admin-products-edit__input-space-y-1 admin-products-edit__input-text-center">
+                                    <svg class="admin-products-edit__input-svg" stroke="currentColor" fill="none"
                                         viewBox="0 0 48 48">
                                         <path
                                             d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    <div class="flex text-sm text-gray-600">
+                                    <div class="admin-products-edit__input-flex admin-products-edit__input-text-sm admin-products-edit__input-text-gray-600">
                                         <label for="images"
-                                            class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                            class="admin-products-edit__input-relative admin-products-edit__input-cursor-pointer admin-products-edit__input-bg-white admin-products-edit__input-rounded-md admin-products-edit__input-font-medium admin-products-edit__input-text-blue-600 admin-products-edit__input-hover-text-blue-500 admin-products-edit__input-focus-within-outline-none admin-products-edit__input-focus-within-ring-2 admin-products-edit__input-focus-within-ring-offset-2 admin-products-edit__input-focus-within-ring-blue-500">
                                             <span>Subir archivos</span>
                                             <input id="images" name="images[]" type="file" class="sr-only"
                                                 multiple accept="image/*">
                                         </label>
-                                        <p class="pl-1">o arrastrar y soltar</p>
+                                        <p class="admin-products-edit__input-padding-left">o arrastrar y soltar</p>
                                     </div>
-                                    <p class="text-xs text-gray-500">PNG, JPG, GIF hasta 10MB</p>
+                                    <p class="admin-products-edit__input-left admin-products-edit__input-xs admin-products-edit__input-text-gray-500">PNG, JPG, GIF hasta 10MB</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex items-center">
-    <input type="hidden" name="active" value="0">
-    <input type="checkbox" name="active" id="active"
-        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-        value="1" {{ old('active', isset($product) ? $product->active : false) ? 'checked' : '' }}>
-    <label for="active" class="ml-2 block text-sm text-gray-900">Producto activo</label>
-</div>
+                        <div class="admin-products-edit__input-flex admin-products-edit__input-items-center">
+                            <input type="hidden" name="active" value="0">
+                            <input type="checkbox" name="active" id="active"
+                                class="admin-products-edit__checkbox"
+                                value="1" {{ old('active', isset($product) ? $product->active : false) ? 'checked' : '' }}>
+                            <label for="active" class="admin-products-edit__checkbox-label">Producto activo</label>
+                        </div>
 
-                        <div class="flex justify-end space-x-4">
+                        <div class="admin-products-edit__actions">
                             <a href="{{ route('admin.products.index') }}"
-                                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded">
+                                class="admin-products-edit__cancel-btn">
                                 Cancelar
                             </a>
                             <button type="submit"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                class="admin-products-edit__submit-btn">
                                 Actualizar Producto
                             </button>
                         </div>

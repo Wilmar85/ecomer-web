@@ -1,108 +1,104 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="admin-orders-show__header">
+            <h2 class="admin-orders-show__title">
                 {{ __('Detalles del Pedido #') . $order->id }}
             </h2>
             <a href="{{ route('admin.orders.index') }}"
-                class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded">
+                class="admin-orders-show__back-btn">
                 Volver a Pedidos
             </a>
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="admin-orders-show__section">
+        <div class="admin-orders-show__container">
+            <div class="admin-orders-show__card">
+                <div class="admin-orders-show__content">
+                    <div class="admin-orders-show__grid">
                         <!-- Comprobante de Pago -->
                         @if($order->payment_proof)
-                        <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Comprobante de Pago</h3>
-                            <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Comprobante de pago" class="w-full max-w-xs rounded shadow border">
-                            <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="block mt-2 text-indigo-600 hover:underline text-sm">Ver tamaño completo</a>
+                        <div class="admin-orders-show__subcard">
+                            <h3 class="admin-orders-show__subtitle">Comprobante de Pago</h3>
+                            <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Comprobante de pago" class="admin-orders-show__img">
+                            <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="admin-orders-show__img-link">Ver tamaño completo</a>
                         </div>
                         @endif
                         <!-- Información del Cliente -->
-                        <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Información del Cliente</h3>
-                            <dl class="grid grid-cols-1 gap-4">
+                        <div class="admin-orders-show__subcard">
+                            <h3 class="admin-orders-show__subtitle">Información del Cliente</h3>
+                            <dl class="admin-orders-show__dl">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Nombre</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->name }}</dd>
+                                    <dt class="admin-orders-show__dt">Nombre</dt>
+                                    <dd class="admin-orders-show__dd">{{ $order->name }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Email</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->email }}</dd>
+                                    <dt class="admin-orders-show__dt">Email</dt>
+                                    <dd class="admin-orders-show__dd">{{ $order->email }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Teléfono</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->phone }}</dd>
+                                    <dt class="admin-orders-show__dt">Teléfono</dt>
+                                    <dd class="admin-orders-show__dd">{{ $order->phone }}</dd>
                                 </div>
                             </dl>
                         </div>
 
                         <!-- Información de Envío -->
-                        <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Información de Envío</h3>
-                            <dl class="grid grid-cols-1 gap-4">
+                        <div class="admin-orders-show__subcard">
+                            <h3 class="admin-orders-show__subtitle">Información de Envío</h3>
+                            <dl class="admin-orders-show__dl">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Dirección</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->address }}</dd>
+                                    <dt class="admin-orders-show__dt">Dirección</dt>
+                                    <dd class="admin-orders-show__dd">{{ $order->address }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Ciudad</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->city }}</dd>
+                                    <dt class="admin-orders-show__dt">Ciudad</dt>
+                                    <dd class="admin-orders-show__dd">{{ $order->city }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Código Postal</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ $order->postal_code }}</dd>
+                                    <dt class="admin-orders-show__dt">Código Postal</dt>
+                                    <dd class="admin-orders-show__dd">{{ $order->postal_code }}</dd>
                                 </div>
                             </dl>
                         </div>
 
                         <!-- Estado del Pedido -->
-                        <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Estado del Pedido</h3>
-                            <dl class="grid grid-cols-1 gap-4">
+                        <div class="admin-orders-show__subcard">
+                            <h3 class="admin-orders-show__subtitle">Estado del Pedido</h3>
+                            <dl class="admin-orders-show__dl">
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Estado Actual</dt>
-                                    <dd class="mt-1">
+                                    <dt class="admin-orders-show__dt">Estado Actual</dt>
+                                    <dd class="admin-orders-show__dd">
                                         <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                                            {{ $order->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
-                                            {{ $order->status === 'processing' ? 'bg-blue-100 text-blue-800' : '' }}
-                                            {{ $order->status === 'completed' ? 'bg-green-100 text-green-800' : '' }}
-                                            {{ $order->status === 'cancelled' ? 'bg-red-100 text-red-800' : '' }}">
+                                            class="admin-orders-show__status admin-orders-show__status--{{ $order->status }}">
                                             {{ ucfirst($order->status) }}
                                         </span>
                                     </dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Método de Pago</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">{{ ucfirst($order->payment_method) }}</dd>
+                                    <dt class="admin-orders-show__dt">Método de Pago</dt>
+                                    <dd class="admin-orders-show__dd">{{ ucfirst($order->payment_method) }}</dd>
                                 </div>
                                 <div>
-                                    <dt class="text-sm font-medium text-gray-500">Fecha del Pedido</dt>
-                                    <dd class="mt-1 text-sm text-gray-900">
+                                    <dt class="admin-orders-show__dt">Fecha del Pedido</dt>
+                                    <dd class="admin-orders-show__dd">
                                         {{ $order->created_at->format('d/m/Y H:i') }}</dd>
                                 </div>
                             </dl>
                         </div>
 
                         <!-- Actualizar Estado -->
-                        <div class="bg-gray-50 p-6 rounded-lg">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Actualizar Estado</h3>
+                        <div class="admin-orders-show__subcard">
+                            <h3 class="admin-orders-show__subtitle">Actualizar Estado</h3>
                             <form action="{{ route('admin.orders.update-status', $order) }}" method="POST"
-                                class="space-y-4">
+                                class="admin-orders-show__form">
                                 @csrf
                                 
                                 <div>
-                                    <label for="status" class="block text-sm font-medium text-gray-700">Nuevo
+                                    <label for="status" class="admin-orders-show__label">Nuevo
                                         Estado</label>
                                     <select name="status" id="status"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        class="admin-orders-show__input">
                                         <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>
                                             Pendiente</option>
                                         <option value="processing"
@@ -122,62 +118,57 @@
                     </div>
 
                     <!-- Productos del Pedido -->
-                    <div class="mt-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Productos del Pedido</h3>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
+                    <div class="admin-orders-show__products-section">
+                        <h3 class="admin-orders-show__subtitle">Productos del Pedido</h3>
+                        <div class="admin-orders-show__table-scroll">
+                            <table class="admin-orders-show__table">
+                                <thead class="admin-orders-show__thead">
                                     <tr>
                                         <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            class="admin-orders-show__th">
                                             Producto</th>
                                         <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            class="admin-orders-show__th">
                                             Cantidad</th>
                                         <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            class="admin-orders-show__th">
                                             Precio Unitario</th>
                                         <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            class="admin-orders-show__th">
                                             Subtotal</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                                <tbody class="admin-orders-show__tbody">
                                     @foreach ($order->items as $item)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
+                                            <td class="admin-orders-show__td">
+                                                <div class="admin-orders-show__product-row">
                                                     @if ($item->product->images->isNotEmpty())
                                                         <img src="{{ asset('storage/' . $item->product->images->first()->path) }}"
                                                             alt="{{ $item->product->name }}"
-                                                            class="h-10 w-10 rounded object-cover mr-3">
+                                                            class="admin-orders-show__product-img">
                                                     @endif
-                                                    <div class="text-sm font-medium text-gray-900">
+                                                    <div class="admin-orders-show__cell">
                                                         {{ $item->product->name }}
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <td class="admin-orders-show__td admin-orders-show__td--muted">
                                                 {{ $item->quantity }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <td class="admin-orders-show__td admin-orders-show__td--muted">
                                                 ${{ number_format($item->price, 2) }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <td class="admin-orders-show__td admin-orders-show__td--muted">
                                                 ${{ number_format($item->subtotal, 2) }}
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot class="bg-gray-50">
+                                <tfoot class="admin-orders-show__tfoot">
                                     <tr>
-                                        <td colspan="3"
-                                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-right">
-                                            Total:
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            ${{ number_format($order->total, 2) }}
-                                        </td>
+                                        <td colspan="3" class="admin-orders-show__td">Total:</td>
+                                        <td class="admin-orders-show__td">${{ number_format($order->total, 2) }}</td>
                                     </tr>
                                 </tfoot>
                             </table>

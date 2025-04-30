@@ -11,11 +11,11 @@
                     <form method="POST" action="{{ route('admin.categories.update', $category) }}">
                         @csrf
                         @method('PUT')
-                        <div class="mb-4">
+                        <div class="admin-categories-edit__field">
                             <label class="admin-categories-edit__label">Nombre</label>
                             <input type="text" name="name" value="{{ old('name', $category->name) }}" class="admin-categories-edit__input" required />
                         </div>
-                        <div class="mb-4">
+                        <div class="admin-categories-edit__field">
                             <label class="admin-categories-edit__label">Descripción</label>
                             <textarea name="description" class="admin-categories-edit__input">{{ old('description', $category->description) }}</textarea>
                         </div>

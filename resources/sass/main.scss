@@ -27,13 +27,14 @@
 @use './components/dropdown.scss';
 @use './components/input-label.scss';
 @use './components/input-error.scss';
-@use './components/_alpine-x-cloak.scss';
+
 // Agrega aquí otros componentes según los vayas creando
 @use './components/product-card-mobile-fix.scss';
 @use './components/home.scss';
 @use './components/floating-ui.scss';
 @use './components/global-floating.scss';
 @use './components/bem-base.scss';
+@use './components/login-register.scss';
 
 // 5. Páginas
 @use './pages/layouts.scss';
@@ -65,7 +66,7 @@
 @use './components/menu.scss';
 // @use './components/about.scss';
 @use './components/contact.scss';
-// @use './components/cookies.scss';
+@use './pages/cookies.scss';
 // @use './components/dashboard.scss';
 // @use './components/home.scss';
 // @use './components/terminos.scss';

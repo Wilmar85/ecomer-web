@@ -5,9 +5,9 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
+    <div class="orders-wompi-callback__section">
+        <div class="orders-wompi-callback__container">
+            <div class="orders-wompi-callback__card">
                 <div class="orders-wompi-callback__main">
                     @php
                         $status = $order->status;
@@ -21,9 +21,9 @@
                             'cancelled' => 'red',
                         ][$status] ?? 'yellow';
                         $icon = [
-                            'green' => '<svg class="w-16 h-16 mx-auto mb-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 12l2.5 2.5L16 9"/></svg>',
-                            'yellow' => '<svg class="w-16 h-16 mx-auto mb-4 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01"/></svg>',
-                            'red' => '<svg class="w-16 h-16 mx-auto mb-4 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"/></svg>',
+                            'green' => '<svg class="orders-wompi-callback__icon orders-wompi-callback__icon--success" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 12l2.5 2.5L16 9"/></svg>',
+                            'yellow' => '<svg class="orders-wompi-callback__icon orders-wompi-callback__icon--pending" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01"/></svg>',
+                            'red' => '<svg class="orders-wompi-callback__icon orders-wompi-callback__icon--error" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"/></svg>',
                         ][$statusColor];
                         $mainMsg = [
                             'green' => '¡Pago exitoso!',
@@ -42,19 +42,19 @@
                     <p class="orders-wompi-callback__desc">{{ $descMsg }}</p>
 
                     <div class="orders-wompi-callback__summary">
-                        <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
+                        <div class="orders-wompi-callback__summary-row orders-wompi-callback__summary-row--mb">
                             <span class="orders-wompi-callback__summary-label">Pedido:</span>
                             <span>#{{ $order->id }}</span>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
+                        <div class="orders-wompi-callback__summary-row orders-wompi-callback__summary-row--mb">
                             <span class="orders-wompi-callback__summary-label">Referencia de pago:</span>
                             <span>{{ $order->order_number ?? '-' }}</span>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
+                        <div class="orders-wompi-callback__summary-row orders-wompi-callback__summary-row--mb">
                             <span class="orders-wompi-callback__summary-label">Estado:</span>
                             <span class="capitalize">{{ $order->status }}</span>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                        <div class="orders-wompi-callback__summary-row">
                             <span class="orders-wompi-callback__summary-label">Total pagado:</span>
                             <span class="orders-wompi-callback__summary-value orders-wompi-callback__summary-value--total">${{ number_format($order->total, 2) }}</span>
                         </div>

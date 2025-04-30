@@ -1,20 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="dashboard__header">
             {{ __('Panel de Administración') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="dashboard__section">
+        <div class="dashboard__container">
+            <div class="dashboard__stats">
                 <!-- Gestión de Productos -->
                 <div class="dashboard__stat">
                     <div class="dashboard__stat-content">
-                        <h3 class="dashboard__stat-title text-lg font-medium text-gray-900 mb-4">Productos</h3>
-                        <p class="dashboard__stat-desc mb-4">Gestiona el catálogo de productos de la tienda.</p>
+                        <h3 class="dashboard__stat-title">Productos</h3>
+                        <p class="dashboard__stat-desc">Gestiona el catálogo de productos de la tienda.</p>
                         <a href="{{ route('admin.products.index') }}"
-                            class="dashboard__stat-link inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            class="dashboard__stat-link dashboard__stat-link--blue">
                             Administrar Productos
                         </a>
                     </div>
@@ -23,10 +23,10 @@
                 <!-- Gestión de Categorías -->
                 <div class="dashboard__stat">
                     <div class="dashboard__stat-content">
-                        <h3 class="dashboard__stat-title text-lg font-medium text-gray-900 mb-4">Categorías</h3>
-                        <p class="dashboard__stat-desc mb-4">Organiza tus productos en categorías.</p>
+                        <h3 class="dashboard__stat-title">Categorías</h3>
+                        <p class="dashboard__stat-desc">Organiza tus productos en categorías.</p>
                         <a href="{{ route('admin.categories.index') }}"
-                            class="dashboard__stat-link inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            class="dashboard__stat-link dashboard__stat-link--green">
                             Administrar Categorías
                         </a>
                     </div>
@@ -35,10 +35,10 @@
                 <!-- Gestión de Subcategorías -->
                 <div class="dashboard__stat">
                     <div class="dashboard__stat-content">
-                        <h3 class="dashboard__stat-title text-lg font-medium text-gray-900 mb-4">Subcategorías</h3>
-                        <p class="dashboard__stat-desc mb-4">Gestiona las subcategorías asociadas a cada categoría.</p>
+                        <h3 class="dashboard__stat-title">Subcategorías</h3>
+                        <p class="dashboard__stat-desc">Gestiona las subcategorías asociadas a cada categoría.</p>
                         <a href="{{ route('admin.subcategories.index') }}"
-                            class="dashboard__stat-link inline-flex items-center px-4 py-2 bg-yellow-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-700 focus:bg-yellow-700 active:bg-yellow-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            class="dashboard__stat-link dashboard__stat-link--yellow">
                             Administrar Subcategorías
                         </a>
                     </div>
@@ -47,10 +47,10 @@
                 <!-- Gestión de Pedidos -->
                 <div class="dashboard__stat">
                     <div class="dashboard__stat-content">
-                        <h3 class="dashboard__stat-title text-lg font-medium text-gray-900 mb-4">Pedidos</h3>
-                        <p class="dashboard__stat-desc mb-4">Gestiona los pedidos de tus clientes.</p>
+                        <h3 class="dashboard__stat-title">Pedidos</h3>
+                        <p class="dashboard__stat-desc">Gestiona los pedidos de tus clientes.</p>
                         <a href="{{ route('admin.orders.index') }}"
-                            class="dashboard__stat-link inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-700 focus:bg-purple-700 active:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            class="dashboard__stat-link dashboard__stat-link--purple">
                             Administrar Pedidos
                         </a>
                     </div>
@@ -58,27 +58,18 @@
             </div>
 
             <!-- Estadísticas Rápidas -->
-            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="dashboard__stats-grid">
                 <div class="dashboard__table">
                     <div class="dashboard__stat">
-                        <div class="flex-shrink-0 bg-blue-100 rounded-full p-3 group-hover:bg-blue-200 transition-colors">
-                            <svg class="h-7 w-7 text-blue-600 group-hover:text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="dashboard__stat-icon dashboard__stat-icon--blue">
+                            <svg class="dashboard__table-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
                         </div>
-                        <div class="flex-1">
+                        <div class="dashboard__stat-content">
                             <dl>
-                                <dt class="dashboard__table-title text-sm font-medium text-gray-500 truncate flex items-center gap-1">
-                                    Ingresos Totales
-                                    <span class="ml-1 cursor-pointer" title="Suma total de ventas en el periodo seleccionado">
-                                        <svg class="dashboard__table-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
-                                    </span>
-                                </dt>
-                                <dd class="flex items-baseline mt-1">
-                                    <div class="dashboard__title">${{ number_format($totalRevenue ?? 0, 2) }}
-                                        <span class="ml-2 text-xs px-2 py-1 rounded bg-green-100 text-green-700 align-middle" title="Tendencia respecto al mes anterior">↑ 8%</span>
-                                    </div>
-                                </dd>
+                                <dt class="dashboard__table-title">Ingresos Totales</dt>
+                                <dd class="dashboard__table-desc">{{ number_format($totalRevenue ?? 0, 2) }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -86,24 +77,15 @@
 
                 <div class="dashboard__table">
                     <div class="dashboard__stat">
-                        <div class="flex-shrink-0 bg-green-100 rounded-full p-3 group-hover:bg-green-200 transition-colors">
-                            <svg class="h-7 w-7 text-green-600 group-hover:text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="dashboard__stat-icon dashboard__stat-icon--green">
+                            <svg class="dashboard__table-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
                             </svg>
                         </div>
-                        <div class="flex-1">
+                        <div class="dashboard__stat-content">
                             <dl>
-                                <dt class="dashboard__table-title text-sm font-medium text-gray-500 truncate flex items-center gap-1">
-                                    Tasa de Conversión
-                                    <span class="ml-1 cursor-pointer" title="Porcentaje de visitantes que realizaron una compra">
-                                        <svg class="dashboard__table-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
-                                    </span>
-                                </dt>
-                                <dd class="flex items-baseline mt-1">
-                                    <div class="dashboard__title">{{ $conversionRate !== null ? $conversionRate . '%' : 'N/D' }}
-                                        <span class="ml-2 text-xs px-2 py-1 rounded bg-green-100 text-green-700 align-middle" title="Tendencia respecto al mes anterior">↑ 1.4%</span>
-                                    </div>
-                                </dd>
+                                <dt class="dashboard__table-title">Tasa de Conversión</dt>
+                                <dd class="dashboard__table-desc">{{ $conversionRate !== null ? $conversionRate . '%' : 'N/D' }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -111,24 +93,15 @@
 
                 <div class="dashboard__table">
                     <div class="dashboard__stat">
-                        <div class="flex-shrink-0 bg-red-100 rounded-full p-3 group-hover:bg-red-200 transition-colors">
-                            <svg class="h-7 w-7 text-red-600 group-hover:text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="dashboard__stat-icon dashboard__stat-icon--red">
+                            <svg class="dashboard__table-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                             </svg>
                         </div>
-                        <div class="flex-1">
+                        <div class="dashboard__stat-content">
                             <dl>
-                                <dt class="dashboard__table-title text-sm font-medium text-gray-500 truncate flex items-center gap-1">
-                                    Tasa de Abandono Carrito
-                                    <span class="ml-1 cursor-pointer" title="Porcentaje de usuarios que abandonan el carrito sin comprar">
-                                        <svg class="dashboard__table-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
-                                    </span>
-                                </dt>
-                                <dd class="flex items-baseline mt-1">
-                                    <div class="dashboard__title">{{ $cartAbandonmentRate !== null ? $cartAbandonmentRate . '%' : 'N/D' }}
-                                        <span class="ml-2 text-xs px-2 py-1 rounded bg-red-100 text-red-700 align-middle" title="Tendencia respecto al mes anterior">↓ 0.7%</span>
-                                    </div>
-                                </dd>
+                                <dt class="dashboard__table-title">Tasa de Abandono Carrito</dt>
+                                <dd class="dashboard__table-desc">{{ $cartAbandonmentRate !== null ? $cartAbandonmentRate . '%' : 'N/D' }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -136,91 +109,81 @@
             </div>
 
             <!-- Ventas por producto (top 10) -->
-            <div class="mt-8 bg-white overflow-hidden shadow-md sm:rounded-lg border border-gray-100">
-                <div class="dashboard__table-th">
-                    <h3 class="dashboard__table-title text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">Ventas por Producto
-                        <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded" title="Top 10 productos más vendidos">TOP</span>
-                    </h3>
-                    <ul>
+            <div class="dashboard__table-container">
+                <div class="dashboard__table-header">
+                    <h3 class="dashboard__table-title">Ventas por Producto</h3>
+                    <ul class="dashboard__table-list">
                         @forelse($salesByProduct as $item)
-                            <li class="flex justify-between border-b py-1">
-                                <span>{{ $item->product ? $item->product->name : 'Producto #' . $item->product_id }}</span>
-                                <span class="font-semibold bg-blue-50 text-blue-700 px-2 rounded">{{ $item->total }}</span>
+                            <li class="dashboard__table-row">
+                                <span class="dashboard__table-cell">{{ $item->product ? $item->product->name : 'Producto #' . $item->product_id }}</span>
+                                <span class="dashboard__table-desc">{{ $item->total }}</span>
                             </li>
                         @empty
                             <li>No hay datos.</li>
                         @endforelse
                     </ul>
-                    <div class="mt-8">
-                        <canvas id="chartSalesByProduct" height="110"></canvas>
-                    </div>
                 </div>
             </div>
 
             <!-- Ventas por Región -->
-            <div class="mt-8 bg-white overflow-hidden shadow-md sm:rounded-lg border border-gray-100">
-                <div class="dashboard__table-th">
-                    <h3 class="dashboard__table-title text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">Ventas por Región
-                        <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded" title="Distribución de ventas por ubicación">MAPA</span>
-                    </h3>
-                    <ul>
+            <div class="dashboard__table-container">
+                <div class="dashboard__table-header">
+                    <h3 class="dashboard__table-title">Ventas por Región</h3>
+                    <ul class="dashboard__table-list">
                         @forelse($salesByRegion as $region)
-                            <li class="flex justify-between border-b py-1">
-                                <span>{{ $region->region ?? 'Sin región' }}</span>
-                                <span class="font-semibold bg-purple-50 text-purple-700 px-2 rounded">{{ $region->total }}</span>
+                            <li class="dashboard__table-row">
+                                <span class="dashboard__table-cell">{{ $region->region ?? 'Sin región' }}</span>
+                                <span class="dashboard__table-desc">{{ $region->total }}</span>
                             </li>
                         @empty
                             <li>No hay datos.</li>
                         @endforelse
                     </ul>
-                    <div class="mt-8">
-                        <canvas id="chartSalesStacked" height="90"></canvas>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- MÉTRICAS DE MARKETING (GOOGLE ANALYTICS) -->
-        <div class="mt-12">
-            <h2 class="dashboard__title text-xl font-bold mb-6">Métricas de Marketing</h2>
+        <div class="dashboard__section">
+            <h2 class="dashboard__title">Métricas de Marketing</h2>
             <div class="dashboard__stats">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Tráfico del sitio web (últimos 30 días)</div>
-                        <div class="text-3xl">
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-title">Tráfico del sitio web (últimos 30 días)</div>
+                        <div class="dashboard__table-desc">
                             @if($trafficSummary !== null)
                                 {{ number_format($trafficSummary) }} sesiones
                             @else
-                                <span class="text-red-500">Conecta Google Analytics para ver esta métrica</span>
+                                <span class="dashboard__stat-icon--blue-fill">Conecta Google Analytics para ver esta métrica</span>
                             @endif
                         </div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Fuentes de tráfico (últimos 30 días)</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-title">Fuentes de tráfico (últimos 30 días)</div>
                         @if($trafficSources !== null)
-                            <ul>
+                            <ul class="dashboard__table-list">
                                 @foreach($trafficSources as $source => $count)
-                                    <li class="flex justify-between border-b py-1">
+                                    <li class="dashboard__table-row">
                                         <span>{{ $source }}</span>
-                                        <span class="font-semibold">{{ number_format($count) }}</span>
+                                        <span class="dashboard__table-desc">{{ number_format($count) }}</span>
                                     </li>
                                 @endforeach
                             </ul>
                         @else
-                            <span class="text-red-500">Conecta Google Analytics para ver esta métrica</span>
+                            <span class="dashboard__stat-icon--blue-fill">Conecta Google Analytics para ver esta métrica</span>
                         @endif
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Tasa de Clics (CTR)</div>
-                        <div class="text-3xl">
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-title">Tasa de Clics (CTR)</div>
+                        <div class="dashboard__table-desc">
                             @if($ctr !== null)
                                 {{ $ctr }}%
                             @else
-                                <span class="text-red-500">No disponible o sin datos</span>
+                                <span class="dashboard__stat-icon--blue-fill">No disponible o sin datos</span>
                             @endif
                         </div>
                     </div>
@@ -229,60 +192,61 @@
         </div>
 
         <!-- FILTROS Y PERSONALIZACIÓN -->
-        <div class="flex flex-wrap gap-4 items-center mt-10 mb-6 bg-gradient-to-r from-blue-50 via-white to-purple-50 px-4 py-3 rounded shadow-sm border border-gray-100">
-            <button id="toggleDarkMode" type="button" class="mr-4 px-3 py-1 bg-gray-800 text-white rounded hover:bg-gray-900 transition">🌙 Modo Oscuro</button>
-            <form class="flex flex-col md:flex-row gap-2 items-center w-full md:w-auto" method="GET" action="">
-                <label for="dateRange" class="font-semibold">Rango de fechas:</label>
-                <select id="dateRange" name="dateRange" class="rounded border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="7">Últimos 7 días</option>
-                    <option value="30" selected>Últimos 30 días</option>
-                    <option value="90">Últimos 90 días</option>
-                </select>
-                <label for="deviceFilter" class="font-semibold ml-0 md:ml-4">Dispositivo:</label>
-                <select id="deviceFilter" name="deviceFilter" class="rounded border-gray-300 focus:ring-purple-500 focus:border-purple-500">
-                    <option value="all">Todos</option>
-                    @if($devices)
-                        @foreach(array_keys($devices) as $device)
-                            <option value="{{ $device }}">{{ ucfirst($device) }}</option>
-                        @endforeach
-                    @endif
-                </select>
-                <button type="submit" class="md:ml-4 px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition">Aplicar</button>
-            </form>
-        </div>
+        <div class="dashboard__section">
+            <div class="dashboard__filter-container">
+                <button id="toggleDarkMode" type="button" class="dashboard__filter-button">Modo Oscuro</button>
+                <form class="dashboard__filter-form" method="GET" action="">
+                    <label for="dateRange" class="dashboard__filter-label">Rango de fechas:</label>
+                    <select id="dateRange" name="dateRange" class="dashboard__filter-select">
+                        <option value="7">Últimos 7 días</option>
+                        <option value="30" selected>Últimos 30 días</option>
+                        <option value="90">Últimos 90 días</option>
+                    </select>
+                    <label for="deviceFilter" class="dashboard__filter-label">Dispositivo:</label>
+                    <select id="deviceFilter" name="deviceFilter" class="dashboard__filter-select">
+                        <option value="all">Todos</option>
+                        @if($devices)
+                            @foreach(array_keys($devices) as $device)
+                                <option value="{{ $device }}">{{ ucfirst($device) }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    <button type="submit" class="dashboard__filter-button">Aplicar</button>
+                </form>
+            </div>
 
         <!-- MÉTRICAS DE RENDIMIENTO DEL SITIO WEB -->
-        <div class="mt-12" data-metric-section="performance">
-            <h2 class="dashboard__title text-xl font-bold mb-6">Métricas de Rendimiento del Sitio Web</h2>
+        <div class="dashboard__section--performance" data-metric-section="performance">
+            <h2 class="dashboard__title dashboard__section-title">Métricas de Rendimiento del Sitio Web</h2>
             <div class="dashboard__stats">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Velocidad de carga promedio</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Velocidad de carga promedio</div>
                         <canvas id="chartPageLoad" height="80" data-chart-pageload="{{ $averagePageLoadTime ?? 0 }}"></canvas>
                         <canvas id="trendPageLoad" height="60" class="dashboard__stat-label"></canvas>
-                        <div class="text-2xl mt-2">{{ $averagePageLoadTime ? number_format($averagePageLoadTime, 2) . ' s' : 'N/D' }}</div>
-                        <table class="w-full text-sm mt-2">
-                            <tr><td class="font-semibold">Valor actual</td><td>{{ $averagePageLoadTime ? number_format($averagePageLoadTime, 2).' s' : 'N/D' }}</td></tr>
+                        <div class="dashboard__highlight-lg">{{ $averagePageLoadTime ? number_format($averagePageLoadTime, 2) . ' s' : 'N/D' }}</div>
+                        <table class="dashboard__table-full dashboard__table-sm">
+                            <tr><td class="dashboard__table-strong">Valor actual</td><td>{{ $averagePageLoadTime ? number_format($averagePageLoadTime, 2).' s' : 'N/D' }}</td></tr>
                         </table>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Tasa de rebote</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Tasa de rebote</div>
                         <canvas id="chartBounceRate" height="80" data-chart-bouncerate="{{ $bounceRate ?? 0 }}"></canvas>
                         <canvas id="trendBounceRate" height="60" class="dashboard__stat-label"></canvas>
-                        <div class="text-2xl mt-2">{{ $bounceRate ? number_format($bounceRate, 2) . ' %' : 'N/D' }}</div>
-                        <table class="w-full text-sm mt-2">
-                            <tr><td class="font-semibold">Valor actual</td><td>{{ $bounceRate ? number_format($bounceRate, 2).' %' : 'N/D' }}</td></tr>
+                        <div class="dashboard__highlight-lg">{{ $bounceRate ? number_format($bounceRate, 2) . ' %' : 'N/D' }}</div>
+                        <table class="dashboard__table-full dashboard__table-sm">
+                            <tr><td class="dashboard__table-strong">Valor actual</td><td>{{ $bounceRate ? number_format($bounceRate, 2).' %' : 'N/D' }}</td></tr>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="dashboard__stats">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Tiempo promedio en el sitio</div>
-                        <div class="text-2xl">
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Tiempo promedio en el sitio</div>
+                        <div class="dashboard__highlight-lg">
                             @if($averageSessionDuration)
                                 @php
                                     $minutes = floor($averageSessionDuration / 60);
@@ -295,20 +259,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Dispositivos</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Dispositivos</div>
                         <script>
                             window.devicesData = @json($devices);
                         </script>
-                        <canvas id="pieDevices" height="120" class="mb-4"></canvas>
+                        <canvas id="pieDevices" height="120" class="dashboard__stat-desc"></canvas>
                         <!-- Aquí puedes guardar preferencias de usuario y actualizar los gráficos con AJAX -->
-                        <ul>
+                        <ul class="dashboard__table-list">
                             @if($devices)
                                 @foreach($devices as $device => $count)
-                                    <li class="flex justify-between border-b py-1">
+                                    <li class="flex dashboard__table-row--between dashboard__table-item">
                                         <span>{{ ucfirst($device) }}</span>
-                                        <span class="font-semibold">{{ $count }}</span>
+                                        <span class="dashboard__table-strong">{{ $count }}</span>
                                     </li>
                                 @endforeach
                             @else
@@ -321,17 +285,17 @@
         </div>
 
         <!-- MÉTRICAS DE INVENTARIO -->
-        <div class="mt-12" data-metric-section="inventory">
-            <h2 class="dashboard__title text-xl font-bold mb-6">Métricas de Inventario</h2>
+        <div class="dashboard__section--performance" data-metric-section="inventory">
+            <h2 class="dashboard__title dashboard__section-title">Métricas de Inventario</h2>
             <div class="dashboard__stats">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Niveles de Stock</div>
-                        <ul>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Niveles de Stock</div>
+                        <ul class="dashboard__table-list">
                             @forelse($stockLevels as $product)
-                                <li class="flex justify-between border-b py-1">
+                                <li class="flex dashboard__table-row--between dashboard__table-item">
                                     <span>{{ $product->name }}</span>
-                                    <span class="font-semibold">{{ $product->stock }}</span>
+                                    <span class="dashboard__table-strong">{{ $product->stock }}</span>
                                 </li>
                             @empty
                                 <li>No hay productos.</li>
@@ -339,14 +303,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Unidades Vendidas</div>
-                        <ul>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Unidades Vendidas</div>
+                        <ul class="dashboard__table-list">
                             @forelse($unitsSold as $item)
-                                <li class="flex justify-between border-b py-1">
+                                <li class="flex dashboard__table-row--between dashboard__table-item">
                                     <span>{{ $item->product->name ?? 'Producto #' . $item->product_id }}</span>
-                                    <span class="font-semibold">{{ $item->total_sold }}</span>
+                                    <span class="dashboard__table-strong">{{ $item->total_sold }}</span>
                                 </li>
                             @empty
                                 <li>No hay ventas.</li>
@@ -356,14 +320,14 @@
                 </div>
             </div>
             <div class="dashboard__stats">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Productos Más Vendidos (Top 10)</div>
-                        <ul>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Productos Más Vendidos (Top 10)</div>
+                        <ul class="dashboard__table-list">
                             @forelse($topSellingProducts as $item)
-                                <li class="flex justify-between border-b py-1">
+                                <li class="flex dashboard__table-row--between dashboard__table-item">
                                     <span>{{ $item->product->name ?? 'Producto #' . $item->product_id }}</span>
-                                    <span class="font-semibold">{{ $item->total_sold }}</span>
+                                    <span class="dashboard__table-strong">{{ $item->total_sold }}</span>
                                 </li>
                             @empty
                                 <li>No hay datos.</li>
@@ -371,14 +335,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Productos de Bajo Stock (≤ 5 unidades)</div>
-                        <ul>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Productos de Bajo Stock (≤ 5 unidades)</div>
+                        <ul class="dashboard__table-list">
                             @forelse($lowStockProducts as $product)
-                                <li class="flex justify-between border-b py-1">
+                                <li class="flex dashboard__table-row--between dashboard__table-item">
                                     <span>{{ $product->name }}</span>
-                                    <span class="font-semibold text-red-600">{{ $product->stock }}</span>
+                                    <span class="dashboard__table-strong text-red-600">{{ $product->stock }}</span>
                                 </li>
                             @empty
                                 <li>No hay productos en bajo stock.</li>
@@ -390,37 +354,37 @@
         </div>
 
         <!-- MÉTRICAS DE CLIENTES -->
-        <div class="mt-12" data-metric-section="clients">
-            <h2 class="dashboard__title text-xl font-bold mb-6">Métricas de Clientes</h2>
+        <div class="dashboard__section--performance" data-metric-section="clients">
+            <h2 class="dashboard__title dashboard__section-title">Métricas de Clientes</h2>
             <div class="dashboard__stats">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Total de Clientes</div>
-                        <div class="text-3xl">{{ $totalCustomers }}</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-strong text-gray-700">Total de Clientes</div>
+                        <div class="dashboard__highlight">{{ $totalCustomers }}</div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Nuevos Clientes (últimos 30 días)</div>
-                        <div class="text-3xl">{{ $newCustomers }}</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-strong text-gray-700">Nuevos Clientes (últimos 30 días)</div>
+                        <div class="dashboard__highlight">{{ $newCustomers }}</div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Clientes Recurrentes</div>
-                        <div class="text-3xl">{{ $recurrentCustomers }}</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-strong text-gray-700">Clientes Recurrentes</div>
+                        <div class="dashboard__highlight">{{ $recurrentCustomers }}</div>
                     </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Demografía por Ciudad (Top 5)</div>
-                        <ul>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Demografía por Ciudad (Top 5)</div>
+                        <ul class="dashboard__table-list">
                             @forelse($demographicsByCity as $city)
-                                <li class="flex justify-between border-b py-1">
+                                <li class="flex dashboard__table-row--between dashboard__table-item">
                                     <span>{{ $city->city ?? 'Sin ciudad' }}</span>
-                                    <span class="font-semibold">{{ $city->total }}</span>
+                                    <span class="dashboard__table-strong">{{ $city->total }}</span>
                                 </li>
                             @empty
                                 <li>No hay datos.</li>
@@ -428,14 +392,14 @@
                         </ul>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700 mb-2">Demografía por Estado (Top 5)</div>
-                        <ul>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__subtitle">Demografía por Estado (Top 5)</div>
+                        <ul class="dashboard__table-list">
                             @forelse($demographicsByState as $state)
-                                <li class="flex justify-between border-b py-1">
+                                <li class="flex dashboard__table-row--between dashboard__table-item">
                                     <span>{{ $state->state ?? 'Sin estado' }}</span>
-                                    <span class="font-semibold">{{ $state->total }}</span>
+                                    <span class="dashboard__table-strong">{{ $state->total }}</span>
                                 </li>
                             @empty
                                 <li>No hay datos.</li>
@@ -445,22 +409,24 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Valor de Vida del Cliente (CLTV)</div>
-                        <div class="text-3xl">${{ number_format($customerLifetimeValue, 2) }}</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-strong text-gray-700">Valor de Vida del Cliente (CLTV)</div>
+                        <div class="dashboard__highlight">${{ number_format($customerLifetimeValue, 2) }}</div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Tasa de Retención</div>
-                        <div class="text-3xl">{{ $retentionRate !== null ? $retentionRate.'%' : 'N/D' }}</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-strong text-gray-700">Tasa de Retención</div>
+                        <div class="dashboard__highlight">{{ $retentionRate !== null ? $retentionRate.'%' : 'N/D' }}</div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="font-semibold text-gray-700">Tasa de Adquisición</div>
-                        <div class="text-3xl">{{ $acquisitionRate !== null ? $acquisitionRate.'%' : 'N/D' }}</div>
+                <div class="dashboard__table-container">
+                    <div class="dashboard__table-content">
+                        <div class="dashboard__table-strong text-gray-700">Tasa de Adquisición</div>
+                        <div class="dashboard__highlight">
+                            {{ $acquisitionRate !== null ? $acquisitionRate.'%' : 'N/D' }}
+                        </div>
                     </div>
                 </div>
             </div>

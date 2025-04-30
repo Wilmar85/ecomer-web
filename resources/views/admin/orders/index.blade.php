@@ -1,24 +1,24 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="admin-orders-index__title">
             {{ __('Gestión de Pedidos') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="admin-orders-index__section">
+        <div class="admin-orders-index__container">
+            <div class="admin-orders-index__card">
+                <div class="admin-orders-index__content">
                     @if (session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+                        <div class="admin-orders-index__alert--success"
                             role="alert">
-                            <span class="block sm:inline">{{ session('success') }}</span>
+                            <span class="admin-orders-index__alert-text">{{ session('success') }}</span>
                         </div>
                     @endif
 
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                    <div class="admin-orders-index__table-scroll">
+                        <table class="admin-orders-index__table">
+                            <thead class="admin-orders-index__thead">
                                 <tr>
                                     @php
     $sort = request('sort', 'id');
@@ -31,57 +31,57 @@
         $newDirection = ($sort === $column && $direction === 'asc') ? 'desc' : 'asc';
         $query = array_merge(request()->except(['page', 'sort', 'direction']), ['sort' => $column, 'direction' => $newDirection]);
         $url = request()->url() . '?' . http_build_query($query);
-        return '<a href="' . $url . '" class="hover:underline ' . ($sort === $column ? 'font-bold text-indigo-700' : '') . '">' . $label . ' ' . $icon . '</a>';
+        return '<a href="' . $url . '" class="admin-orders-index__sort-link' . ($sort === $column ? ' admin-orders-index__sort-link--active' : '') . '">' . $label . ' ' . $icon . '</a>';
     }
 @endphp
 <th scope="col"
-    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    class="admin-orders-index__th">
     {!! sort_link('Número de Pedido', 'id', $sort, $direction) !!}
 </th>
 <th scope="col"
-    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    class="admin-orders-index__th">
     {!! sort_link('Cliente', 'name', $sort, $direction) !!}
 </th>
 <th scope="col"
-    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    class="admin-orders-index__th">
     {!! sort_link('Total', 'total', $sort, $direction) !!}
 </th>
 <th scope="col"
-    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    class="admin-orders-index__th">
     {!! sort_link('Estado', 'status', $sort, $direction) !!}
 </th>
 <th scope="col"
-    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    class="admin-orders-index__th">
     {!! sort_link('Fecha', 'created_at', $sort, $direction) !!}
 </th>
 <th scope="col"
-    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    class="admin-orders-index__th">
     Acciones
 </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="admin-orders-index__tbody">
                                 @foreach ($orders as $order)
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm font-medium text-gray-900">
+                                        <td class="admin-orders-index__td">
+                                            <div class="admin-orders-index__cell">
                                                 #{{ $order->id }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">
+                                        <td class="admin-orders-index__td">
+                                            <div class="admin-orders-index__cell">
                                                 {{ $order->name }}
                                             </div>
-                                            <div class="text-sm text-gray-500">
+                                            <div class="admin-orders-index__cell admin-orders-index__td--muted">
                                                 {{ $order->email }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">
+                                        <td class="admin-orders-index__td">
+                                            <div class="admin-orders-index__cell">
                                                 ${{ number_format($order->total, 2) }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="admin-orders-index__td">
                                             <span
                                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                 {{ $order->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}

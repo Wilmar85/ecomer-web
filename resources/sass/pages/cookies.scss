@@ -1,11 +1,101 @@
-@use '../config/_color.scss' as c;
+// resources/sass/components/_cookie-alert.scss
 
-.cookies {
-  max-width: 700px;
-  margin: 2rem auto;
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 24px rgba(30,41,59,0.08);
-  padding: 2rem;
-  color: c.$gray-dark;
+// Variables (puedes definirlas globalmente o aquí)
+$cookie-bg: #333;
+$cookie-text: #f8f8f8;
+$cookie-link: #80d8ff;
+$cookie-link-hover: #40c4ff;
+$cookie-button-bg: #4CAF50;
+$cookie-button-bg-hover: #45a049;
+$cookie-button-text: #ffffff;
+$cookie-border-top: 3px solid $cookie-button-bg;
+$cookie-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+$breakpoint-md: 768px; // Punto de quiebre para layout responsivo
+
+.cookie-alert {
+  // Posicionamiento y dimensiones
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+
+  // Apariencia
+  background-color: $cookie-bg;
+  color: $cookie-text;
+  padding: 1rem;
+  border-top: $cookie-border-top;
+  box-shadow: $cookie-shadow;
+
+  // Layout (Flexbox)
+  display: flex;
+  flex-direction: column; // Apilado por defecto (móvil)
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+
+  p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    text-align: center;
+
+    a {
+      color: $cookie-link;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $cookie-link-hover;
+      }
+    }
+  }
+
+  button {
+    background-color: $cookie-button-bg;
+    color: $cookie-button-text;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      background-color: $cookie-button-bg-hover;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Clase para ocultar (añadida por JS)
+  &.hidden {
+    display: none;
+  }
+
+  // Estilos responsivos
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    gap: 1.5rem;
+    padding: 0.8rem 1.5rem;
+
+    p {
+      text-align: left;
+      flex-grow: 1; // Ocupa espacio disponible
+    }
+
+    button {
+      flex-shrink: 0; // No se encoge
+    }
+  }
 }

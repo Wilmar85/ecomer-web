@@ -1,65 +1,65 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="admin-products__header">
+            <h2 class="admin-products__title">
                 {{ __('Gestión de Productos') }}
             </h2>
             <a href="{{ route('admin.products.create') }}"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                class="admin-products__create-btn">
                 Crear Producto
             </a>
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="admin-products__section">
+        <div class="admin-products__container">
+            <div class="admin-products__card">
+                <div class="admin-products__card-body">
                     @if (session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+                        <div class="admin-products__alert"
                             role="alert">
-                            <span class="block sm:inline">{{ session('success') }}</span>
+                            <span class="admin-products__alert-text">{{ session('success') }}</span>
                         </div>
                     @endif
 
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                    <div class="admin-products__table-wrapper">
+                        <table class="admin-products__table">
+                            <thead class="admin-products__thead">
                                 <tr>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="admin-products__th">
                                         Imagen
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="admin-products__th">
                                         Nombre
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="admin-products__th">
                                         Categoría
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="admin-products__th">
                                         Precio
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="admin-products__th">
                                         Stock
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="admin-products__th">
                                         Estado
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="admin-products__th">
                                         Acciones
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="admin-products__tbody">
                                 @foreach ($products as $product)
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="admin-products__td">
                                             @if ($product->images->isNotEmpty())
                                                 <img src="{{ asset('storage/' . $product->images->first()->path) }}"
                                                     alt="{{ $product->name }}"
@@ -71,27 +71,27 @@
                                                 </div>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="admin-products__td">
                                             <div class="text-sm font-medium text-gray-900">
                                                 {{ $product->name }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="admin-products__td">
                                             <div class="text-sm text-gray-900">
                                                 {{ $product->category->name }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="admin-products__td">
                                             <div class="text-sm text-gray-900">
                                                 ${{ number_format($product->price, 2) }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="admin-products__td">
                                             <div class="text-sm text-gray-900">
                                                 {{ $product->stock }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="admin-products__td">
                                             @if($product->active)
                                                 <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800">Activo</span>
                                             @else

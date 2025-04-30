@@ -8,17 +8,17 @@
         <a href="{{ route('products.show', $product) }}" class="product-card__img-link">
             <img src="{{ $imgUrl }}" alt="{{ $product->name }}" class="product-card__img" loading="lazy">
         </a>
-        <!-- Ejemplo de Alpine.js para modal rápido -->
-        <button x-data="{ open: false }" @click="open = true" class="product-card__quickview-btn">
+
+        <button class="product-card__quickview-btn">
             <svg xmlns="http://www.w3.org/2000/svg" class="product-card__quickview-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 5-7 9-7 9s-7-4-7-9a7 7 0 0114 0z" />
             </svg>
         </button>
-        <div x-data="{ open: false }" x-show="open" @click.away="open = false" class="product-card__quickview-modal" style="display:none;">
+        <div class="product-card__quickview-modal" style="display:none;">
             <div class="product-card__quickview-content">
                 <h2 class="product-card__quickview-title">{{ $product->name }}</h2>
                 <p class="product-card__quickview-desc">{{ $product->description }}</p>
-                <button @click="open = false" class="product-card__quickview-close">Cerrar</button>
+                <button class="product-card__quickview-close">Cerrar</button>
             </div>
         </div>
     @endif
@@ -37,28 +37,7 @@
                 </svg>
             </a>
             @auth
-                <form action="{{ route('cart.add') }}" method="POST" class="product-card__action" x-data="{}" @submit.prevent="
-                    let form = $el;
-                    let data = new FormData(form);
-                    fetch(form.action, {
-                        method: 'POST',
-                        headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': data.get('_token') },
-                        body: data
-                    }).then(res => {
-                        if(res.redirected) { window.location.href = res.url; return; }
-                        if(res.ok) {
-                            res.clone().json().then(data => {
-                                if(typeof data.count !== 'undefined') {
-                                    window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: data.count } }));
-                                    if(window.Laravel && window.Laravel.updateCartCount) window.Laravel.updateCartCount(data.count);
-                                } else {
-                                    window.dispatchEvent(new CustomEvent('cart-updated'));
-                                }
-                            });
-                        }
-                        return res.json();
-                    }).catch(() => {});
-                ">
+                <form action="{{ route('cart.add') }}" method="POST" class="product-card__action">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <input type="hidden" name="quantity" value="1">

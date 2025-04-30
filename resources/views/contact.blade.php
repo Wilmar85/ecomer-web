@@ -12,44 +12,44 @@
                 <h1 class="contact__title">Contáctanos</h1>
 
 @if(session('success'))
-    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+    <div class="contact__alert contact__alert--success">
         {{ session('success') }}
     </div>
 @endif
 @if(session('error'))
-    <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
+    <div class="contact__alert contact__alert--error">
         {{ session('error') }}
     </div>
 @endif
 
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="prose max-w-none">
-                            <div class="mb-6">
-                                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Información de Contacto</h2>
-                                <p class="text-gray-600 mb-4">
+                    <div class="contact__main-grid">
+                        <div class="contact__description">
+                            <div class="contact__section">
+                                <h2 class="contact__subtitle">Información de Contacto</h2>
+                                <p class="contact__desc">
                                     Estamos aquí para ayudarte. No dudes en contactarnos para cualquier consulta o
                                     sugerencia.
                                 </p>
 
-                                <div class="space-y-3">
-                                    <div class="flex items-center text-gray-600">
-                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                <div class="contact__info-list">
+                                    <div class="contact__info-item">
+                                        <svg class="contact__icon" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
                                         <span>info@ecomer.com</span> <!-- Email de contacto principal -->
                                     </div>
-                                    <div class="flex items-center text-gray-600">
-                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                    <div class="contact__info-item">
+                                        <svg class="contact__icon" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
                                         <span>+1 234 567 890</span>
                                     </div>
-                                    <div class="flex items-center text-gray-600">
-                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                    <div class="contact__info-item">
+                                        <svg class="contact__icon" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

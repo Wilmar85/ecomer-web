@@ -7,6 +7,36 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Proyecto: Migración de Alpine.js a Vanilla JS
+
+Este proyecto ha migrado todos los componentes interactivos que usaban Alpine.js a JavaScript vainilla modular. Ya no se utiliza Alpine.js en ninguna parte del frontend.
+
+### Componentes migrados a Vanilla JS
+- Galería de productos
+- Botón scroll-to-top
+- Modales
+- Dropdowns
+- Banner de cookies
+- Contadores de carrito
+- Mensajes de formularios
+
+Todos los scripts ahora se encuentran en `resources/js/components/` y se importan desde `resources/js/app.js`.
+
+#### ¿Cómo funcionan los nuevos componentes?
+Cada componente tiene su propio archivo JS y utiliza atributos `data-*` en el HTML para facilitar la selección y control desde JavaScript puro. Ejemplo para el botón scroll-to-top:
+
+```html
+<button data-scroll-to-top-btn>Subir</button>
+```
+
+El archivo `scroll-to-top.js` detecta estos botones y aplica la lógica de visibilidad y scroll.
+
+#### Eliminación de Alpine.js
+- Se eliminaron todas las referencias, scripts y dependencias de Alpine.js.
+- Si encuentras algún rastro, puedes reportarlo o eliminarlo con seguridad.
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

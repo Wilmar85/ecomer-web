@@ -5,21 +5,21 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
+    <div class="orders-wompi-widget__section">
+        <div class="orders-wompi-widget__container">
+            <div class="orders-wompi-widget__card">
                 <div class="orders-wompi-widget__main">
                     <h3 class="orders-wompi-widget__title">Pedido #{{ $order->id }}</h3>
                     <div class="orders-wompi-widget__summary">
-                        <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
+                        <div class="orders-wompi-widget__summary-row orders-wompi-widget__summary-row--mb">
                             <span class="orders-wompi-widget__summary-label">Referencia de pago:</span>
                             <span>{{ $order->order_number ?? '-' }}</span>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between mb-2">
+                        <div class="orders-wompi-widget__summary-row orders-wompi-widget__summary-row--mb">
                             <span class="orders-wompi-widget__summary-label">Estado:</span>
                             <span class="capitalize">{{ $order->status }}</span>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                        <div class="orders-wompi-widget__summary-row">
                             <span class="orders-wompi-widget__summary-label">Total a pagar:</span>
                             <span class="orders-wompi-widget__summary-value orders-wompi-widget__summary-value--total">${{ number_format($order->total, 2) }}</span>
                         </div>

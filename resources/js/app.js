@@ -2,9 +2,16 @@
 import '../sass/main.scss';
 import './menu_responsive';
 import './dropdown_mobile_toggle';
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+import './components/cookie-banner';
+import './components/dropdown';
+import './components/modal';
+import './components/cart-counter';
+import './components/product-card';
+import './components/update-password-form';
+import './components/update-profile-information-form';
+import './components/delete-user-form';
+import './components/close-modal';
+import './components/product-gallery';
+import './components/scroll-to-top';
+import './components/brand-section';
+import './components/cookie-banner';
