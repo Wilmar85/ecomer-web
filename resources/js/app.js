@@ -15,3 +15,5 @@ import './components/product-gallery';
 import './components/scroll-to-top';
 import './components/brand-section';
 import './components/cookie-banner';
+import './components/whassap-button';
+import './components/toogle-menu';

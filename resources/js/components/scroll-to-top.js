@@ -1,20 +1,20 @@
 // JS vainilla para mostrar/ocultar el botón de scroll-to-top y desplazar la página arriba
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Para todos los botones de scroll-to-top
-    document.querySelectorAll('[data-scroll-to-top-btn]').forEach(function(btn){
-        const showBtn = () => {
-            if(window.scrollY > 100) {
-                btn.style.display = '';
-            } else {
-                btn.style.display = 'none';
-            }
-        };
-        showBtn();
-        window.addEventListener('scroll', showBtn);
-        btn.addEventListener('click', function(e){
-            e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('scrollToTopBtn');
+    var container = document.getElementById('scrollToTopBtnContainer');
+    function toggleBtn() {
+        if (window.scrollY > 120) {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    }
+    if (btn && container) {
+        btn.addEventListener('click', function() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
-    });
+        window.addEventListener('scroll', toggleBtn);
+        toggleBtn(); // Inicializar estado al cargar
+    }
 });

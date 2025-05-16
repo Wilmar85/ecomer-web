@@ -1,23 +1,23 @@
-@use '../config/_color.scss' as c;
+// @use '../config/_color.scss' as c;
 
-.responsive-nav-link {
-  display: block;
-  width: 100%;
-  padding: 0.75rem 1.5rem;
-  font-size: 1.05rem;
-  color: c.$gray;
-  background: none;
-  border-left: 4px solid transparent;
-  text-align: left;
-  font-weight: 500;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
-  &--active {
-    color: c.$secondary;
-    background: c.$gray-light;
-    border-left: 4px solid c.$secondary;
-  }
-  &:hover, &:focus {
-    color: c.$secondary;
-    background: c.$gray-light;
-  }
-}
+// .responsive-nav-link {
+//   display: block;
+//   width: 100%;
+//   padding: 0.75rem 1.5rem;
+//   font-size: 1.05rem;
+//   color: c.$gray;
+//   background: none;
+//   border-left: 4px solid transparent;
+//   text-align: left;
+//   font-weight: 500;
+//   transition: color 0.2s, background 0.2s, border-color 0.2s;
+//   &--active {
+//     color: c.$secondary;
+//     background: c.$gray-light;
+//     border-left: 4px solid c.$secondary;
+//   }
+//   &:hover, &:focus {
+//     color: c.$secondary;
+//     background: c.$gray-light;
+//   }
+// }

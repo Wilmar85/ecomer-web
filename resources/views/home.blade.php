@@ -1,6 +1,6 @@
 @php
     $metaTitle = 'Inicio | InterEleticosf&A';
-    $metaDescription = 'Bienvenido a InterEleticosf&A, tu tienda online de confianza para productos de calidad, ofertas exclusivas y envío gratis en compras mayores a $500.';
+    $metaDescription = 'Bienvenido a InterEleticosf&A, tu tienda online de confianza para productos de calidad, ofertas exclusivas y envío ';
     $metaKeywords = 'inicio, ecommerce, ofertas, productos, tienda online, InterEleticosfA';
     $ogTitle = 'Bienvenido a InterEleticosf&A';
     $ogDescription = 'Explora nuestra tienda online y encuentra productos increíbles a precios bajos.';
@@ -20,12 +20,15 @@
 @endpush
 
 <x-app-layout>
+
     <div class="home">
         <!-- Banner Informativo -->
-        <section class="home__section home__banner">
-            <div class="home__banner-content">
-                <h1 class="home__banner-title">
-                    Bienvenido a nuestra tienda en línea
+            {{-- <div class="home__banner-content">
+                <h1 class="home__banner-title"> --}}
+        <section class="home__section">
+                    <video class="video-hosted" autoplay="" muted="" playsinline="" loop="" src="../mp4/02.mp4" style="width: 100%; height: auto;"></video>
+        </section>
+                {{--     Bienvenido a nuestra tienda en línea
                 </h1>
                 <p class="home__banner-desc">
                     Descubre nuestra selección de productos de alta calidad a los mejores precios.
@@ -36,8 +39,7 @@
                         Ir a la Tienda
                     </a>
                 </div>
-            </div>
-        </section>
+            </div> --}}
 
 
         <!-- Categorías Destacadas -->
@@ -81,27 +83,10 @@
         <x-brand-section :brands="[
             'MERCURY', 'TITANIUM', 'ZAFIRO', 'ILUMAX', 'ECOLITE', 'EXCELITE', 'INTERLED', 'DEXON', 'BRIOLIGH', 'ROYAL', 'LUMEK',
             'TITANIUM', 'DIXTON', 'BAYTER', 'SPARKLED', 'KARLUX', 'FELGOLUX', 'NEW LIGHT', 'DIGITAL LIGHT', 'SICOLUX', 'ACRILED', 'MARWA'
-        ]" /> 
+        ]" />
     </div>
     <!-- Banner de Cookies (Ley Colombiana) -->
 
     <x-cookie-banner />
-
-
-
-
-    {{-- <div class="cookie-banner">
-        <span>
-            Usamos cookies para mejorar tu experiencia y cumplir la <b>Ley 1581 de 2012</b> y <b>Decreto 1377 de 2013</b> de Colombia. Consulta nuestra <a href="{{ url('/cookies') }}" class="cookie-banner__link">Política de Cookies</a>.
-        </span>
-        <div class="cookie-banner__actions">
-            <button @click="localStorage.setItem('cookieAccepted', '1'); showCookieBanner = false" class="primary-btn">
-                Aceptar
-            </button>
-            <button @click="localStorage.setItem('cookieAccepted', '0'); showCookieBanner = false" class="secondary-btn">
-                Rechazar
-            </button>
-        </div>
-    </div> --}}
 
 </x-app-layout>

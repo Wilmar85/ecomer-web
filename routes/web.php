@@ -15,6 +15,7 @@ use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PreferenceController;
+use App\Http\Controllers\CookiesController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -22,7 +23,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/preferencias/idioma', [PreferenceController::class, 'setLanguage'])->name('preferences.language');
 Route::post('/preferencias/tema', [PreferenceController::class, 'setTheme'])->name('preferences.theme');
 Route::post('/preferencias/visitado/{productId}', [PreferenceController::class, 'addVisitedProduct'])->name('preferences.visited');
-Route::get('/cookies', view('cookies'))->name('cookies');
+
+Route::get('/cookies', [CookiesController::class, 'index'])->name('cookies');
+
 Route::get('/shop', [ProductController::class, 'index'])->name('shop.index');
 
 use App\Http\Controllers\AboutController;

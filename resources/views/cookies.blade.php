@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+<x-app-layout>
+
+
 <div class="cookies">
     <div class="cookies__card">
         <h1 class="cookies__title">Política de Cookies</h1>
@@ -31,4 +33,5 @@
         </p>
     </div>
 </div>
-@endsection
+
+</x-app-layout>

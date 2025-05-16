@@ -1,0 +1,19 @@
+@use '../config/_color.scss' as c;
+@use '../config/_fonts.scss' as d;
+@use '../mixins/_breakpoints.scss' as p;
+body{
+	background: c.$gray-light;
+    font-family: d.$font-main;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height:90vh;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 150px 1fr 1fr;
+ 
+}
+
+
+  
+

@@ -39,11 +39,11 @@
 // Oculta el dropdown en mobile por defecto
 @media (max-width: 639px) {
   .dropdown {
-    display: none !important;
+    display: none ;
   }
   // Permite forzar su visibilidad con una clase
   .dropdown--mobile-visible {
-    display: block !important;
+    display: block ;
   }
 }
 

@@ -1,4 +1,3 @@
-<footer class="footer">
     <div class="footer__container">
         <div class="footer__grid">
             <!-- Información de la Empresa -->
@@ -91,4 +90,3 @@
             </div>
         </div>
     </div>
-</footer>

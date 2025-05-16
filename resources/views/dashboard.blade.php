@@ -1,9 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">
+  {{--   <x-slot name="header">
         <h2 class="dashboard__title">
             {{ __('Dashboard') }}
         </h2>
-    </x-slot>
+    </x-slot> --}}
 
     <div class="dashboard__section">
         <div class="dashboard__container">

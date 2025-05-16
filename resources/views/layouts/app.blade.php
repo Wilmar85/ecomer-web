@@ -18,59 +18,34 @@
         @vite(['resources/css/main.css', 'resources/js/app.js'])
     </head>
     <body>
-        @include('components.top-banner')
-        <div>
+            <!-- Page Heading -->
+    {{-- El <header> principal ahora siempre se renderiza --}}
+        <header class="header" > {{-- Puedes añadir clases CSS aquí si necesitas --}}
+
+            {{-- El top banner y la navegación están DENTRO del header y SIEMPRE se incluyen --}}
+            @include('components.top-banner')
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
+            {{-- El contenido específico de $header solo se muestra SI existe --}}
             @isset($header)
-                <header>
-                    <div>
-                        {{ $header }}
-                    </div>
-                </header>
+                <div class="page-specific-header-content"> {{-- Contenedor para el contenido opcional --}}
+                    {{ $header }}
+                </div>
             @endisset
-
+        </header> {{-- Fin del <header> principal --}}
             <!-- Page Content -->
-            <main>
-                {{ $slot ??'' }}
-            </main>
+        <main class="main" >
+                {{ $slot  }}
+        </main>
 
             <!-- Footer -->
-            <x-footer />
-        </div>
+        <footer class="footer">
+             <x-footer />
+        </footer>
 
         <!-- Botón flotante para subir al menú (global) -->
-        <!-- Botón flotante para subir al menú (PRUEBA SIEMPRE VISIBLE) -->
-        <div id="scrollToTopBtnContainer" style="display: block !important; position: fixed; right: 24px; bottom: 104px; z-index: 9999;">
-            <button id="scrollToTopBtn" style="background: #2563eb; color: #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;">
-                <!-- Icono de flecha hacia arriba -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-                </svg>
-            </button>
-        </div>
-        <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('scrollToTopBtn');
-    var container = document.getElementById('scrollToTopBtnContainer');
-    function toggleBtn() {
-        if (window.scrollY > 120) {
-            container.style.display = 'block';
-        } else {
-            container.style.display = 'none';
-        }
-    }
-    if (btn && container) {
-        btn.addEventListener('click', function() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        });
-        window.addEventListener('scroll', toggleBtn);
-        toggleBtn(); // Inicializar estado al cargar
-    }
-});
-</script>
-        <script src="{{ asset('js/menu.js') }}"></script>
-@stack('scripts')
+        <x-scroll-top />
+        <!-- Botón flotante de WhatsApp -->
+        <x-whassap-button />
     </body>
 </html>

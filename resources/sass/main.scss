@@ -4,69 +4,77 @@
 @use './config/_color.scss' as c;
 @use './config/_fonts.scss' as f;
 @use './mixins/_breakpoints.scss' as b;
+@use './mixins/reset-list.scss' as r;
 
 // 2. Estilos base
 @use './base/_normalize.scss' as n;
+@use './base/_base.scss';
 
 // 3. Layouts
 @use './layouts/_header.scss';
+@use './layouts/main.scss';
 @use './layouts/footer.scss';
 
+
 // 4. Componentes
+@use './components/whassap-button.scss';
 @use './components/top-banner.scss';
+@use './components/menu.scss';
+@use './components/home.scss';
 @use './components/product-card.scss';
-@use './components/cart-counter.scss';
-@use './components/brand-section.scss';
-@use './components/primary-btn.scss';
-@use './components/modal.scss';
-@use './components/danger-btn.scss';
-@use './components/secondary-btn.scss';
-@use './components/dropdown-link.scss';
-@use './components/nav-link.scss';
-@use './components/responsive-nav-link.scss';
-@use './components/dropdown.scss';
-@use './components/input-label.scss';
-@use './components/input-error.scss';
+//@use './components/contact.scss';
+//@use './components/toggle.scss';
+// @use './components/cart-counter.scss';
+// @use './components/brand-section.scss';
+// @use './components/primary-btn.scss';
+// @use './components/modal.scss';
+// @use './components/danger-btn.scss';
+// @use './components/secondary-btn.scss';
+// @use './components/dropdown-link.scss';
+// 
+//@use './components/nav-link.scss';
+//@use './components/responsive-nav-link.scss';
+//
+// @use './components/dropdown.scss';
+// @use './components/input-label.scss';
+// @use './components/input-error.scss';
 
 // Agrega aquí otros componentes según los vayas creando
-@use './components/product-card-mobile-fix.scss';
-@use './components/home.scss';
-@use './components/floating-ui.scss';
-@use './components/global-floating.scss';
-@use './components/bem-base.scss';
-@use './components/login-register.scss';
+// @use './components/product-card-mobile-fix.scss';
+// @use './components/floating-ui.scss';
+// @use './components/global-floating.scss';
+// @use './components/bem-base.scss';
+// @use './components/login-register.scss';
 
 // 5. Páginas
-@use './pages/layouts.scss';
-@use './pages/about.scss';
-@use './pages/admin-categories-create.scss';
-@use './pages/admin-categories-edit.scss';
-@use './pages/admin-categories-index.scss';
-@use './pages/admin-dashboard.scss';
-@use './pages/admin-orders-index.scss';
-@use './pages/admin-orders-show.scss';
-@use './pages/admin-products-create.scss';
-@use './pages/admin-products-edit.scss';
-@use './pages/admin-products-index.scss';
-@use './pages/admin-subcategories-create.scss';
-@use './pages/admin-subcategories-edit.scss';
-@use './pages/admin-subcategories-index.scss';
-@use './pages/admin-users-create.scss';
-@use './pages/admin-users-edit.scss';
-@use './pages/admin-users-index.scss';
+@use './pages/cookies.scss';
+// @use './pages/layouts.scss';
+// @use './pages/about.scss';
+// @use './pages/admin-categories-create.scss';
+// @use './pages/admin-categories-edit.scss';
+// @use './pages/admin-categories-index.scss';
+// @use './pages/admin-dashboard.scss';
+// @use './pages/admin-orders-index.scss';
+// @use './pages/admin-orders-show.scss';
+// @use './pages/admin-products-create.scss';
+// @use './pages/admin-products-edit.scss';
+// @use './pages/admin-products-index.scss';
+// @use './pages/admin-subcategories-create.scss';
+// @use './pages/admin-subcategories-edit.scss';
+// @use './pages/admin-subcategories-index.scss';
+// @use './pages/admin-users-create.scss';
+// @use './pages/admin-users-edit.scss';
+// @use './pages/admin-users-index.scss';
+// @use './pages/verify-email.scss';
 
 
-@use './pages/verify-email.scss';
 // Agrega aquí otras páginas según las vayas creando
 
 // 6. Vendors (si aplicara)
 // @use './vendors/bootstrap-overrides.scss';
 
 // Los siguientes archivos han sido movidos a pages o layouts y se eliminan de components:
-@use './components/menu.scss';
 // @use './components/about.scss';
-@use './components/contact.scss';
-@use './pages/cookies.scss';
 // @use './components/dashboard.scss';
 // @use './components/home.scss';
 // @use './components/terminos.scss';
@@ -81,10 +89,10 @@
 // @import './components/_utilities-api';
 
 
-body {
-  background: c.$gray-light;
-  font-family: c.$font-main;
-}
+// body {
+//   background: c.$gray-light;
+//   font-family: c.$font-main;
+// }
 
 // Puedes seguir agregando más reglas y overrides aquí
 
