@@ -26,7 +26,7 @@
             {{-- <div class="home__banner-content">
                 <h1 class="home__banner-title"> --}}
         <section class="home__section">
-                    <video class="video-hosted" autoplay="" muted="" playsinline="" loop="" src="../mp4/02.mp4" style="width: 100%; height: auto;"></video>
+                    <video class="video-hosted" autoplay="" muted="" playsinline="" loop="" src="../mp4/06.mp4" style="width: 100%; height: auto;"></video>
         </section>
                 {{--     Bienvenido a nuestra tienda en línea
                 </h1>

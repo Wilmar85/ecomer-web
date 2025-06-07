@@ -11,9 +11,9 @@
   width: 100%;
   position: sticky;
   top: 0;
-  background: #edecec64;
-  box-shadow: c.$box-shadow;
-  backdrop-filter: blur(10px);
+  background:rgba(41, 40, 40, 0.3);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px) ;
   z-index: 999;
 
   &-container{
@@ -22,7 +22,7 @@
      justify-content: space-around;
      width: 100%;
      padding: 0 2rem;
-    // max-width: 1600px;
+     max-width: 1600px;
   }
   &-logo{
     width: auto;
@@ -31,7 +31,7 @@
     font-size: 2rem;
     font-weight: 600;
     margin-top: 5px;
-    color: c.$gray;
+    color: c.$white;
     text-decoration: none;
     cursor: pointer;        
   }
@@ -47,7 +47,7 @@
       padding: 0.5rem 1rem 0.5rem 1rem;
       font-size: 1.2rem;
       font-weight: 500;
-      color: c.$gray;
+      color: c.$white;
       border-bottom: 2px solid transparent;
       background: none;
       text-decoration: none;
@@ -55,10 +55,11 @@
   }
   &-container &-menu li .nav-link:hover{
     color: c.$primary;
+    border-bottom: 2px solid c.$primary;
   }
   &-container &-menu.li .nav-link:hover, &-container &-menu li .nav-link--active{
       color: c.$primary;
-      //border-bottom: 2px solid c.$white;
+      border-bottom: 2px solid c.$primary;
     }
   &-toggle{
     display: none;
@@ -77,7 +78,7 @@
   height: 3px;
   margin: 5px auto;
   transition: all 0.3s ease-in-out;
-  background-color: c.$gray;
+  background-color: c.$white;
 }
 
 
@@ -97,14 +98,14 @@
       right: 0;
       padding: 5rem 1.5rem;
       box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(25px);
     }
     &-container &-menu.active{
       display: flex;
     }
     &-container &-menu.li .nav-link:hover, &-container &-menu li .nav-link--active{
       color: c.$primary;
-     // border-bottom: 2px solid c.$primary;
+      border-bottom: 2px solid c.$primary;
     }
 
     &-toggle{
@@ -134,17 +135,21 @@
     }
     &-container &-menu.li .nav-link:hover,  &-container &-menu li .nav-link--active{
       color: c.$primary;
-      //border-bottom: 2px solid c.$primary;
+      border-bottom: 2px solid c.$primary;
 
     }
     &-logo{
-      font-size: 1.7rem;
+      font-size: 1.5rem;
     }
   }
 }
 .menu__login--logo{
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
+  fill: c.$gray;
+}
+.menu__login--logo  svg{ 
+  fill: c.$gray;
 }
 .menu__login-link{  
       display: inline-flex;
@@ -152,7 +157,7 @@
       padding: 0.5rem 1rem 0.5rem 1rem;
       font-size: 1.2rem;
       font-weight: 500;
-      color:c.$gray;
+      color:c.$white;
       border-bottom: 2px solid transparent;
       gap: 1rem; 
       background: none;
@@ -162,6 +167,7 @@
 
 .menu__login-link:hover{
   color: c.$primary;
+  border-bottom: 2px solid c.$primary;
 }
 
 

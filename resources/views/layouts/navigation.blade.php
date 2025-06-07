@@ -1,13 +1,14 @@
 <nav class="navbar">
     <div class="navbar-container">
         <!-- Logo -->
-        <a href="{{ route('home') }}" class="navbar-logo"><img src="{{ asset('images/logo2.png') }}" loading="lazy" alt="INTERELECTRICOS" srcset=""></a>
+        <a href="{{ route('home') }}" class="navbar-logo"><img src="{{ asset('images/logo.png') }}" loading="lazy" alt="INTERELECTRICOS" srcset=""></a>
         <!-- Navigation Links -->
         <ul class="navbar-menu" id="navbar-menu">
-            <li><x-nav-link :href="route('home')" :active="request()->routeIs('home')">{{ __('Home') }}</x-nav-link></li>
-            <li><x-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">{{ __('Shop') }}</x-nav-link></li>
-            <li><x-nav-link :href="route('about')" :active="request()->routeIs('about')">{{ __('About') }}</x-nav-link></li>
-            <li><x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">{{ __('Contact') }}</x-nav-link></li>
+        
+            <li><img class="menu__login--logo" src="{{ asset('images/home.svg') }}"><x-nav-link :href="route('home')" :active="request()->routeIs('home')">{{ __('Home') }}</x-nav-link></li>
+            <li> <img class="menu__login--logo" src="{{ asset('images/shop.svg') }}"><x-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">{{ __('Shop') }}</x-nav-link></li>
+            <li> <img class="menu__login--logo" src="{{ asset('images/about.svg') }}"> <x-nav-link :href="route('about')" :active="request()->routeIs('about')">{{ __('About') }}</x-nav-link></li>
+            <li> <img class="menu__login--logo" src="{{ asset('images/contact.svg') }}" alt="">  <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">{{ __('Contact') }}</x-nav-link></li>
         <!-- Cart and Settings Dropdown -->
                 @auth
                 @if (Auth::user()->isAdmin())
