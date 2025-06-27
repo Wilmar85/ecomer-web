@@ -1,17 +1,25 @@
+/* f:/xamxampp/htdocs/laravel/ecomer-web/resources/sass/components/whassap-button.scss */
+.whatsapp-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999; /* Asegura que esté por encima de todo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #25d366; /* Color de WhatsApp */
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: box-shadow .2s, right 0.3s cubic-bezier(.4,0,.2,1); /* Transición para el efecto de aparición/desaparición si se añade JS */
+    box-sizing: border-box; /* Asegura que padding y border no afecten el tamaño */
+}
 
-#whatsapp-float:hover {
-    box-shadow:0 6px 24px rgba(37,211,102,0.18),0 1.5px 4px rgba(0,0,0,0.10);
-    background:#1ebe57;
+.whatsapp-float:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada al pasar el ratón */
 }
-@media (max-width: 640px) {
-    #whatsapp-float { width:48px; height:48px; right:16px; bottom:16px; }
-    #whatsapp-float svg { width:28px; height:28px; }
-}
-#whatsapp-float.move-left {
-    right: 104px !important;
-}
-@media (max-width: 640px) {
-    #whatsapp-float.move-left {
-        right: 80px !important;
-    }
+
+.whatsapp-float svg {
+    fill: white;
 }

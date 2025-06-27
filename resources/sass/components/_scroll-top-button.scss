@@ -1,0 +1,44 @@
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 104px; // Ajustado para estar encima del botón de WhatsApp (28px + 60px de altura + 16px de espacio)
+    right: 28px;  // Posición inicial desde la derecha
+    z-index: 999; // Asegura que esté por encima de otros elementos
+    box-sizing: border-box; // Asegura que padding y border no afecten el tamaño
+
+    // Estilos base del botón
+    background-color: #2563eb; // Color azul
+    color: #fff; // Color del icono
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+
+    // Estado inicial oculto con transición para un efecto suave
+    opacity: 0;
+    visibility: hidden; // Oculta el elemento y lo hace no interactuable
+    pointer-events: none; // Deshabilita eventos de ratón cuando está oculto
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.2s ease;
+
+    &:hover {
+        background-color: #1d4ed8; // Azul más oscuro al pasar el ratón
+        transform: translateY(-3px); // Ligero efecto de elevación
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    // Clase para hacer el botón visible (añadida/removida por JS)
+    &.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    @media (max-width: 640px) {
+        width: 48px;
+        height: 48px;
+    }
+}

@@ -20,6 +20,7 @@
 @use './components/whassap-button.scss';
 @use './components/top-banner.scss';
 @use './components/menu.scss';
+@use './components/_scroll-top-button.scss' as *; // Añade esta línea
 @use './components/home.scss';
 @use './components/product-card.scss';
 @use './components/login.scss';
@@ -96,5 +97,3 @@
 // }
 
 // Puedes seguir agregando más reglas y overrides aquí
-
-
