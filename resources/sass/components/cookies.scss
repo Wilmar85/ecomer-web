@@ -1,41 +1,51 @@
-// BEM SASS para la página de Cookies
+// Estilos modernos y limpios para la página de Cookies
 .cookies {
-  padding: 2.5rem 0;
-  background: #f5f7fa;
+  padding-block: 3rem 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
 
   &__card {
     background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 4px 24px rgba(80,80,80,0.08);
-    padding: 2.5rem 2rem 2rem 2rem;
-    overflow: hidden;
-    max-width: 800px;
-    margin: 0 auto;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 32px 0 rgba(30, 41, 59, 0.10);
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    max-width: 700px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid #e2e8f0;
   }
 
   &__title {
-    font-size: 2.1rem;
+    font-size: 2.2rem;
     font-weight: 800;
     color: #1e293b;
-    margin-bottom: 1.6rem;
+    margin-bottom: 0.5rem;
     text-align: center;
+    letter-spacing: -1px;
   }
 
   ul, .cookies__list {
     list-style: disc inside;
-    margin: 1.2rem 0 0 0;
+    margin: 1rem 0 0 0;
     padding: 0;
-    color: #64748b;
-    font-size: 1.05rem;
+    color: #334155;
+    font-size: 1.08rem;
+    line-height: 1.7;
   }
 
   li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
+    padding-left: 0.2rem;
   }
 }
 
 @media (max-width: 700px) {
   .cookies__card {
-    padding: 1.2rem 0.5rem 1rem 0.5rem;
+    padding: 1.2rem 0.7rem 1rem 0.7rem;
+    border-radius: 1rem;
+  }
+  .cookies__title {
+    font-size: 1.4rem;
   }
 }

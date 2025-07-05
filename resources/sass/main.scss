@@ -13,10 +13,10 @@
 // 3. Layouts
 @use './layouts/_header.scss';
 @use './layouts/main.scss';
-@use './layouts/footer.scss';
-
+@use './layouts/footer.scss'; 
 
 // 4. Componentes
+//@use './components/footer.componets.scss';// Eliminado para evitar duplicados
 @use './components/whassap-button.scss';
 @use './components/top-banner.scss';
 @use './components/menu.scss';
@@ -24,10 +24,11 @@
 @use './components/home.scss';
 @use './components/product-card.scss';
 @use './components/login.scss';
-//@use './components/contact.scss';
+@use './components/brand-section.scss';
+@use './components/dropdown.scss';
+//@use './components/cookies.scss';
 //@use './components/toggle.scss';
 // @use './components/cart-counter.scss';
-// @use './components/brand-section.scss';
 // @use './components/primary-btn.scss';
 // @use './components/modal.scss';
 // @use './components/danger-btn.scss';
@@ -50,6 +51,8 @@
 
 // 5. Páginas
 @use './pages/cookies.scss';
+//@use './pages/shop-product.scss';
+@use './pages/shop-filtter.scss';
 // @use './pages/layouts.scss';
 // @use './pages/about.scss';
 // @use './pages/admin-categories-create.scss';

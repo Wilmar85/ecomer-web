@@ -35,7 +35,8 @@
         </header> {{-- Fin del <header> principal --}}
             <!-- Page Content -->
         <main class="main" >
-                {{ $slot  }}
+                {{ $slot ?? '' }} {{-- Renderiza el contenido principal de la página --}}
+                
         </main>
 
             <!-- Footer -->

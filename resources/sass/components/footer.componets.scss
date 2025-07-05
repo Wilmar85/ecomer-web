@@ -1,0 +1,307 @@
+@use '../config/color' as c;
+@use '../config/fonts' as f;
+@use '../mixins/breakpoints' as b;
+@use '../mixins/reset-list';
+
+
+.footer {
+   
+
+    font-family: f.$font-main;
+    font-size: f.$font-size-base; /* Corregido: antes era var(--font-size-base) */
+    color: #22223b;
+    margin: 0;
+    background-color: #f0f2f5;
+    margin-top: auto;
+
+
+.site-footer {
+    background-color: var(--gray-dark); /* CORRECCIÓN APLICADA */
+    color: #a9a9a9;
+    padding-top: 70px;
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.site-footer a {
+    color: #a9a9a9; /* Tono de gris de la imagen original */
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.site-footer a:hover {
+    color: var(--primary);
+}
+
+.site-footer h4 {
+    color: var(--white);
+    font-family: var(--font-main);
+    font-size: var(--font-size-lg);
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-column {
+    margin-bottom: 30px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Orden de columnas en vista móvil */
+.footer-about { order: 1; }
+.footer-contact { order: 2; }
+.footer-newsletter { order: 3; }
+.footer-info-accordion { order: 4; }
+.footer-support-accordion { order: 5; }
+
+.footer-about .footer-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: var(--white);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.footer-about .footer-logo-img {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    color: var(--gray-dark);
+    border-radius: var(--border-radius);
+    margin-right: 12px;
+    font-size: 24px;
+}
+
+.footer-about p {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.footer-about .app-buttons img {
+    height: 40px;
+    margin-right: 10px;
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.footer-about .app-buttons img:hover {
+    opacity: 1;
+}
+
+.accordion-header {
+    background-color: #3a3a3a;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.accordion-header h4 {
+    margin: 0;
+    font-size: var(--font-size-base);
+    color: var(--white);
+}
+
+.accordion-icon {
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.accordion-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accordion-content li {
+    margin-bottom: 12px;
+}
+
+.accordion.active .accordion-content {
+    max-height: 300px;
+    padding-top: 20px;
+}
+
+.accordion.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.footer-contact .contact-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-contact .contact-info li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.footer-contact .contact-info i {
+    color: var(--primary);
+    margin-right: 15px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    margin-top: 3px;
+}
+
+.footer-newsletter p {
+     color: #a9a9a9;
+}
+
+.newsletter-form {
+    position: relative;
+    max-width: 100%;
+}
+
+.newsletter-form input[type="email"] {
+    width: 100%;
+    padding: 15px 50px 15px 15px;
+    border: 1px solid #3a3a3a;
+    background-color: #333333;
+    color: var(--white);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-family: var(--font-secondary);
+}
+
+.newsletter-form input[type="email"]::placeholder {
+    color: #a9a9a9;
+}
+
+.newsletter-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.newsletter-form button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50px;
+    background-color: var(--primary);
+    border: none;
+    color: var(--gray-dark);
+    cursor: pointer;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    transition: var(--transition);
+    font-size: 16px;
+}
+
+.newsletter-form button:hover {
+     background-color: #e1ac21; /* darken(#fbbf24, 10%) */
+}
+
+.spam-notice {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #888;
+}
+
+.footer-bottom {
+    background-color: #1a1a1a;
+    padding: 20px 0;
+    margin-top: 30px;
+    font-size: var(--font-size-sm);
+    border-top: 1px solid #3a3a3a;
+}
+
+.footer-bottom-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-bottom .copyright,
+.footer-bottom .policy-links {
+    text-align: center;
+    color: #a9a9a9;
+}
+
+@media (min-width: 768px) {
+    .footer-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .footer-column {
+        width: calc(50% - 30px);
+    }
+    .footer-about, .footer-contact, .footer-newsletter {
+        order: 0;
+    }
+    .footer-info-accordion { order: 3; }
+    .footer-support-accordion { order: 4; }
+    .footer-bottom-container {
+        flex-direction: row;
+    }
+    .copyright { text-align: left; }
+    .policy-links { text-align: right; }
+}
+
+@media (min-width: 1024px) {
+    .footer-container {
+        justify-content: space-between;
+    }
+    .footer-column {
+        order: 0;
+        margin-bottom: 40px;
+        width: auto;
+    }
+    /* Distribución para 5 columnas */
+    .footer-about { flex: 0 0 28%; max-width: 28%; }
+    .accordion { flex: 0 0 18%; max-width: 18%; }
+    .footer-contact { flex: 0 0 18%; max-width: 18%; }
+    .footer-newsletter { flex: 0 0 18%; max-width: 18%; }
+
+
+    .accordion-header {
+        background-color: transparent;
+        padding: 0;
+        cursor: default;
+    }
+    .accordion-header h4 {
+        font-size: var(--font-size-lg);
+        margin-bottom: 25px;
+    }
+    .accordion-icon {
+        display: none;
+    }
+    .accordion.active .accordion-content, .accordion-content {
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+    }
+}
+}

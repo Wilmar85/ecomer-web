@@ -50,8 +50,7 @@
                     <a href="{{ route('categories.show', $category) }}" class="home__categories-card">
                         <div>
                             <h3 class="home__categories-card-title">{{ $category->name }}</h3>
-                            <p class="home__categories-card-count">{{ $category->products_count }} productos</p>
-                        </div>
+                               </div>
                     </a>
                 @endforeach
             </div>
@@ -90,3 +89,20 @@
     <x-cookie-banner />
 
 </x-app-layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const cards = document.querySelectorAll('.home__categories-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      } else {
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  cards.forEach(card => observer.observe(card));
+});
+</script>

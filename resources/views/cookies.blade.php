@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 <x-app-layout>
 
@@ -34,4 +34,4 @@
     </div>
 </div>
 
-</x-app-layout>
+</x-app-layout> --}}

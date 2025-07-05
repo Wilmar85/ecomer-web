@@ -7,10 +7,10 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    min-height:90vh;
+   // min-height:90vh;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 150px 1fr 1fr;
+    grid-template-rows: 150px 1fr 100%;
  
 }
 

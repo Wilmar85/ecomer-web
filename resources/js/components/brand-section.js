@@ -80,15 +80,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 const slide = document.createElement('div');
                 safeAddClass(slide, 'slide');
 
+                // Puedes personalizar el enlace según la marca
+                const link = document.createElement('a');
+                link.href = `/marcas/${encodeURIComponent(brand.toLowerCase().replace(/\s+/g, '-'))}`;
+                link.target = '_blank'; // Abre en nueva pestaña (opcional)
+                link.rel = 'noopener noreferrer';
+
                 const img = document.createElement('img');
                 img.src = `https://placehold.co/200x100/e2e8f0/374151?text=${encodeURIComponent(brand)}`;
                 img.alt = `Logo ${brand}`;
                 img.onerror = function() { this.src='https://placehold.co/200x100/cccccc/ffffff?text=Imagen+no+disponible'; };
 
+                // Pausar autoplay al pasar el mouse sobre la imagen
+                img.addEventListener('mouseenter', stopAutoplay);
+                img.addEventListener('mouseleave', startAutoplay);
+
+                link.appendChild(img);
+
                 const p = document.createElement('p');
                 p.textContent = brand;
 
-                slide.appendChild(img);
+                slide.appendChild(link);
                 slide.appendChild(p);
 
                 if (prepend) {
@@ -168,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // No, debe ser el índice del último slide real *antes* de los clones finales.
                     // Si tenemos N slides y C clones al inicio, los índices van de 0 a C-1 (clones), C a C+N-1 (reales), C+N a C+N+C-1 (clones).
                     // El índice del último slide real es C + N - 1.
-                    // El índice justo antes del primer clon inicial (índice C-1) debe saltar al índice C + N -1.
+                    // El índice justo antes del primer clon inicial (índice C-1) debe saltar al índice C + N-1.
                     // El código original `totalSlides + itemsToClone - 1` parece correcto para el índice *visual* del último real en la secuencia clonada.
                     // Vamos a mantenerlo, pero verificar su lógica. Si saltamos de index C-1, vamos a index C+N-1.
                     currentIndex = totalSlides + itemsToClone -1; // Saltar al índice del último slide real (considerando clones)
@@ -180,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Iniciar autoplay
             function startAutoplay() {
                 stopAutoplay(); // Limpiar intervalo existente si lo hay
-                if (intervalId === null) { // Evitar múltiples intervalos si el mouse sale y entra rápidamente
+                if (totalSlides > visibleSlides) { // Solo si hay más slides que los visibles
                     intervalId = setInterval(() => {
                         moveSlider('next');
                     }, autoplayDelay);

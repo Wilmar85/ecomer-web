@@ -1,0 +1,150 @@
+@import '../config/color';
+@import '../config/fonts';
+@import '../mixins/breakpoints';
+@import '../mixins/reset-list';
+
+// CONTENEDOR PRINCIPAL
+.shop__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: $bg-section;
+}
+
+// LAYOUT FLEXIBLE
+.shop__layout {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+
+  @include respond-max('md') {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+// SIDEBAR DE FILTROS
+.shop__sidebar {
+  flex: 0 0 290px;
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: 2rem 1.5rem;
+  min-width: 250px;
+
+  @include respond-max('md') {
+    width: 100%;
+    min-width: unset;
+    padding: 1.2rem 1rem;
+  }
+}
+
+.shop__sidebar-title {
+  font-family: $font-main;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: $secondary;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.01em;
+}
+
+// FORMULARIO DE FILTROS
+.shop__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.shop__filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.shop__filter-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: $gray-dark;
+  font-family: $font-main;
+  margin-bottom: 0.2rem;
+}
+
+.shop__filter-input {
+  width: 100%;
+  padding: 0.55rem 0.9rem;
+  border: 1.5px solid $gray;
+  border-radius: 8px;
+  background: $gray-light;
+  font-size: 1rem;
+  font-family: $font-main;
+  transition: border-color $transition, background $transition;
+  &:focus {
+    border-color: $primary;
+    outline: none;
+    background: $primary-light;
+  }
+}
+
+// RANGO DE PRECIO PERSONALIZADO
+.shop__filter--range .shop__filter-range {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.shop__filter-range label {
+  flex: 1 1 100%;
+  margin-bottom: 0.2rem;
+}
+
+.shop__filter-range input {
+  flex: 1 1 45%;
+}
+
+// BOTÓN DE FILTRO
+.shop__filter--submit {
+  margin-top: 1.2rem;
+}
+
+.shop__filter-button {
+  background: $primary;
+  color: $gray-dark;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  font-family: $font-main;
+  font-size: 1rem;
+  transition: background $transition, color $transition;
+  &:hover {
+    background: $primary-dark;
+    color: $white;
+  }
+}
+
+// PRODUCTOS
+.shop__products {
+  flex: 1 1 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  @include respond-max('lg') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include respond-max('md') {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+
+// MENSAJE VACÍO
+.shop__empty {
+  color: $gray;
+  font-size: 1.1rem;
+  padding: 2rem 0;
+  font-family: $font-main;
+}

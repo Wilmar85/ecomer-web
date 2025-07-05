@@ -1,4 +1,4 @@
-    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Nuestras Marcas</h1>
+    <h2 class="home__brands-title">Nuestras Marcas</h2>
 
     <div class="max-w-4xl mx-auto">
         <div id="brandSlider" class="slider-container">

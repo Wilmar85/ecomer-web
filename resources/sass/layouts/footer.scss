@@ -1,46 +1,303 @@
 @use '../config/color' as c;
 @use '../mixins/breakpoints' as b;
+@use '../mixins/reset-list' as r;
+@use '../config/fonts' as f;
 
 .footer {
-  //width: 100%;
-  background: c.$gray-dark;
-  color: #fff;
   grid-column: 1 / 2;
-  grid-row: 3 / 4;
-  padding: 2rem 1rem;
+  	grid-row: 3 / 4;
+  font-family: f.$font-main;
+  font-size: f.$font-size-base;
+  color: c.$gray-dark;
+  margin: 0;
+  background-color: c.$gray-light;
+  margin-top: auto;
+}
+
+.site-footer {
+  background-color: c.$primary-dark;
+  color: c.$gray-light;
+  padding-top: 70px;
+  font-family: f.$font-secondary;
+  font-size: f.$font-size-sm;
+}
+
+.site-footer a {
+  color: c.$gray-light;
+  text-decoration: none;
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-footer a:hover {
+  color: c.$primary;
+}
+
+.site-footer h4 {
+  color: c.$primary;
+  font-family: f.$font-main;
+  font-size: f.$font-size-lg;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-column {
+  margin-bottom: 30px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Orden de columnas en vista móvil */
+.footer-about { order: 1; }
+.footer-contact { order: 2; }
+.footer-newsletter { order: 3; }
+.footer-info-accordion { order: 4; }
+.footer-support-accordion { order: 5; }
+
+.footer-about .footer-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: c.$white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.footer-about .footer-logo-img {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: c.$primary;
+  color: c.$gray-dark;
+  border-radius: 0.5rem;
+  margin-right: 12px;
+  font-size: 24px;
+}
+
+.footer-about p {
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.footer-about .app-buttons img {
+  height: 40px;
+  margin-right: 10px;
+  opacity: 0.8;
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-about .app-buttons img:hover {
+  opacity: 1;
+}
+
+.accordion-header {
+  background-color: c.$gray;
+  padding: 15px;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.accordion-header h4 {
+  margin: 0;
+  font-size: f.$font-size-base;
+  color: c.$primary;
+}
+
+.accordion-icon {
+  color: c.$primary;
+  transition: transform 0.3s ease;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.accordion-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion-content li {
+  margin-bottom: 12px;
+}
+
+.accordion.active .accordion-content {
+  max-height: 300px;
+  padding-top: 20px;
+}
+
+.accordion.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.footer-contact .contact-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-contact .contact-info li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.footer-contact .contact-info i {
+  color: c.$primary;
+  margin-right: 15px;
+  font-size: 16px;
+  width: 20px;
   text-align: center;
-  font-size: 1rem;
-  border-top: 2px solid c.$primary;
+  margin-top: 3px;
+}
 
-  &__section {
-    margin-bottom: 1.5rem;
+.footer-newsletter p {
+   color: c.$gray-light;
+}
+
+.newsletter-form {
+  position: relative;
+  max-width: 100%;
+}
+
+.newsletter-form input[type="email"] {
+  width: 100%;
+  padding: 15px 50px 15px 15px;
+  border: 1px solid c.$gray;
+  background-color: c.$gray;
+  color: c.$white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  font-family: f.$font-secondary;
+}
+
+.newsletter-form input[type="email"]::placeholder {
+  color: c.$gray-light;
+}
+
+.newsletter-form input[type="email"]:focus {
+  outline: none;
+  border-color: c.$primary;
+}
+
+.newsletter-form button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50px;
+  background-color: c.$primary;
+  border: none;
+  color: c.$gray-dark;
+  cursor: pointer;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 16px;
+}
+
+.newsletter-form button:hover {
+   background-color: c.$primary-dark;
+}
+
+.spam-notice {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+.footer-bottom {
+  background-color: c.$primary-dark;
+  padding: 20px 0;
+  margin-top: 30px;
+  font-size: f.$font-size-sm;
+  border-top: 1px solid c.$gray;
+}
+
+.footer-bottom-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-bottom .copyright,
+.footer-bottom .policy-links {
+  text-align: center;
+  color: c.$gray-light;
+}
+
+@media (min-width: 768px) {
+  .footer-container {
+      flex-direction: row;
+      flex-wrap: wrap;
   }
-
-  &__links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
+  .footer-column {
+      width: calc(50% - 30px);
   }
-
-  &__copyright {
-    font-size: 0.95rem;
-    color: c.$gray;
-    margin-top: 1.5rem;
+  .footer-about, .footer-contact, .footer-newsletter {
+      order: 0;
   }
+  .footer-info-accordion { order: 3; }
+  .footer-support-accordion { order: 4; }
+  .footer-bottom-container {
+      flex-direction: row;
+  }
+  .copyright { text-align: left; }
+  .policy-links { text-align: right; }
+}
 
-   // @include b.respond-max('md') {
-   //  grid-column: 1 / 3;
-   //   grid-row: 2 / 3;
-   //   display: flex;
-   //   flex-direction: column;
+@media (min-width: 1024px) {
+  .footer-container {
+      justify-content: space-between;
+  }
+  .footer-column {
+      order: 0;
+      margin-bottom: 40px;
+      width: auto;
+  }
+  .footer-about { flex: 1 0 27%; max-width: 27%; }
+  .accordion { flex: 1 0 17%; max-width: 17%; }
+  .footer-contact { flex: 1 0 17%; max-width: 17%; }
+  .footer-newsletter { flex: 1 0 20%; max-width: 20%; }
 
-
-  //   padding: 1.2rem 0.5rem;
-  //   font-size: 0.95rem;
-  //   &__links {
-  //     gap: 0.75rem;
-  //   }
-  // }
+  .accordion-header {
+      background-color: transparent;
+      padding: 0;
+      cursor: default;
+  }
+  .accordion-header h4 {
+      font-size: f.$font-size-lg;
+      margin-bottom: 25px;
+  }
+  .accordion-icon {
+      display: none;
+  }
+  .accordion.active .accordion-content, .accordion-content {
+      max-height: none;
+      overflow: visible;
+      padding: 0;
+  }
 }
