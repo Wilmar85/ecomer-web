@@ -1,295 +1,239 @@
-@import '../config/color';
-@import '../config/fonts';
-@import '../mixins/breakpoints';
-@import '../mixins/reset-list';
+/* Puedes colocar esto en public/css/shop.css o en tu archivo principal de estilos */
 
-.shop__search-form {
-  margin-bottom: 2rem;
-}
-.shop__search-box {
-  display: flex;
-  align-items: center;
-  background: $gray-light;
-  border-radius: $border-radius;
-  padding: 0.3rem 0.7rem;
-  border: 1.5px solid $gray-light;
-  transition: border-color $transition;
-  &:focus-within {
-    border-color: $primary;
-  }
-}
-.shop__search-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  font-size: 1rem;
-  font-family: $font-main;
-  padding: 0.7rem 0.5rem 0.7rem 0;
-  outline: none;
-}
-.shop__search-btn {
-  background: none;
-  border: none;
-  color: $gray;
-  cursor: pointer;
-  padding: 0 0.2rem;
-  display: flex;
-  align-items: center;
-  transition: color $transition;
-  &:hover {
-    color: $primary;
-  }
-}
-
-.shop__sidebar-block {
-  margin-bottom: 2.2rem;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid $gray-light;
-}
-.shop__sidebar-title {
-  font-size: 1.18rem;
-  font-weight: 700;
-  font-family: $font-main;
-  color: $gray-dark;
-  margin-bottom: 1.2rem;
-  text-align: left;
-  border-bottom: 1px solid $gray-light;
-  padding-bottom: 0.7rem;
-}
-.shop__sidebar-subtitle {
-  font-size: 1.18rem;
-  font-weight: 700;
-  font-family: $font-main;
-  margin-bottom: 1rem;
-  color: $gray-dark;
-}
-.shop__category-list {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 0;
-}
-.shop__category-item {
-  padding: 0.7rem 0;
-  &:not(:last-child) {
-    border-bottom: 1px solid $gray-light;
-  }
-}
-.shop__category-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: $gray-dark;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: color $transition;
-  &:hover, &.is-active {
-    color: $primary;
-    font-weight: 600;
-  }
-}
-.shop__category-count {
-  color: $gray;
-  font-size: 1rem;
-}
-
-.shop__sidebar-block--tags {
-  margin-bottom: 0;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-.shop__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-.shop__tag {
-  background: $gray-light;
-  color: $gray-dark;
-  border-radius: 6px;
-  padding: 0.35rem 1rem;
-  font-size: 0.97rem;
-  text-decoration: none;
-  transition: background $transition, color $transition;
-  &:hover, &.is-active {
-    background: $primary;
-    color: $primary-dark;
-    font-weight: 600;
-  }
-}
-
+/* Contenedor principal */
 .shop__container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 2rem auto;
-  padding: 0 1.5rem;
-  background: transparent;
+  padding: 0 1rem;
+  //height: (100vh - 300px); // Asegura altura completa de la ventana
+  display: flex;
+  align-items: flex-start; // Alinea todo arriba
 }
 
+/* Layout de la tienda */
 .shop__layout {
   display: flex;
-  gap: 2.5rem;
-  align-items: flex-start;
-  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  align-items: flex-start; // Alinea todo arriba
+  margin-top: 20px; // Asegura que el contenido no se superponga con el header
 }
 
+/* Sidebar de filtros */
 .shop__sidebar {
-  flex: 0 0 320px;
-  max-width: 320px;
-  min-width: 260px;
-  background: $white;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  width: 250px;
+  //min-height: 100vh; // Sidebar ocupa toda la altura
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   padding: 2rem 1.5rem;
-  margin-bottom: 2rem;
-  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Alinea todo el contenido a la izquierda y arriba
+  justify-content: flex-start; // Asegura que todo quede arriba
 }
 
+.shop__sidebar-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #222;
+  width: 100%; // Para que el título no sobresalga
+  text-align: left; // Opcional, si quieres alineado a la izquierda
+}
+
+/* Filtros */
 .shop__filters {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  align-items: stretch;
+  gap: 1.5rem;
+  align-items: center; // Alinea los filtros a la izquierda y arriba
+  width: 80%;
+  margin-top: 0; // Elimina cualquier margen superior
 }
 
-.shop__filter {
-  padding: 1.1rem 0 1.1rem 0;
-  border-bottom: 1px solid $gray-light;
-  margin-bottom: 0;
-  text-align: left;
-  &:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
+.shop__filter,
+.shop__filter--range,
+.shop__filter--submit {
+  width: 100%; // Asegura que cada filtro ocupe todo el ancho disponible
 }
 
 .shop__filter-label {
   font-size: 1rem;
-  font-weight: 600;
-  color: $gray-dark;
-  font-family: $font-main;
-  margin-bottom: 0.7rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #444;
   display: block;
-  text-align: left;
 }
 
+.shop__filter-input[type="text"],
+.shop__filter-input[type="number"],
 .shop__filter-input,
 .shop__filter select {
   width: 100%;
-  padding: 0.55rem 0.9rem;
-  border: 1.5px solid $gray;
-  border-radius: 8px;
-  background: $gray-light;
+  box-sizing: border-box; // Asegura que el padding no reduzca el ancho
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
   font-size: 1rem;
-  font-family: $font-main;
-  transition: border-color $transition, background $transition;
-  text-align: left;
-  &:focus {
-    border-color: $primary;
-    outline: none;
-    background: $primary-light;
-  }
-}
-.shop__filter-input[type="checkbox"] {
-  accent-color: $primary;
-  margin-right: 0.7rem;
-  vertical-align: middle;
+  background: #fafafa;
+  margin-bottom: 0.5rem;
+  transition: border 0.2s;
 }
 
-.shop__filter select {
-  display: none !important;
+.shop__filter-input:focus {
+  border-color: #ffd900;
+  outline: none;
 }
 
-.shop__filter-range {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  align-items: flex-end;
-  label {
-    flex: 1 1 100%;
-    margin-bottom: 0.2rem;
-  }
-  input {
-    flex: 1 1 45%;
-  }
-}
-
-.shop__filter--submit {
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 0;
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.shop__filter-button {
-  background: $primary;
-  color: $gray-dark;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  padding: 0.7rem 1.5rem;
-  cursor: pointer;
-  font-family: $font-main;
-  font-size: 1rem;
-  transition: background $transition, color $transition;
-  &:hover {
-    background: $primary-dark;
-    color: $white;
-  }
-}
-
+/* Checkbox grupo */
 .shop__filter-checkbox-group {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.5rem;
 }
 
 .shop__filter-checkbox-label {
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  color: $gray-dark;
-  font-family: $font-main;
+  gap: 0.5rem;
+  font-size: 0.97rem;
   cursor: pointer;
-  font-weight: 400;
-  margin-bottom: 0;
-  text-align: left;
 }
 
-.shop__filter-accordion-btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: transparent;
+/* Acordeón */
+.shop__filter--accordion .shop__filter-accordion-btn {
+  background: none;
   border: none;
-  color: $gray-dark;
-  font-size: 1rem;
-  font-family: $font-main;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
   width: 100%;
   text-align: left;
-  transition: color $transition;
-  &:hover {
-    color: $primary;
-  }
+  padding: 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .shop__filter-accordion-icon {
-  display: inline-block;
-  width: 1.2em;
-  height: 1.2em;
-  vertical-align: middle;
-  margin-left: 0.5rem;
-  transition: transform $transition;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .shop__filter-accordion-content {
-  display: none;
-  overflow: hidden;
-  transition: max-height $transition;
-  &.is-open {
-    display: block;
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* Rango de precio personalizado */
+.shop__filter--range .shop__filter-range {
+  display: flex;
+  flex-direction: column; // Cambia de fila a columna
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.shop__filter--range .shop__filter-label {
+  min-width: 90px;
+}
+
+/* Botón de aplicar filtros */
+.shop__filter--submit {
+  margin-top: 1rem;
+}
+
+.shop__filter-button {
+  width: 100%;
+  background: #ffd900;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.shop__filter-button:hover {
+  background: #0056b3;
+}
+
+/* Productos */
+.shop__products {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 4 columnas fijas
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+  .shop__products {
+    grid-template-columns: repeat(3, 1fr); // 3 columnas en pantallas medianas
   }
+}
+
+@media (max-width: 900px) {
+  .shop__layout {
+    flex-direction: column;
+  }
+  .shop__sidebar {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .shop__products {
+    grid-template-columns: repeat(2, 1fr); // 2 columnas en pantallas pequeñas
+  }
+}
+
+@media (max-width: 600px) {
+  .shop__products {
+    grid-template-columns: 1fr; // 1 columna en móviles
+  }
+}
+
+/* Título */
+.shop__title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: #222;
+}
+
+/* Mensaje vacío */
+.shop__empty {
+  grid-column: 1/-1;
+  text-align: center;
+  color: #888;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* Imagen de sección de la tienda */
+.shopimagen__section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:-150px;
+  // margin-bottom: 2rem;
+  z-index: 2;
+
+  img {
+    max-width: 1600px;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fff;
+    padding: 0.5rem;
+  }
+}
+
+/* Asegura que el contenedor principal no quede oculto detrás de la imagen */
+.shop__container {
+  margin-top: 2rem;
 }

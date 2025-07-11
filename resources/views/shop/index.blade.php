@@ -1,7 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="shop__title">
-            {{ __('Tienda') }}
+            {{-- {{ __('Tienda') }} --}}
+            <div class="shopimagen__section">
+    <img src="{{ asset('images/shopin.png') }}" loading="lazy" alt="INTERELECTRICOS">
+</div>
         </h2>
     </x-slot>
 
@@ -9,42 +12,27 @@
         <div class="shop__layout">
             <!-- Sidebar de Filtros -->
             <aside class="shop__sidebar">
-                <h2 class="shop__sidebar-title">Filtrar productos</h2>
+                <div class="shop__sidebar-title">
+                    Filtrar productos
+                </div>
                 <form action="{{ route('shop.index') }}" method="GET" class="shop__filters">
-                    <!-- Búsqueda por nombre -->
+                    <!-- Filtro de búsqueda por nombre -->
                     <div class="shop__filter">
                         <label for="search" class="shop__filter-label">Buscar por nombre</label>
-                        <input type="text" name="search" id="search" value="{{ request('search') }}"
-                            class="shop__filter-input"
-                            placeholder="Nombre del producto...">
+                        <input type="text" name="search" id="search" class="shop__filter-input"
+                            placeholder="Nombre del producto..." value="{{ request('search') }}">
                     </div>
-                    <!-- Filtro por categoría -->
-                    <div class="shop__filter shop__filter--accordion">
-                        <button type="button" class="shop__filter-accordion-btn" onclick="toggleAccordion(this)">
-                            <span class="shop__filter-label">Categoría</span>
-                            <span class="shop__filter-accordion-icon">
-                                <!-- Flecha abajo (cerrado) -->
-                                <svg class="icon-down" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="6 9 12 15 18 9"/>
-                                </svg>
-                                <!-- Flecha arriba (abierto) -->
-                                <svg class="icon-up" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
-                                    <polyline points="18 15 12 9 6 15"/>
-                                </svg>
-                            </span>
-                        </button>
-                        <div class="shop__filter-accordion-content" style="display:none;">
-                            <div class="shop__filter-checkbox-group">
-                                @foreach($categories as $category)
-                                    <label class="shop__filter-checkbox-label">
-                                        <input type="checkbox" name="categories[]" value="{{ $category->id }}"
-                                            class="shop__filter-input"
-                                            {{ in_array($category->id, (array)request('categories', [])) ? 'checked' : '' }}>
-                                        {{ $category->name }}
-                                    </label>
-                                @endforeach
-                            </div>
-                        </div>
+                    <!-- Filtro por categoría (como select) -->
+                    <div class="shop__filter">
+                        <label for="category" class="shop__filter-label">Categoría</label>
+                        <select name="category" id="category" class="shop__filter-input">
+                            <option value="">Todas las categorías</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <!-- Filtro por marca -->
                     <div class="shop__filter">

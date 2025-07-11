@@ -1,11 +1,15 @@
-@use '../mixins/breakpoints' as *;
+@import '../config/color';
+@import '../config/fonts';
+@import '../mixins/breakpoints';
 
 .products-shop {
+  font-family: $font-main;
+
   &__sidebar {
     width: 100%;
-    background: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    background: $white;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
     padding: 1.5rem;
     margin-bottom: 2rem;
     @include respond-min('sm') {
@@ -16,53 +20,61 @@
     }
   }
   &__filter-title {
+    font-family: $font-main;
     font-size: 1.2rem;
     font-weight: 700;
-    color: #374151;
+    color: $gray-dark;
     margin-bottom: 0.75rem;
   }
   &__filter-label {
     display: block;
+    font-family: $font-main;
     font-size: 0.98rem;
     font-weight: 600;
     margin-bottom: 0.4rem;
-    color: #222;
+    color: $secondary;
   }
   &__filter-input {
     width: 100%;
-    border-radius: 0.5rem;
-    border: 1px solid #d1d5db;
-    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1.5px solid $gray;
+    padding: 0.55rem 0.9rem;
     margin-bottom: 0.5rem;
     font-size: 1rem;
-    transition: border 0.2s;
+    font-family: $font-main;
+    background: $gray-light;
+    transition: border-color $transition, background $transition;
     &:focus {
-      border-color: #2563eb;
+      border-color: $info;
       outline: none;
+      background: $info-light;
     }
   }
   &__filter-btn {
     width: 100%;
-    background: #2563eb;
-    color: #fff;
+    background: $info;
+    color: $white;
     font-weight: 600;
+    font-family: $font-main;
     padding: 0.6rem 0;
-    border-radius: 0.5rem;
+    border-radius: 8px;
     font-size: 1rem;
     margin-top: 0.8rem;
-    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    transition: background $transition;
     &:hover {
-      background: #1d4ed8;
+      background: $info-dark;
     }
   }
   &__main {
     flex: 1;
     padding-left: 0;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid $gray;
     @include respond-min('sm') {
       padding-left: 1.5rem;
       border-top: none;
-      border-left: 1px solid #e5e7eb;
+      border-left: 1px solid $gray;
     }
   }
   &__grid {
@@ -77,14 +89,16 @@
     }
   }
   &__card-title {
+    font-family: $font-main;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #222;
+    color: $secondary;
     margin-bottom: 0.5rem;
   }
   &__card-desc {
-    color: #6b7280;
+    color: $gray-dark;
     font-size: 0.98rem;
+    font-family: $font-main;
     margin-bottom: 1rem;
   }
   &__card-footer {

@@ -1,11 +1,98 @@
-@use '../config/_color.scss' as c;
+// Archivo: resources/sass/pages/_about.scss
+// DESPUÉS: Usando la configuración global del proyecto.
 
+@use '../config/color' as c;
+@use '../config/fonts' as f;
+@use '../mixins/breakpoints' as b;
+
+// --- Estructura Principal usando Anidación y Variables Globales ---
 .about {
-  max-width: 900px;
-  margin: 2rem auto;
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 24px rgba(30,41,59,0.08);
-  padding: 2rem;
-  color: c.$gray-dark;
+  background-color: c.$bg-section; // Usando color de fondo de tu config
+  padding: 4rem 1rem;
+  font-family: f.$font-main; // Usando fuente principal de tu config
+
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  &__card {
+    background-color: c.$white;
+    border-radius: 1.2rem; // Un radio más moderno
+    box-shadow: c.$box-shadow;
+    padding: 3rem;
+  }
+
+  // --- Tipografía ---
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: c.$secondary; // Usando tu color secundario (azul oscuro)
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__subtitle {
+    font-size: 1.75rem;
+    color: c.$secondary;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid c.$primary; // Usando tu color primario (amarillo)
+    display: inline-block;
+  }
+  
+  &__desc, &__text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: c.$gray-dark; // Usando tu color de texto oscuro
+  }
+
+  // --- Secciones Específicas ---
+  &__intro {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  &__mission-vision {
+    display: flex;
+    gap: 3rem;
+    margin: 3rem 0;
+    text-align: left;
+
+    // Usando tu mixin de breakpoints para la responsividad
+    @include b.respond-max('md') {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  &__mission, &__vision {
+    flex: 1;
+  }
+  
+  &__values-section {
+    margin-top: 3rem;
+  }
+
+  &__values-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+  }
+
+  &__value {
+    background-color: c.$primary-light; // Usando tu color primario claro
+    margin-bottom: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid c.$primary; // Usando tu color primario
+    color: c.$gray-dark;
+    font-weight: 500;
+    transition: transform 0.2s ease-out, background-color 0.2s ease;
+
+    &:hover {
+      transform: translateX(10px);
+      background-color: lighten(c.$primary-light, 5%);
+    }
+  }
 }
