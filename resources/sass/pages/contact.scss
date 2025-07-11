@@ -1,11 +1,268 @@
-@use '../config/_color.scss' as c;
+/* sass/pages/contact.scss */
 
-.contact {
-  max-width: 900px;
-  margin: 2rem auto;
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 24px rgba(30,41,59,0.08);
-  padding: 2rem;
-  color: c.$gray-dark;
+@use '../config/color' as c;
+@use '../config/fonts' as f;
+@use '../mixins/breakpoints' as b;
+
+/* ================================== */
+/* ====== ESTILOS PARA EL BANNER ====== */
+/* ================================== */
+
+.contact-banner {
+    position: relative;
+    /* === CAMBIO #1: Z-INDEX === */
+    // Aumentado para asegurar que esté sobre la navbar (que tiene z-index: 999)
+    //z-index: 1000;
+    width: 100%;
+    height: 150px;
+    background-image: url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1912&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: c.$white;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    /* === CAMBIO #2: MARGIN-TOP === */
+    // Se ajusta para superponer la mitad del banner sobre la navbar.
+    // Esto crea un efecto visual equilibrado.
+    margin-top: -200px;
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(c.$secondary, 0.65);
+    }
+
+    &__content {
+        position: relative;
+        z-index: 1;
+        padding: 0 1rem;
+    }
+
+    &__title {
+        font-family: f.$font-main;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 0;
+        // Ajuste de padding para centrar el texto verticalmente en el área visible del banner
+        padding-top: 40px;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    &__text {
+        font-family: f.$font-secondary;
+        font-size: 1.1rem;
+        margin: 0.5rem 0 0 0;
+        opacity: 0.9;
+    }
+}
+
+
+/* ============================================ */
+/* ====== ESTILOS PARA LA TARJETA DE CONTACTO ====== */
+/* ============================================ */
+
+.contact-page {
+    background-color: c.$bg-section;
+    font-family: f.$font-main;
+    padding: 3rem 1rem;
+    position: relative;
+    z-index: 5; // Se asegura que el contenido quede detrás del banner
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    background-color: c.$white;
+    box-shadow: c.$box-shadow;
+    border-radius: c.$border-radius;
+    overflow: hidden;
+
+    @include b.respond-min('md') {
+        flex-direction: row;
+    }
+}
+
+// --- Columna Izquierda (Panel de Información) ---
+.contact-card__info-panel {
+    position: relative;
+    color: c.$white;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+
+    @include b.respond-min('md') {
+        width: 40%;
+    }
+
+    .contact-card__info-overlay {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(c.$secondary, 0.75);
+    }
+
+    .contact-card__info-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .contact-card__title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: c.$white;
+    }
+
+    .contact-card__subtitle {
+        margin-top: 1rem;
+        font-size: f.$font-size-lg;
+        color: rgba(c.$white, 0.9);
+    }
+
+    .contact-card__details {
+        position: relative;
+        z-index: 10;
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .contact-card__detail-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.1rem;
+
+        span, a {
+            color: c.$white;
+            text-decoration: none;
+            transition: color c.$transition;
+            &:hover {
+                color: c.$primary;
+            }
+        }
+    }
+
+    .contact-card__icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: c.$primary;
+        flex-shrink: 0;
+    }
+}
+
+// --- Columna Derecha (Panel del Formulario) ---
+.contact-card__form-panel {
+    padding: 3rem 2.5rem;
+
+    @include b.respond-min('md') {
+        width: 60%;
+    }
+
+    .form-panel__title {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: c.$secondary;
+    }
+}
+
+// --- Estilos del Formulario de Contacto ---
+.contact-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    &__label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: f.$font-size-sm;
+        font-weight: 600;
+        color: c.$gray;
+    }
+
+    &__input,
+    &__textarea {
+        width: 100%;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: c.$border-radius;
+        background-color: c.$gray-light;
+        transition: box-shadow c.$transition, border-color c.$transition;
+        font-family: f.$font-main;
+
+        &:focus {
+            outline: none;
+            border-color: c.$primary;
+            box-shadow: 0 0 0 3px rgba(c.$primary, 0.3);
+        }
+    }
+
+    &__textarea {
+        resize: vertical;
+        min-height: 140px;
+    }
+}
+
+.contact-form__action-area {
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.contact-form__button {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: c.$primary;
+    color: c.$primary-dark;
+    border: none;
+    border-radius: c.$border-radius;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color c.$transition, transform c.$transition;
+
+    &:hover {
+        background: darken(c.$primary, 10%);
+        transform: scale(1.02);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(c.$primary, 0.4);
+    }
+}
+
+// --- Alertas de Sesión ---
+.alert {
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: c.$border-radius;
+    font-size: f.$font-size-sm;
+    border: 1px solid transparent;
+
+    &--success {
+        background-color: lighten(c.$success, 35%);
+        color: darken(c.$success, 10%);
+        border-color: lighten(c.$success, 20%);
+    }
+
+    &--error {
+        background-color: lighten(c.$danger, 25%);
+        color: darken(c.$danger, 10%);
+        border-color: lighten(c.$danger, 15%);
+    }
 }

@@ -5,95 +5,76 @@
 @endphp
 
 <x-app-layout>
-    <div class="contact">
-    <div class="contact__container">
-        <div class="contact__card">
-            <div class="contact__content">
-                <h1 class="contact__title">Contáctanos</h1>
-
-@if(session('success'))
-    <div class="contact__alert contact__alert--success">
-        {{ session('success') }}
+    {{-- =============================================== --}}
+    {{-- ============ INICIO DEL NUEVO BANNER ============ --}}
+    {{-- =============================================== --}}
+    <div class="contact-banner">
+        {{-- Capa semitransparente para mejorar legibilidad del texto --}}
+        <div class="contact-banner__overlay"></div>
+        
     </div>
-@endif
-@if(session('error'))
-    <div class="contact__alert contact__alert--error">
-        {{ session('error') }}
-    </div>
-@endif
+    {{-- =============================================== --}}
+    {{-- ============== FIN DEL NUEVO BANNER ============= --}}
+    {{-- =============================================== --}}
 
-                    <div class="contact__main-grid">
-                        <div class="contact__description">
-                            <div class="contact__section">
-                                <h2 class="contact__subtitle">Información de Contacto</h2>
-                                <p class="contact__desc">
-                                    Estamos aquí para ayudarte. No dudes en contactarnos para cualquier consulta o
-                                    sugerencia.
-                                </p>
-
-                                <div class="contact__info-list">
-                                    <div class="contact__info-item">
-                                        <svg class="contact__icon" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                        <span>info@ecomer.com</span> <!-- Email de contacto principal -->
-                                    </div>
-                                    <div class="contact__info-item">
-                                        <svg class="contact__icon" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        <span>+1 234 567 890</span>
-                                    </div>
-                                    <div class="contact__info-item">
-                                        <svg class="contact__icon" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        <span>123 Calle Principal, Ciudad</span>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="contact-page">
+        <div class="contact-card">
+            {{-- Columna Izquierda: Información de Contacto --}}
+            <div class="contact-card__info-panel">
+                <div class="contact-card__info-overlay"></div>
+                <div class="contact-card__info-content">
+                    <h1 class="contact-card__title">Ponte en Contacto</h1>
+                    <p class="contact-card__subtitle">
+                        Rellena el formulario o contáctanos a través de nuestros canales directos.
+                    </p>
+                    <div class="contact-card__details">
+                        <div class="contact-card__detail-item">
+                            <svg class="contact-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                            <a href="mailto:info@ecomer.com">info@ecomer.com</a>
                         </div>
-
-                        <div>
-                            <form action="{{ route('contact') }}" method="POST" class="space-y-6">
-                                @csrf
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
-                                    <input type="text" name="name" id="name"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                </div>
-
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                    <input type="email" name="email" id="email"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                </div>
-
-                                <div>
-                                    <label for="message"
-                                        class="block text-sm font-medium text-gray-700">Mensaje</label>
-                                    <textarea name="message" id="message" rows="4"
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
-                                </div>
-
-                                <div>
-                                    <button type="submit"
-                                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Enviar Mensaje
-                                    </button>
-                                </div>
-                            </form>
+                        <div class="contact-card__detail-item">
+                           <svg class="contact-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.998-.58-1.35l-3.952-3.952a2.25 2.25 0 00-3.182 0l-1.172 1.172a2.25 2.25 0 01-3.182 0l-6.182-6.182a2.25 2.25 0 010-3.182L6.75 4.25a2.25 2.25 0 000-3.182l-3.952-3.952A2.25 2.25 0 00.58 2.628v1.372c0 .516.211.998.58 1.35L2.25 6.75z" /></svg>
+                            <a href="tel:+1234567890">+1 234 567 890</a>
+                        </div>
+                        <div class="contact-card__detail-item">
+                             <svg class="contact-card__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                            <span>123 Calle Principal, Ciudad</span>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {{-- Columna Derecha: Formulario --}}
+            <div class="contact-card__form-panel">
+                <h2 class="form-panel__title">Envíanos un mensaje</h2>
+                @if(session('success'))
+                    <div class="alert alert--success">{{ session('success') }}</div>
+                @endif
+                @if(session('error'))
+                    <div class="alert alert--error">{{ session('error') }}</div>
+                @endif
+                <form action="{{ route('contact') }}" method="POST" class="contact-form">
+                    @csrf
+                    <div class="form-group">
+                        <label for="name" class="form-group__label">Nombre Completo</label>
+                        <input type="text" name="name" id="name" required class="form-group__input">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-group__label">Correo Electrónico</label>
+                        <input type="email" name="email" id="email" required class="form-group__input">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-group__label">Mensaje</label>
+                        <textarea name="message" id="message" rows="5" required class="form-group__textarea"></textarea>
+                    </div>
+
+                    {{-- Área de acción con la línea decorativa sobre el botón --}}
+                    <div class="contact-form__action-area">
+                        <button type="submit" class="contact-form__button">
+                            Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
